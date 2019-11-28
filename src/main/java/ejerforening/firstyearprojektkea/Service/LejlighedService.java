@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**Oprettet af Frederik Agger og Signe Nørløv Eskildsen
+ * d. 28/11/2019
+ **/
+
 @Service
 public class LejlighedService {
 

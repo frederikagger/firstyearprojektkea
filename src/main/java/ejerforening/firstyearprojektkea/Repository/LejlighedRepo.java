@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**Oprettet af Frederik Agger og Signe Nørløv Eskildsen
+ * d. 28/11/2019
+ **/
+
 @Repository
 public class LejlighedRepo implements IlejlighedRepo {
 

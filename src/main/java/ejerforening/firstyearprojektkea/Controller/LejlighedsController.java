@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**Oprettet af Frederik Agger og Signe Nørløv Eskildsen
+ * d. 28/11/2019
+ **/
 @Controller
 public class LejlighedsController {
 
