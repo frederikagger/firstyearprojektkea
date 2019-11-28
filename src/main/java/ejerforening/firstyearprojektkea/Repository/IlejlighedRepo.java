@@ -10,7 +10,8 @@ public interface IlejlighedRepo {
 
     Lejlighed findMedId(int id);
 
-    void opret();
+    void opret(Lejlighed lejlighed);
+
 
 
 
