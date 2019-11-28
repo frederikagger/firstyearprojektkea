@@ -15,7 +15,7 @@ public class Lejlighed {
      * Hvilke attributer som lejlighed har
      */
     @Id
-    private int ID;
+    private int id;
     private int etage;
     private boolean lejlighedsside;
 
@@ -26,24 +26,23 @@ public class Lejlighed {
     {}
 
     /**
-     * Overloadet constructor med parameter
-     * @param ID
+     * @param id
      * @param etage
      * @param lejlighedsside
      */
-    public Lejlighed(int ID, int etage, boolean lejlighedsside)
-    {
-        this.ID = ID;
+
+    public Lejlighed(int id, int etage, boolean lejlighedsside) {
+        this.id = id;
         this.etage = etage;
         this.lejlighedsside = lejlighedsside;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getEtage() {
@@ -61,5 +60,4 @@ public class Lejlighed {
     public void setLejlighedsside(boolean lejlighedsside) {
         this.lejlighedsside = lejlighedsside;
     }
-
 }
