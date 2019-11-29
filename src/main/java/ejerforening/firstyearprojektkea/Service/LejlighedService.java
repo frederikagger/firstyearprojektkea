@@ -12,16 +12,23 @@ import java.util.List;
  **/
 
 @Service
-public class LejlighedService {
+public class LejlighedService implements IlejlighedService {
 
     @Autowired
     private IlejlighedRepo ilejlighedRepo;
 
-    public List<Lejlighed> hentAlle(){
-        return ilejlighedRepo.hentAlle();
+    @Override
+    public List<Lejlighed> hentAlle() {
+        return null;
     }
 
-    public void opret(Lejlighed lejlighed){
-        ilejlighedRepo.opret(lejlighed);
+    @Override
+    public void opret(Lejlighed lejlighed) {
+
+    }
+
+    @Override
+    public Lejlighed findMedId(int id) {
+        return null;
     }
 }

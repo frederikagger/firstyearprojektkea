@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Controller;
 
+import ejerforening.firstyearprojektkea.Service.IlejlighedService;
 import ejerforening.firstyearprojektkea.Service.LejlighedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LejlighedsController {
 
     @Autowired
-    private LejlighedService lejlighedService;
+    private IlejlighedService ilejlighedService;
 
     @GetMapping("/lejligheder")
     public String Lejligheder(Model model){
-        model.addAttribute("lejligheder", lejlighedService.hentAlle());
+        model.addAttribute("lejligheder", ilejlighedService.hentAlle());
         return "lejligheder";
 
     }
