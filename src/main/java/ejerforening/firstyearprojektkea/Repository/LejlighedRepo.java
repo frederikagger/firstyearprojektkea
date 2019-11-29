@@ -2,7 +2,9 @@ package ejerforening.firstyearprojektkea.Repository;
 
 import ejerforening.firstyearprojektkea.Model.Lejlighed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +21,9 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public List<Lejlighed> hentAlle() {
-        return null;
+        String sql = "SELECT * FROM database_first_year_projekt.lejlighed";
+        RowMapper<Lejlighed> rowmapper = new BeanPropertyRowMapper<>(Lejlighed.class);
+        return jdbcTemplate.query(sql, rowmapper);
     }
 
     @Override
@@ -29,5 +33,7 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public void opret(Lejlighed lejlighed) {
+        String sql = "INSERT INTO lejlighed (id,etage,lejlighedsside) VALUES(?,?,?)";
+        jdbcTemplate.update(sql,lejlighed.getId(),lejlighed.getEtage(),lejlighed.isLejlighedsside());
     }
 }

@@ -19,12 +19,12 @@ public class LejlighedService implements IlejlighedService {
 
     @Override
     public List<Lejlighed> hentAlle() {
-        return null;
+        return ilejlighedRepo.hentAlle();
     }
 
     @Override
     public void opret(Lejlighed lejlighed) {
-
+        ilejlighedRepo.opret(lejlighed);
     }
 
     @Override
