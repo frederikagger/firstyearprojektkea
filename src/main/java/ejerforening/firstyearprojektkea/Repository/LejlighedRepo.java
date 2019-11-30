@@ -33,7 +33,7 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public void opret(Lejlighed lejlighed) {
-        String sql = "INSERT INTO lejlighed (id,etage,lejlighedsside) VALUES(?,?,?)";
-        jdbcTemplate.update(sql,lejlighed.getId(),lejlighed.getEtage(),lejlighed.isLejlighedsside());
+        String sql = "INSERT INTO lejlighed (etage,lejlighedsside) VALUES(?,?)";
+        jdbcTemplate.update(sql,lejlighed.getEtage(),lejlighed.isLejlighedsside());
     }
 }

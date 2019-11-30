@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 /**Oprettet af Frederik Agger og Signe Nørløv Eskildsen
  * d. 28/11/2019
  **/
@@ -19,6 +21,15 @@ public class LejlighedsController {
     @Autowired
     private IlejlighedService ilejlighedService;
 
+    /**
+     * Lavet af FA 29-11-2019.
+     * Denne metode linker til html siden seAlleLejligheder
+     * som bliver opdateret med en tabel over
+     * alle lejligheder i databasen
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/seLejligheder")
     public String SeLejligheder(Model model){
         model.addAttribute("lejligheder",ilejlighedService.hentAlle());
@@ -36,11 +47,10 @@ public class LejlighedsController {
     }
 
     @PostMapping("/opret_lejlighed")
-    public String Opret_lejlighed(@ModelAttribute("lejlighed") Lejlighed lejlighed, BindingResult bindingResult, Model model){
+    public String Opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             return "error";
         }
-        model.addAttribute("id",lejlighed.getId());
         model.addAttribute("etage",lejlighed.getEtage());
         model.addAttribute("lejlighedsside",lejlighed.isLejlighedsside());
         ilejlighedService.opret(lejlighed);
