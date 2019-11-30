@@ -25,7 +25,7 @@ public class Lejlighed {
     private int id;
     @NotNull
     @Min(0)
-    @Max(4)
+    @Max(5)
     private int etage;
     @NotNull
     private boolean lejlighedsside;
