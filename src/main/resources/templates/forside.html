@@ -6,10 +6,18 @@
     <title>Hvad skal der stå her?</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div class="container container-custom"></div>
+    <div th:replace="fragments/top_menu :: top_menuElement"></div>
 
-<h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+    <div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+    <div class="container">
+        <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
+            <main>
+                <h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+            </main>
+        </div>
+    </div>
+
 
 
 
