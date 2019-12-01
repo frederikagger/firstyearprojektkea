@@ -6,12 +6,20 @@
 </head>
 <body>
 <div th:replace="fragments/top_menu :: top_menuElement"></div>
-<h1> Opret lejlighed </h1>
+<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-<form method="post" action="/opret_lejlighed" modelAttribute="lejlighed">
-    <br>Hvilken etage <input type="number" name="etage" min="0" max="5"> </br>
-    <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="højre">
-    <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="venstre">
-    <br><input type="submit" value="Opret lejlighed" >
-</form>
+<div class="container">
+    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
+        <main>
+            <h1> Opret lejlighed </h1>
+
+            <form method="post" action="/opret_lejlighed" modelAttribute="lejlighed">
+                <br>Hvilken etage <input type="number" name="etage" min="0" max="5"> </br>
+                <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="højre">
+                <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="venstre">
+                <br><input type="submit" value="Opret lejlighed" >
+            </form>
+        </main>
+    </div>
+</div>
 </body>
