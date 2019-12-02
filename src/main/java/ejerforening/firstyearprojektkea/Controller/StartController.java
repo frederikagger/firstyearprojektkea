@@ -22,14 +22,4 @@ public class StartController
         return "/forside";
     }
 
-    /**
-     * Getmetode
-     * Skal have tjekket hvorfor det her endelig virker, mens man staar paa forsiden og klikker på forside saa
-     * @return html forsiden
-     */
-    @GetMapping("/forside")
-    public String retunereVisForside()
-    {
-        return "/forside";
-    }
 }
