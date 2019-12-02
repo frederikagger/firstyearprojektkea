@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <!-- Required meta tags (do always come first in the head, and other head's comes after these 2)
-    but do not support Microsoft Internet Explore under 10
-    https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
 
     <title>Hvad skal der stå her?</title>
 </head>
 <body>
-<h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+    <div th:replace="fragments/top_menu :: top_menuElement"></div>
 
-<div class="container container-custom"></div>
-    <div th:insert="fragments/top_menu"></div>
+    <div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+    <div class="container">
+        <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
+            <main>
+                <h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+            </main>
+        </div>
+    </div>
+
+
+
 
 
 <!-- Optional JavaScript -->
