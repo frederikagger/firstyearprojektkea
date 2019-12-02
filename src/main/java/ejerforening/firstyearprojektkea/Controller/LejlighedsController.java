@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Controller;
 
+
 import ejerforening.firstyearprojektkea.Model.Lejlighed;
 import ejerforening.firstyearprojektkea.Service.IlejlighedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,10 @@ public class LejlighedsController {
         return "form_opret_lejlighed";
     }
 
-    @GetMapping("/bekræftelse")
-    public String Bekræfelse(){
-        return "bekræftelse";
-    }
-
     @PostMapping("/opret_lejlighed")
-    public String Opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
+    public String opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
+            System.out.println();
             return "error";
         }
         model.addAttribute("etage",lejlighed.getEtage());
