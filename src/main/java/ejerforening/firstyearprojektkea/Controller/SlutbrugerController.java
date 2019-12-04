@@ -10,7 +10,7 @@ public class SlutbrugerController
      *Getmetode, som er det foerste man rammer naar man tilgaar hjemmesiden
      * @return htmlsiden forside
      */
-    @GetMapping("/template")
+    @GetMapping("/slutbrugerforside")
     public String visSlutbrugerForside()
     {
         return "/slutbruger/slutbrugerforside";
