@@ -3,7 +3,7 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
     <meta charset="UTF-8">
-    <title>Arrangementer</title>
+    <title>Generalforsamlinger</title>
 </head>
 <body>
 <div th:replace="fragments/top_menu :: top_menuElement"></div>
@@ -12,11 +12,9 @@
 <div class="container">
     <div class="main">
         <main>
-            <h1> Velkommen til arrangementer</h1>
+            <h1> Velkommen til generalforsamlinger</h1>
 
-            <span> <a th:href="@{genforsamForside}">Gå til generalforsamlinger </a></span>
-            <br>
-            <span> <a th:href="@{arbejdsdagForside}">Gå til arbejdsdage </a></span>
+
         </main>
     </div>
 </div>
