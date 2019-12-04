@@ -21,14 +21,14 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public List<Lejlighed> hentAlle() {
-        String sql = "SELECT * FROM database_first_year_projekt.lejlighed";
+        String sql = "SELECT * FROM lejlighed";
         RowMapper<Lejlighed> rowmapper = new BeanPropertyRowMapper<>(Lejlighed.class);
         return jdbcTemplate.query(sql, rowmapper);
     }
 
     @Override
     public Lejlighed findMedId(int id){
-        String sql = "SELECT * FROM database_first_year_projekt.lejlighed WHERE id = ?";
+        String sql = "SELECT * FROM lejlighed WHERE id = ?";
         RowMapper<Lejlighed> rowMapper = new BeanPropertyRowMapper<>(Lejlighed.class);
         return jdbcTemplate.queryForObject(sql,rowMapper,id);
     }
@@ -41,7 +41,7 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public void sletLejlighed(int id){
-        String sql = "DELETE FROM DATABASE_FIRST_YEAR_PROJEKT.LEJLIGHED WHERE lejlighed.id = ?";
+        String sql = "DELETE FROM lejlighed WHERE lejlighed.id = ?";
         jdbcTemplate.update(sql,id);
     }
 }
