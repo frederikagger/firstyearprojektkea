@@ -1,6 +1,5 @@
 package ejerforening.firstyearprojektkea.Controller;
 
-
 import ejerforening.firstyearprojektkea.Model.Lejlighed;
 import ejerforening.firstyearprojektkea.Service.IlejlighedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,30 +26,56 @@ public class LejlighedsController {
      * Denne metode linker til html siden seAlleLejligheder
      * som bliver opdateret med en tabel over
      * alle lejligheder i databasen
-     *
      * @param model
      * @return
      */
     @GetMapping("/seLejligheder")
-    public String SeLejligheder(Model model){
+    public String seLejligheder(Model model){
         model.addAttribute("lejligheder",ilejlighedService.hentAlle());
-        return "seAlleLejligheder";
+        return "seLejligheder";
     }
 
     @GetMapping("/form_opret_lejlighed")
-    public String Form_opret_lejligheder(){
+    public String form_opret_lejligheder(){
         return "form_opret_lejlighed";
+    }
+
+    @GetMapping("/form_sletLejlighed")
+    public String form_sletLejlighed(){
+        return "form_sletLejlighed";
+    }
+
+    @GetMapping("/form_soegLejlighed")
+    public String form_soegLejlighed(){
+        return "form_soegLejlighed";
     }
 
     @PostMapping("/opret_lejlighed")
     public String opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
-            System.out.println();
-            return "error";
+            return "Fejl indtastning";
         }
         model.addAttribute("etage",lejlighed.getEtage());
         model.addAttribute("lejlighedsside",lejlighed.isLejlighedsside());
         ilejlighedService.opret(lejlighed);
+        return "bekræftelse";
+    }
+
+    @PostMapping("/findLejlighed")
+    public String findLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            return "Fejl indtastning";
+        }
+        model.addAttribute("lejlighedsid",ilejlighedService.findMedId(lejlighed.getId()));
+        return "visSoegningsSide";
+    }
+    @PostMapping("/sletLejlighed")
+    public String sletLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "Fejl indtastning";
+        }
+        model.addAttribute("lejlighedsid", lejlighed.getId());
+        ilejlighedService.sletLejlighed(lejlighed.getId());
         return "bekræftelse";
     }
 }
