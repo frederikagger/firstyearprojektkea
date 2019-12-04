@@ -12,5 +12,5 @@ public interface IlejlighedService {
 
     void opret(Lejlighed lejlighed);
 
-    void sletLejlighed(Lejlighed lejlighed);
+    void sletLejlighed(int id);
 }
