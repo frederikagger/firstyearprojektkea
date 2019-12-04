@@ -27,13 +27,20 @@ public class LejlighedRepo implements IlejlighedRepo {
     }
 
     @Override
-    public Lejlighed findMedId(int id) {
-        return null;
+    public Lejlighed findMedId(int id){
+        String sql = "SELECT * FROM database_first_year_projekt.lejlighed WHERE id = ?";
+        RowMapper<Lejlighed> rowMapper = new BeanPropertyRowMapper<>(Lejlighed.class);
+        return jdbcTemplate.queryForObject(sql,rowMapper,id);
     }
 
     @Override
     public void opret(Lejlighed lejlighed) {
         String sql = "INSERT INTO lejlighed (etage,lejlighedsside) VALUES(?,?)";
         jdbcTemplate.update(sql,lejlighed.getEtage(),lejlighed.isLejlighedsside());
+    }
+
+    @Override
+    public void sletLejlighed(Lejlighed lejlighed) {
+
     }
 }
