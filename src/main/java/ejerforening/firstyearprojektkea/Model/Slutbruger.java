@@ -13,16 +13,8 @@ public class Slutbruger
     private String efternavn;
     private LocalDate oprettelsesDato;
     private LocalDate opdateringsDato;
+    private int lejlighedsId;
 
-    /**
-     * Composition
-     */
-    private SlutbrugerOplysninger slutbrugerOplysninger = new SlutbrugerOplysninger();
-
-    /**
-     * Aggregation
-     */
-    private Lejlighed lejlighed;
 
     /**
      * Default constructor - ved ikke om der er brug for den endnu
@@ -48,8 +40,6 @@ public class Slutbruger
         this.efternavn = efternavn;
         this.oprettelsesDato = oprettelsesDato;
         this.opdateringsDato = opdateringsDato;
-        this.lejlighed = lejlighed;
-        //slutbrugerOplysninger.SlutbrugerOplysninger(); //Skal composition ind her?
     }
 
 
