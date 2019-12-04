@@ -28,7 +28,7 @@ public class StartController
      */
     @GetMapping ("/arrangementer")
     public String visArrangementSide(){
-        return "/arrangementer";
+        return "/arrangement/arrangementer";
     }
 
 }
