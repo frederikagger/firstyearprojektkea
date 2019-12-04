@@ -29,6 +29,11 @@ public class LejlighedService implements IlejlighedService {
 
     @Override
     public Lejlighed findMedId(int id) {
-        return null;
+        return ilejlighedRepo.findMedId(id);
+    }
+
+    @Override
+    public void sletLejlighed(Lejlighed lejlighed) {
+
     }
 }

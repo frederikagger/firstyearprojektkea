@@ -11,4 +11,6 @@ public interface IlejlighedService {
     Lejlighed findMedId(int id);
 
     void opret(Lejlighed lejlighed);
+
+    void sletLejlighed(Lejlighed lejlighed);
 }
