@@ -32,22 +32,22 @@ public class LejlighedsController {
     @GetMapping("/seLejligheder")
     public String seLejligheder(Model model){
         model.addAttribute("lejligheder",ilejlighedService.hentAlle());
-        return "seLejligheder";
+        return "/lejlighed/seLejligheder";
     }
 
     @GetMapping("/form_opret_lejlighed")
     public String form_opret_lejligheder(){
-        return "form_opret_lejlighed";
+        return "/lejlighed/form_opret_lejlighed";
     }
 
     @GetMapping("/form_sletLejlighed")
     public String form_sletLejlighed(){
-        return "form_sletLejlighed";
+        return "/lejlighed/form_sletLejlighed";
     }
 
     @GetMapping("/form_soegLejlighed")
     public String form_soegLejlighed(){
-        return "form_soegLejlighed";
+        return "/lejlighed/form_soegLejlighed";
     }
 
     @PostMapping("/opret_lejlighed")
@@ -58,7 +58,7 @@ public class LejlighedsController {
         model.addAttribute("etage",lejlighed.getEtage());
         model.addAttribute("lejlighedsside",lejlighed.isLejlighedsside());
         ilejlighedService.opret(lejlighed);
-        return "bekræftelse";
+        return "/bekræftelse";
     }
 
     @PostMapping("/findLejlighed")
@@ -67,7 +67,7 @@ public class LejlighedsController {
             return "Fejl indtastning";
         }
         model.addAttribute("lejlighedsid",ilejlighedService.findMedId(lejlighed.getId()));
-        return "visSoegningsSide";
+        return "/lejlighed/visSoegningsSide";
     }
     @PostMapping("/sletLejlighed")
     public String sletLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model) {
@@ -76,6 +76,6 @@ public class LejlighedsController {
         }
         model.addAttribute("lejlighedsid", lejlighed.getId());
         ilejlighedService.sletLejlighed(lejlighed.getId());
-        return "bekræftelse";
+        return "/bekræftelse";
     }
 }

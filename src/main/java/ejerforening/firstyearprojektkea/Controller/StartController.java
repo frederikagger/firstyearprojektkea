@@ -22,4 +22,13 @@ public class StartController
         return "/forside";
     }
 
+    /**
+     * GetMapping, som indeholder en metode, som returnerer arrangementSiden
+     * @return html-side "arrangementer"
+     */
+    @GetMapping ("/arrangementer")
+    public String visArrangementSide(){
+        return "/arrangementer";
+    }
+
 }
