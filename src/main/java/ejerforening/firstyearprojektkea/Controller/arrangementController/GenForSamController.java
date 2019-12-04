@@ -19,6 +19,14 @@ public class GenForSamController {
         return "/arrangement/generalforsamlinger";
     }
 
-
+    /**
+     * Controlleren er flyttet hertil fra startController, da den godt kan mappe sig hertil fra forside
+     * GetMapping, som indeholder en metode, som returnerer arrangementSiden
+     * @return html-side "arrangementer"
+     */
+    @GetMapping ("/arrangementer")
+    public String visArrangementSide(){
+        return "/arrangement/arrangementer";
+    }
 
 }
