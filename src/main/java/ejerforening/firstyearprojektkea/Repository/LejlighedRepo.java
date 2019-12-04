@@ -40,7 +40,8 @@ public class LejlighedRepo implements IlejlighedRepo {
     }
 
     @Override
-    public void sletLejlighed(Lejlighed lejlighed) {
-
+    public void sletLejlighed(int id){
+        String sql = "DELETE FROM DATABASE_FIRST_YEAR_PROJEKT.LEJLIGHED WHERE lejlighed.id = ?";
+        jdbcTemplate.update(sql,id);
     }
 }
