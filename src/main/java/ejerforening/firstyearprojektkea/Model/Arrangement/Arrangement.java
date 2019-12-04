@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.Arrangement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,7 +15,6 @@ import java.time.LocalDate;
  */
 
 @Inheritance
-@Entity
 public abstract class Arrangement {
 
     /**
@@ -29,39 +29,45 @@ public abstract class Arrangement {
     private LocalDate oprettelsesDato;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate opdateringsDato;
+    private ArrangementOplysninger arrangementOplysninger;
 
-    public Arrangement() { }
+    public Arrangement() {
+    }
+
+    public Arrangement(int arrangementId, String navn, LocalDate oprettelsesDato, LocalDate opdateringsDato){
+        this.arrangementId = arrangementId;
+        this.navn = navn;
+        this.oprettelsesDato = oprettelsesDato;
+        this.opdateringsDato = opdateringsDato;
+        this.arrangementOplysninger = new ArrangementOplysninger();
+    }
 
     public int getArrangementId() {
         return arrangementId;
     }
-
     public void setArrangementId(int arrangementId) {
         this.arrangementId = arrangementId;
     }
-
     public String getNavn() {
         return navn;
     }
-
     public void setNavn(String navn) {
         this.navn = navn;
     }
-
     public LocalDate getOprettelsesDato() {
         return oprettelsesDato;
     }
-
     public void setOprettelsesDato(LocalDate oprettelsesDato) {
         this.oprettelsesDato = oprettelsesDato;
     }
-
     public LocalDate getOpdateringsDato() {
         return opdateringsDato;
     }
-
     public void setOpdateringsDato(LocalDate opdateringsDato) {
         this.opdateringsDato = opdateringsDato;
+    }
+    public ArrangementOplysninger getArrangementOplysninger() {
+        return arrangementOplysninger;
     }
 }
 

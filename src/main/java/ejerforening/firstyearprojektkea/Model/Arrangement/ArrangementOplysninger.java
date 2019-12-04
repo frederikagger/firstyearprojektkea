@@ -3,7 +3,6 @@ package ejerforening.firstyearprojektkea.Model.Arrangement;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
 public class ArrangementOplysninger {
 
     @Id
@@ -20,15 +19,12 @@ public class ArrangementOplysninger {
     public int getArranOplysId() {
         return arranOplysId;
     }
-
     public void setArranOplysId(int arranOplysId) {
         this.arranOplysId = arranOplysId;
     }
-
     public String getAgenda() {
         return agenda;
     }
-
     public void setAgenda(String agenda) {
         this.agenda = agenda;
     }
