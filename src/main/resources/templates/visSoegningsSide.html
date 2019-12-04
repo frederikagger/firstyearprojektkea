@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <title>Søgning af lejlighed</title>
+</head>
+<body>
+<div th:replace="fragments/top_menu :: top_menuElement"></div>
+<h1>Søgnings resultat</h1>
+
+<table>
+    <tr>
+        <th>LejlighedsID</th>
+        <th>Etage</th>
+        <th>Lejlighedsside</th>
+    </tr>
+    <tr>
+        <td th:text="${lejlighed.id}">LejlighedsID</td>
+        <td th:text="${lejlighed.etage}">Etage</td>
+        <td th:text="${lejlighed.lejlighedsside}">Lejlighedsside</td>
+    </tr>
+    </table>
+
+</body>
