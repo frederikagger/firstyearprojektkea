@@ -21,8 +21,8 @@ public class Lejlighed {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @NotNull
+    private int lejlighedsid;
+    @NotNull(message = "Indtast venligst etagen på lejligheden")
     @Min(0)
     @Max(5)
     private int etage;
@@ -36,23 +36,25 @@ public class Lejlighed {
     {}
 
     /**
-     * @param id
+     *
      * @param etage
      * @param lejlighedsside
      */
 
-    public Lejlighed(int id, int etage, boolean lejlighedsside) {
-        this.id = id;
+    public Lejlighed(@NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside) {
         this.etage = etage;
         this.lejlighedsside = lejlighedsside;
     }
 
-    public int getId() {
-        return id;
+
+
+
+    public int getLejlighedsid() {
+        return lejlighedsid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLejlighedsid(int lejlighedsid) {
+        this.lejlighedsid = lejlighedsid;
     }
 
     public int getEtage() {
