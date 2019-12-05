@@ -1,5 +1,7 @@
 package ejerforening.firstyearprojektkea.Controller.arrangementController;
 
+import ejerforening.firstyearprojektkea.Service.Arrangement.IArrangementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,6 +16,9 @@ public class GenForSamController {
      * Viser forsiden for generalforsamlinger
      * @return html-siden "generalforsamlinger"
      */
+    @Autowired
+    IArrangementService iArrangementService;
+
     @GetMapping ("/genforsamForside")
     public String visGenForSamSide(){
         return "/arrangement/generalforsamlinger";
