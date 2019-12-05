@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Klassen implementerer metoderne fra interfacet IOpgaveService og autowirer interfacet fra IOpgaveRepository.
+ * OpgaveService kalder på metoder fra repository.
+ * @author Signe
+ */
 @Service
 public class OpgaveService implements IOpgaveService
 {
