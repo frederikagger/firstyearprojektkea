@@ -6,26 +6,16 @@
 <!-- Kilde: https://www.youtube.com/watch?v=aiAf5eO5nx8-->
 
     <div th:fragment="top_menuElement">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <!-- / viser tilbage til forside. Getmetoden til kan ses i StartController -->
-                        <a class="nav-link" href="/">Hjem</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/slutbrugerforside">Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/om_ejerforening">Om ejerforeningen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/hjaelp">Hjælp</a>
-                    </li>
-                </ul>
-                <span class="navbar-text">
-                    Ejerforeningen Mathildevej 20
-                </span>
+                <div class="navbar-nav mr-auto">
+                    <!-- / viser tilbage til forside. Getmetoden til kan ses i StartController -->
+                    <!-- https://getbootstrap.com/docs/4.0/components/navs/-->
+                    <a class="nav-item nav-link" href="/">Hjem</a>
+                    <a class="nav-item nav-link" href="/slutbrugerforside">Profil</a>
+                    <a class="nav-item nav-link" href="/om_ejerforening">Om ejerforeningen</a>
+                    <a class="nav-item nav-link" href="/hjaelp">Hjælp</a>
+                </div>
             </div>
         </nav>
     </div>
