@@ -1,4 +1,5 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
+import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import java.util.List;
 /**
  * @author paivi
  * Repository for generalforsamlinger implementerer metoderne fra interface for generalforsamlinger.
- *
  */
 @Repository
 public class GenForSamRepo implements IGenForSamRepo {
@@ -28,60 +28,68 @@ public class GenForSamRepo implements IGenForSamRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
     RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
-    ArrayList<Integer> arrOplysIderne;
+    ArrayList<Integer> arrangementIdeer;
 
     /**
      * Metoden henter alle kolonner fra generalforsamling og arrangement, hvor arrangementId har den samme vaerdi.
-     * jdbcTemplate sender query til databasen og der returneres List med Generalforsamlinger.
-     *
      * RowMapper har den begraensning, at man kun kan give den én klasse som parameter. Service har brug for ogsaa
      * at hente ArrangementOplysninger,som er knyttet til Arrangement, men jdbcTemplate kan ikke hente oplysninger
      * fra tre tabeller ad gangen.
-     *
      * Saa der skal laves en ny metode til det: hentAlleArranOplysninger()- se laengere nede i klassen.
-     * Den skal bruge vaerdierne i kolonnen arrOplysId fra dette soegeresultat, saa de gemmes i arraylisten arrOplysIderne.
+     * Den skal bruge vaerdierne i kolonnen arrangementId fra dette soegeresultat, saa de gemmes i arraylisten arrangementIdeer
      *
-     * @return List, som indeholder referencer til instanserne af Generalforsamling.
+     * @return List, som indeholder referencer til instanser af Generalforsamling.
      */
 
-    public List<Generalforsamling> hentAlleGeneralforsamlinger() {
+     public List<Generalforsamling> hentAlleGeneralforsamlinger() {
         String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE g.arrangementId=a.arrangementId";
         List<Generalforsamling> genList = jdbcTemplate.query(sql, rowmapper);
 
-        arrOplysIderne = new ArrayList<>();
+        arrangementIdeer = new ArrayList<>();
         for (Generalforsamling g : genList) {
-            arrOplysIderne.add(g.getArranOplysId());
+            arrangementIdeer.add(g.getArrangementId());
         }
         return genList;
     }
 
     /**
-     * Metoden konveterer foerst vaerdierne til String fra kolonnen arrOplysId fra soegeresultatet
-     * i metoden hentAlleGeneralforsamlinger(). Disse vaerdier kan bruges i WHERE ..IN -clause.
+     * Metoden konveterer foerst vaerdierne til String fra kolonnen arrangementId fra den tidligere metode.
+     * Disse vaerdier kan bruges i WHERE ..IN -clause.
      * Metoden laver beanPropertyMapper til ArrangementOplysninger (tabel- og klassenavnet).
-     * Der hentes alle de raekker, hvor arrOplysId har den samme vaerdi som i det foerste soegresultat.
-     * JdbcTemplate sender query til databasen og der returneres en List med elementerne.
-     *
-     * Normalt ville man goere dette med to joins, men fordi jdbctemplate ikke understoetter soegninger i flere end to
-     * tabeller, er det dermed udfoert her ved at lave to metoder for sig.
-     *
+     * Der hentes alle de raekker, hvor arrangementId har den samme vaerdi som i det foerste soegresultat.
      * @return List, som indeholder referencer til instanserne af ArranegementOplysninger.
      */
     public List<ArrangementOplysninger> hentAlleArranOplysninger() {
         String vaerdier = "";
-        if (arrOplysIderne.size() != 0) {
+        if (arrangementIdeer.size() != 0) {
             //pga. stakitproblem
-            vaerdier = String.valueOf(arrOplysIderne.get(0));
-            if (arrOplysIderne.size() > 1) {
-                for (int i = 1; i < arrOplysIderne.size(); i++) {
-                    vaerdier = vaerdier + "," + String.valueOf(arrOplysIderne.get(i));
+            vaerdier = String.valueOf(arrangementIdeer.get(0));
+            if (arrangementIdeer.size() > 1) {
+                for (int i = 1; i < arrangementIdeer.size(); i++) {
+                    vaerdier = vaerdier + "," + String.valueOf(arrangementIdeer.get(i));
                 }
             }
         }
         vaerdier = "(" + vaerdier + ")";
         RowMapper rowmapper = new BeanPropertyRowMapper<>(ArrangementOplysninger.class);
-        String sql = "SELECT * FROM arrangementOplysninger WHERE arranOplysId IN" + vaerdier;
+        String sql = "SELECT * FROM arrangementOplysninger WHERE arrangementId IN" + vaerdier;
         return jdbcTemplate.query(sql, rowmapper);
+    }
+
+
+    /**
+     * Det er Arrangement, som holder arranegementId som PK for alle subklasser,
+     * saa generalforsamling skal slettes fra den. Samtidigt slettes ArrangementOplysninger (composition)
+     * Update returnerer antallet af raekker, som er blevet opdateret.
+     * @param id arrangementId paa det arrangement,som skal slettes
+     * @return true, hvis antallet af raekker, som er blevet slettet, ikke er 0
+     */
+
+    public boolean sletGeneralforsamling(int id){
+        String sql = "DELETE FROM arrangement WHERE arrangementId=?";
+        System.out.println(sql);
+        int slettetRaekke = jdbcTemplate.update(sql,id);
+        return (slettetRaekke != 0);
     }
 
 

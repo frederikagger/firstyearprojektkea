@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance. Dog har annotation
  * kun symbolsk betydning her for at markere superklassen, idet systemet ikke bruger hibernate eller anden ORM, som
- * flere af annotationerne er knyttet til.Dermed er klasserne heller ikke annoteret som entity.
+ * flere af annotationerne er knyttet til. Dermed er klasserne heller ikke annoteret som entity.
  * Klassen repraesenterer tabellen Arrangement i databasen og indeholder stamdata om et arrangement.
  * Den er abstract, fordi man ikke skal lave instanser af den, kun af subklasserne.
  * @Author Paivi
@@ -24,11 +24,9 @@ public abstract class Arrangement {
      * Felter med validerings-annotationer.
      * Annotationen Id angiver, hvilken kolonne er primary key i tabellen.
      * Annotationen DateTimeFormat definerer, hvordan datoen skal formateres.
-     * Datatypen LocalDate er en javaklasse, som repraesenterer dato. Opdateringsdatoen henter dagens dato som default.
-     * Klassen faar ogsaa ArrangementOplysninegr som felt.
-     * Alle de andre felter repraesenterer en kolonne i tabellen med samme navn.
-     * arranOplysId er i tabellen foreign key, som knytter Arrangement i databasen til tabellen ArranegementOplysninger.
-     * Den skal vaere unik, fordi der kun maa vaere en ArrangementOplysninger knyttet til hvert Arrangement (en-til-en -relation).
+     * Datatypen LocalDate er en javaklasse, som repraesenterer dato.
+     * Klassen faar ogsaa ArrangementOplysninegr som felt (composition, dvs. hvis man sletter Arrangement,
+     * sletter man ogsaa ArranegementOplysninger)
      */
     @Id
     private int arrangementId;
@@ -37,14 +35,11 @@ public abstract class Arrangement {
     @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate oprettelsesDato;
     @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
-    @Column(unique=true)
-    private int arranOplysId;
+    private LocalDate opdateringsDato;
     private ArrangementOplysninger arrangementOplysninger;
 
     /**
-     * Forholdet mellem klasserne er composition, saa der laves en instans af klassen i Arrangementets konstruktoer.
-     * Hvis man sletter Arrangement, sletter man ogsaa ArranegementOplysninger.
+     * Der laves en instans af ArrangementOplysninger i konstruktoeren.
      */
     public Arrangement(){
         arrangementOplysninger = new ArrangementOplysninger();
@@ -58,8 +53,6 @@ public abstract class Arrangement {
     public void setOprettelsesDato(LocalDate oprettelsesDato) { this.oprettelsesDato = oprettelsesDato; }
     public LocalDate getOpdateringsDato() { return opdateringsDato; }
     public void setOpdateringsDato(LocalDate opdateringsDato) { this.opdateringsDato = opdateringsDato; }
-    public int getArranOplysId() { return arranOplysId; }
-    public void setArranOplysId(int arranOplysId) { this.arranOplysId = arranOplysId; }
     public ArrangementOplysninger getArrangementOplysninger() { return arrangementOplysninger; }
 
 }

@@ -15,10 +15,12 @@ import java.time.LocalTime;
 public class ArrangementOplysninger{
 
     /**
-     * Felter til klassen. Jf. Forklaringer til annotationerne findes i klassen Arrangement.
+     * Forklaringen til DateTimeFormat og LocalDate findes i klassen Arrangement.
+     * arrangementId er i databasen baade PK og FK, der knytter ArrangementOplysninger
+     * til tabellen Arrangement med en-til-en -relation.
      */
     @Id
-    private int arranOplysId;
+    private int arrangementId;
     private String agenda;
     @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate dato;
@@ -46,9 +48,8 @@ public class ArrangementOplysninger{
     public void setTilmeldingsfrist(LocalDate tilmeldingsfrist) { this.tilmeldingsfrist = tilmeldingsfrist; }
     public LocalDate getOpdateringsDato() { return opdateringsDato; }
     public void setOpdateringsDato(LocalDate opdateringsDato) { this.opdateringsDato = opdateringsDato; }
-    public int getArranOplysId() { return arranOplysId; }
-    public void setArranOplysId(int arranOplysId) { this.arranOplysId = arranOplysId; }
     public String getAgenda() { return agenda; }
     public void setAgenda(String agenda) { this.agenda = agenda; }
-
+    public int getArrangementId() { return arrangementId; }
+    public void setArrangementId(int arrangementId) { this.arrangementId = arrangementId; }
 }

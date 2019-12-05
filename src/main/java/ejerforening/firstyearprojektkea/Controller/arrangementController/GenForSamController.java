@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 
 /**
@@ -42,6 +44,18 @@ public class GenForSamController {
         List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
         model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);
         return "/arrangement/generalforsamlinger";
+    }
+
+    /**
+     * Sender til getMapping for genforsamForside igen, men uden data, som der er blevet sendt fra view i
+     * foerste omgang (takket vaere redirect)
+     * @param id PathVariable laeser request sendt frea view og knytter data til metoden.
+     * @return til GetMapping for genforsamForside
+     */
+    @GetMapping("/sletGeneralforsamling/{arrangementId}")
+    public String visSlettetGeneralforsamling(@PathVariable("arrangementId") int id){
+        boolean sletOk = iGenForSamService.sletGeneralforsamling(id);
+        return "redirect:/genforsamForside";
     }
 
 }

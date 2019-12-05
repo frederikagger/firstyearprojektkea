@@ -27,4 +27,8 @@ public class GenForSamService implements IGenForSamService {
         return iGenForSamRepo.hentAlleArranOplysninger();
     }
 
+    public boolean sletGeneralforsamling(int id){
+        return iGenForSamRepo.sletGeneralforsamling(id);
+    }
+
 }

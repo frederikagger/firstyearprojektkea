@@ -9,10 +9,11 @@ import java.util.List;
  * Interface til genforsamlingens service. I Spring kan interfaces autowires (laves en instans af bean),
  * saa Controller faar autowired denne interface i stedet for selve service.
  * Fordelen er, at man ville kunne genbruge interface i en anden sammenhaeng.
- * Interface indeholder siganturer på metoder, som de implementerende klasser skal implementere.
+ * Interface indeholder siganturer paa metoder, som de implementerende klasser skal implementere.
  */
 public interface IGenForSamService {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger();
     public List<ArrangementOplysninger> hentAlleArranOplysninger();
+    public boolean sletGeneralforsamling(int id);
 }

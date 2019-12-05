@@ -16,12 +16,15 @@
 
             <p th:each="genfor: ${alleGeneralforsamlinger}">
 
-
                 <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
                 <br>
                 <span th:text="${'Generalforsamlingens emne: '+ genfor.emne}"></span>
                 <br>
                 <span th:text="${'Generalforsamlingens dato: '+ genfor.opdateringsDato}"></span>
+                <br>
+                <span th:text="${'Generalforsamlingens id: '+ genfor.arrangementId}"></span>
+                <br>
+                <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
              </p>
 
             <p th:each="arran: ${alleArranOplysninger}">
@@ -30,6 +33,7 @@
                 <br>
 
             </p>
+
 
         </main>
     </div>

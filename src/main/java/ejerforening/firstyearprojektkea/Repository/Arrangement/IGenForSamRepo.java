@@ -9,4 +9,5 @@ public interface IGenForSamRepo {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger();
     public List<ArrangementOplysninger> hentAlleArranOplysninger();
+    public boolean sletGeneralforsamling(int id);
 }
