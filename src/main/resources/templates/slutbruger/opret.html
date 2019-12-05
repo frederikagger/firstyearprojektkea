@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+
+    <title>Hvad skal der stå her?</title>
 </head>
 <body>
-$END$
+<div th:replace="fragments/top_menu :: top_menuElement"></div>
+
+<div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+<div class="container">
+    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
+        <main>
+            <h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+        </main>
+    </div>
+</div>
+
+
+
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
 </body>
 </html>
