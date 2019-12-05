@@ -14,6 +14,11 @@
         <main>
             <h1> Velkommen til generalforsamlinger</h1>
 
+            <p th:each="gf: ${alleGeneralforsamlinger}">
+
+                <span th:text="${'Generalforsamlingens navn: '+ gf.navn}"></span>
+                <span th:text="${'Generalforsamlingens emne: '+ gf.emne}"></span>
+
 
         </main>
     </div>

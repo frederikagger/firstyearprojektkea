@@ -1,9 +1,14 @@
 package ejerforening.firstyearprojektkea.Controller.arrangementController;
 
-import ejerforening.firstyearprojektkea.Service.Arrangement.IArrangementService;
+import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
+import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
+import ejerforening.firstyearprojektkea.Service.Arrangement.IGenForSamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * Controller for generalforsamling
@@ -17,12 +22,7 @@ public class GenForSamController {
      * @return html-siden "generalforsamlinger"
      */
     @Autowired
-    IArrangementService iArrangementService;
-
-    @GetMapping ("/genforsamForside")
-    public String visGenForSamSide(){
-        return "/arrangement/generalforsamlinger";
-    }
+    IGenForSamService iGenForSamService;
 
     /**
      * Controlleren er flyttet hertil fra startController, da den godt kan mappe sig hertil fra forside
@@ -32,6 +32,13 @@ public class GenForSamController {
     @GetMapping ("/arrangementer")
     public String visArrangementSide(){
         return "/arrangement/arrangementer";
+    }
+
+    @GetMapping ("/genforsamForside")
+    public String visGenForSamSide(Model model){
+        List<Generalforsamling> alleGeneralforsamlinger = iGenForSamService.hentAlleGeneralforsamlinger();
+        model.addAttribute("alleGeneralforsamlinger", alleGeneralforsamlinger);
+        return "/arrangement/generalforsamlinger";
     }
 
 }

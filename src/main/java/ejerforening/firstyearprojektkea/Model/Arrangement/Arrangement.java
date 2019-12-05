@@ -14,7 +14,6 @@ import java.time.LocalDate;
  * @Author Päivi
  */
 
-@Inheritance
 public abstract class Arrangement {
 
     /**
@@ -29,17 +28,19 @@ public abstract class Arrangement {
     private LocalDate oprettelsesDato;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate opdateringsDato;
-    private ArrangementOplysninger arrangementOplysninger;
+    //private int arranOplysId;
+    //private ArrangementOplysninger arrangementOplysninger;
 
     public Arrangement() {
     }
 
-    public Arrangement(int arrangementId, String navn, LocalDate oprettelsesDato, LocalDate opdateringsDato){
+    public Arrangement(int arrangementId, String navn, LocalDate oprettelsesDato, LocalDate opdateringsDato/*, int arranOplysId*/){
         this.arrangementId = arrangementId;
         this.navn = navn;
         this.oprettelsesDato = oprettelsesDato;
         this.opdateringsDato = opdateringsDato;
-        this.arrangementOplysninger = new ArrangementOplysninger();
+        //this.arranOplysId = arranOplysId;
+        //this.arrangementOplysninger = new ArrangementOplysninger();
     }
 
     public int getArrangementId() {
@@ -66,8 +67,16 @@ public abstract class Arrangement {
     public void setOpdateringsDato(LocalDate opdateringsDato) {
         this.opdateringsDato = opdateringsDato;
     }
-    public ArrangementOplysninger getArrangementOplysninger() {
-        return arrangementOplysninger;
+/*
+    public int getArranOplysId() {
+        return arranOplysId;
     }
+
+    public void setArranOplysId(int arranOplysId) {
+        this.arranOplysId = arranOplysId;
+    }*/
+    /*public ArrangementOplysninger getArrangementOplysninger() {
+        return arrangementOplysninger;
+    }*/
 }
 
