@@ -41,7 +41,7 @@ public class LejlighedRepo implements IlejlighedRepo {
 
     @Override
     public void sletLejlighed(int id){
-        String sql = "DELETE FROM lejlighed WHERE lejlighed.id = ?";
+        String sql = "DELETE FROM lejlighed WHERE lejlighedsid = ?";
         jdbcTemplate.update(sql,id);
     }
 }
