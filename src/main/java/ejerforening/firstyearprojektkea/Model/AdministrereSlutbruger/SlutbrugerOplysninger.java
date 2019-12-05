@@ -1,24 +1,42 @@
 package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+
+/**
+ * Klassen der indeholder attributerne for SlutbrugerOplysninger
+ * @author Signe
+ */
 
 public class SlutbrugerOplysninger
 {
+    /**
+     * Attributerne har validerings annotationerm som definerer:
+     *
+     * @NotNull = maa ikke være tom
+     * @DateTimeFormat = hvordan dato skal staa skrevet
+     * !!!!@AssertFalse = Skal navnes hvad det er!!!
+     * LocalDate = datatype der udnytter javaklassen Time som er dato
+     * LocalDate.now() = dags dato
+     */
+    @NotNull(message = "Indtast venligst emailen")
     private String email;
+
+    @NotNull (message = "Indtast venligst telefonnummeret")
     private String tlfnummer;
-    private Boolean erBestyrelsesmedlem;
-    private LocalDate opdateringsDato;
+
+    @AssertFalse //Vil være som udgangspunkt at en slutbruger ikke er medlem af bestyrelsen
+    private boolean erBestyrelsesmedlem;
+
+    @DateTimeFormat(pattern="dd/MM/YYYY")
+    private LocalDate opdateringsDato = LocalDate.now();
+
 
     public SlutbrugerOplysninger()
     {}
-
-    public SlutbrugerOplysninger(String email, String tlfnummer, Boolean erBestyrelsesmedlem, LocalDate opdateringsDato)
-    {
-        this.email = email;
-        this.tlfnummer = tlfnummer;
-        this.erBestyrelsesmedlem = erBestyrelsesmedlem;
-        this.opdateringsDato = opdateringsDato;
-    }
 
     public String getEmail()
     {
