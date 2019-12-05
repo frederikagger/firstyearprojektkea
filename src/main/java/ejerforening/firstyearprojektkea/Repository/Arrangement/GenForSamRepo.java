@@ -57,9 +57,9 @@ public class GenForSamRepo implements IGenForSamRepo {
 
     /**
      * Metoden konveterer foerst vaerdierne til String fra kolonnen arrOplysId fra soegeresultatet
-     * i metoden hentAlleGeneralforsamlinger() og saetter parantes rundt om for at de kan bruges i WHERE ..IN -clause.
+     * i metoden hentAlleGeneralforsamlinger(). Disse vaerdier kan bruges i WHERE ..IN -clause.
      * Metoden laver beanPropertyMapper til ArrangementOplysninger (tabel- og klassenavnet).
-     * Der hentes med JOIN alle de raekker, hvor arrOplysId har den samme vaerdi som i det foerste soegresultat.
+     * Der hentes alle de raekker, hvor arrOplysId har den samme vaerdi som i det foerste soegresultat.
      * JdbcTemplate sender query til databasen og der returneres en List med elementerne.
      *
      * Normalt ville man goere dette med to joins, men fordi jdbctemplate ikke understoetter soegninger i flere end to
@@ -80,9 +80,11 @@ public class GenForSamRepo implements IGenForSamRepo {
         }
         vaerdier = "(" + vaerdier + ")";
         RowMapper rowmapper = new BeanPropertyRowMapper<>(ArrangementOplysninger.class);
-        String sql = "SELECT * FROM arrangement a JOIN arrangementOplysninger ao ON a.arranOplysId = ao.arranOplysId AND ao.arranOplysId IN" + vaerdier;
+        String sql = "SELECT * FROM arrangementOplysninger WHERE arranOplysId IN" + vaerdier;
         return jdbcTemplate.query(sql, rowmapper);
     }
+
+
 
 
 }

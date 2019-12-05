@@ -28,7 +28,7 @@ public abstract class Arrangement {
      * Klassen faar ogsaa ArrangementOplysninegr som felt.
      * Alle de andre felter repraesenterer en kolonne i tabellen med samme navn.
      * arranOplysId er i tabellen foreign key, som knytter Arrangement i databasen til tabellen ArranegementOplysninger.
-     * Den skal vaere unik, fordi der kun maa vaere en ArrangementOplysninger knyttet til hvert Arrangement.
+     * Den skal vaere unik, fordi der kun maa vaere en ArrangementOplysninger knyttet til hvert Arrangement (en-til-en -relation).
      */
     @Id
     private int arrangementId;

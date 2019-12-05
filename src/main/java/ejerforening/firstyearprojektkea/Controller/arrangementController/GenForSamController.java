@@ -31,7 +31,8 @@ public class GenForSamController {
 
     /**
      * Viser forsiden for generalforsamlinger. Paa siden kan man se alle generalforsamlinger og
-     * arragementOplysninger, som fragtes til view i model, jf. metoden addAttribute(). Saa metoden faar Model som parameter.
+     * arragementOplysninger, som fragtes til view i model, jf. metoden addAttribute().
+     * Saa metoden faar Model som parameter.
      * @return html-siden "generalforsamlinger"
      */
     @GetMapping ("/genforsamForside")
