@@ -1,6 +1,7 @@
-package ejerforening.firstyearprojektkea.Repository;
+package ejerforening.firstyearprojektkea.Repository.Slutbruger;
 
 import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerOversigt;
+import ejerforening.firstyearprojektkea.Repository.Slutbruger.ISlutbrugerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +15,22 @@ public class SlutbrugerRepository implements ISlutbrugerRepository
 {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * BeanPropertyRowMapper er interfacet af RowMapper, som kun kan hente en raekke af gangen fra databasen.
+     * Raekken bliver som et object af den type, den har faaet som parameter.
+     * Da RowMapper bliver benyttet i flere af metoderne i klassen, er den blevet skubbet ud til at daekke klassescopet.
+     */
     RowMapper<SlutbrugerOversigt> rowmapper = new BeanPropertyRowMapper<>(SlutbrugerOversigt.class);
+
+    /**
+     * Metoden henter alle kolonner fra opgavelejlighed_view.
+     * JDBC Template bruges som en query, der bliver sent til databasen og retunere liste med oversigten over Opgaver
+     *
+     * Med hjaelp af view kan de to tabeller, som opgave og lejlighed er i databasen,
+     * retuneres som en samlet klasse af parameter
+     * @return result - indeholder listen med OpgaveOversigt
+     */
 
     @Override
     public List<SlutbrugerOversigt> hentAlle()
@@ -26,6 +42,11 @@ public class SlutbrugerRepository implements ISlutbrugerRepository
         return result;
     }
 
+    /**
+     * Metoden sletter slutbruger, hvor slutbrugeridet der var givet med som parameter matcher i tabellen slutbruger.
+     * Der ønskes ingen returvaerdi, da opgaven forsvinder fra hjemmesiden
+     * @param slutbrugerId
+     */
     @Override
     public void slet(int slutbrugerId)
     {
