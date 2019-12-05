@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+/**
+ * Controller der administerer de opgaver en bestyrelsesmedlem kan for slutbruger
+ * @author Signe
+ */
+
 @Controller
 public class AdministrereSlutbrugereController
 {
@@ -17,7 +22,7 @@ public class AdministrereSlutbrugereController
 
     /**
      *Getmetode, som er det foerste man rammer naar man tilgaar punktet Administere slutbrugere på hjemmesiden
-     * @return htmlsiden forside
+     * @return /slutbruger/oversigt - html
      */
     @GetMapping("/slutbruger/oversigt")
     public String oversigt(Model model)
@@ -27,6 +32,12 @@ public class AdministrereSlutbrugereController
         return "/slutbruger/oversigt";
     }
 
+    /**
+     * Getmetode, som man rammer når man klikker på slet ved slutbruger
+     * @param model
+     * @param slutbrugerId
+     * @return /slutbruger/oversigt - html
+     */
     @GetMapping("/slutbruger/slet")
     public String slet(Model model, int slutbrugerId)
     {
