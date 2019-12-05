@@ -1,16 +1,21 @@
 package ejerforening.firstyearprojektkea.Service;
 
-import ejerforening.firstyearprojektkea.Model.AdministreSlutbruger.SlutbrugerOversigt;
-import ejerforening.firstyearprojektkea.Repository.ISlutbrugerRepository;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerOversigt;
+import ejerforening.firstyearprojektkea.Repository.Slutbruger.ISlutbrugerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * Klassen implementerer metoderne fra interfacet ISlutbrugerService og autowirer interfacet fra ISlutbrugerRepository.
+ * SlutbrugerService kalder på metoder fra repository.
+ * @author Signe
+ */
 @Service
-public class SlutbrugerService implements ISlutbrugerService {
+public class SlutbrugerService implements ISlutbrugerService
+{
 
     @Autowired
     private ISlutbrugerRepository slutbrugerRepository;
