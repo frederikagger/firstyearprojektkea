@@ -6,77 +6,61 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance
- * Den repræsenterer tabellen Arrangement generalforsamling i databasen og indeholder stamdata om et arrangement.
+ * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance. Dog har annotation
+ * kun symbolsk betydning her for at markere superklassen, idet systemet ikke bruger hibernate eller anden ORM, som
+ * flere af annotationerne er knyttet til.Dermed er klasserne heller ikke annoteret som entity.
+ * Klassen repraesenterer tabellen Arrangement i databasen og indeholder stamdata om et arrangement.
  * Den er abstract, fordi man ikke skal lave instanser af den, kun af subklasserne.
- * @Author Päivi
+ * @Author Paivi
  */
 
+@Inheritance
 public abstract class Arrangement {
 
     /**
      * Felter med validerings-annotationer.
-     * Annotationen DateTimeFormat definerer, at felt skal formateres som date eller time. Understoetter ISO datetime-pattern.
+     * Annotationen Id angiver, hvilken kolonne er primary key i tabellen.
+     * Annotationen DateTimeFormat definerer, hvordan datoen skal formateres.
+     * Datatypen LocalDate er en javaklasse, som repraesenterer dato. Opdateringsdatoen henter dagens dato som default.
+     * Klassen faar ogsaa ArrangementOplysninegr som felt.
+     * Alle de andre felter repraesenterer en kolonne i tabellen med samme navn.
+     * arranOplysId er i tabellen foreign key, som knytter Arrangement i databasen til tabellen ArranegementOplysninger.
+     * Den skal vaere unik, fordi der kun maa vaere en ArrangementOplysninger knyttet til hvert Arrangement.
      */
     @Id
     private int arrangementId;
     @NotNull (message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate oprettelsesDato;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate opdateringsDato;
-    //private int arranOplysId;
-    //private ArrangementOplysninger arrangementOplysninger;
+    @DateTimeFormat(pattern="dd/MM/YYYY")
+    private LocalDate opdateringsDato = LocalDate.now();
+    @Column(unique=true)
+    private int arranOplysId;
+    private ArrangementOplysninger arrangementOplysninger;
 
-    public Arrangement() {
-    }
-
-    public Arrangement(int arrangementId, String navn, LocalDate oprettelsesDato, LocalDate opdateringsDato/*, int arranOplysId*/){
-        this.arrangementId = arrangementId;
-        this.navn = navn;
-        this.oprettelsesDato = oprettelsesDato;
-        this.opdateringsDato = opdateringsDato;
-        //this.arranOplysId = arranOplysId;
-        //this.arrangementOplysninger = new ArrangementOplysninger();
+    /**
+     * Forholdet mellem klasserne er composition, saa der laves en instans af klassen i Arrangementets konstruktoer.
+     * Hvis man sletter Arrangement, sletter man ogsaa ArranegementOplysninger.
+     */
+    public Arrangement(){
+        arrangementOplysninger = new ArrangementOplysninger();
     }
 
-    public int getArrangementId() {
-        return arrangementId;
-    }
-    public void setArrangementId(int arrangementId) {
-        this.arrangementId = arrangementId;
-    }
-    public String getNavn() {
-        return navn;
-    }
-    public void setNavn(String navn) {
-        this.navn = navn;
-    }
-    public LocalDate getOprettelsesDato() {
-        return oprettelsesDato;
-    }
-    public void setOprettelsesDato(LocalDate oprettelsesDato) {
-        this.oprettelsesDato = oprettelsesDato;
-    }
-    public LocalDate getOpdateringsDato() {
-        return opdateringsDato;
-    }
-    public void setOpdateringsDato(LocalDate opdateringsDato) {
-        this.opdateringsDato = opdateringsDato;
-    }
-/*
-    public int getArranOplysId() {
-        return arranOplysId;
-    }
+    public int getArrangementId() { return arrangementId; }
+    public void setArrangementId(int arrangementId) { this.arrangementId = arrangementId; }
+    public String getNavn() { return navn; }
+    public void setNavn(String navn) { this.navn = navn; }
+    public LocalDate getOprettelsesDato() { return oprettelsesDato; }
+    public void setOprettelsesDato(LocalDate oprettelsesDato) { this.oprettelsesDato = oprettelsesDato; }
+    public LocalDate getOpdateringsDato() { return opdateringsDato; }
+    public void setOpdateringsDato(LocalDate opdateringsDato) { this.opdateringsDato = opdateringsDato; }
+    public int getArranOplysId() { return arranOplysId; }
+    public void setArranOplysId(int arranOplysId) { this.arranOplysId = arranOplysId; }
+    public ArrangementOplysninger getArrangementOplysninger() { return arrangementOplysninger; }
 
-    public void setArranOplysId(int arranOplysId) {
-        this.arranOplysId = arranOplysId;
-    }*/
-    /*public ArrangementOplysninger getArrangementOplysninger() {
-        return arrangementOplysninger;
-    }*/
 }
 

@@ -1,11 +1,17 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
+import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import ejerforening.firstyearprojektkea.Repository.Arrangement.IGenForSamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+/**
+ * @author paivi
+ * Klassen implementerer interface for service og den autowirer interface for repository for generalforsamling.
+ * Service kalder services fra repository.
+ */
 
 @Service
 public class GenForSamService implements IGenForSamService {
@@ -15,6 +21,10 @@ public class GenForSamService implements IGenForSamService {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger(){
         return iGenForSamRepo.hentAlleGeneralforsamlinger();
+    }
+
+    public List<ArrangementOplysninger> hentAlleArranOplysninger(){
+        return iGenForSamRepo.hentAlleArranOplysninger();
     }
 
 }
