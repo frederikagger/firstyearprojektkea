@@ -3,6 +3,8 @@ package ejerforening.firstyearprojektkea.Model.Arrangement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import javax.persistence.Id;
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,41 +17,84 @@ import java.time.LocalTime;
 public class ArrangementOplysninger{
 
     /**
-     * Forklaringen til DateTimeFormat og LocalDate findes i klassen Arrangement.
+     * Datatypen LocalDate og LocalTime er javaklasser, som repraesenterer dato og tid.
+     * Time skrives i databasen saaledes: fx kl 14.00 er 140000. Så bliver det 14.00 med LocalTime.
      * arrangementId er i databasen baade PK og FK, der knytter ArrangementOplysninger
      * til tabellen Arrangement med en-til-en -relation.
      */
     @Id
     private int arrangementId;
     private String agenda;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate dato;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalTime starttidspunkt;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalTime sluttidspunkt;
+    private LocalTime startTidspunkt;
+    private LocalTime slutTidspunkt;
     private String sted;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate tilmeldingsfrist;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
+    private LocalDate opdateringsDato;
 
     public ArrangementOplysninger(){}
 
-    public LocalDate getDato() { return dato; }
-    public void setDato(LocalDate dato) { this.dato = dato; }
-    public LocalTime getStarttidspunkt() { return starttidspunkt; }
-    public void setStarttidspunkt(LocalTime starttidspunkt) { this.starttidspunkt = starttidspunkt; }
-    public LocalTime getSluttidspunkt() { return sluttidspunkt; }
-    public void setSluttidspunkt(LocalTime sluttidspunkt) { this.sluttidspunkt = sluttidspunkt; }
-    public String getSted() { return sted; }
-    public void setSted(String sted) { this.sted = sted; }
-    public LocalDate getTilmeldingsfrist() { return tilmeldingsfrist; }
-    public void setTilmeldingsfrist(LocalDate tilmeldingsfrist) { this.tilmeldingsfrist = tilmeldingsfrist; }
-    public LocalDate getOpdateringsDato() { return opdateringsDato; }
-    public void setOpdateringsDato(LocalDate opdateringsDato) { this.opdateringsDato = opdateringsDato; }
-    public String getAgenda() { return agenda; }
-    public void setAgenda(String agenda) { this.agenda = agenda; }
-    public int getArrangementId() { return arrangementId; }
-    public void setArrangementId(int arrangementId) { this.arrangementId = arrangementId; }
+    public int getArrangementId() {
+        return arrangementId;
+    }
+
+    public void setArrangementId(int arrangementId) {
+        this.arrangementId = arrangementId;
+    }
+
+    public String getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(String agenda) {
+        this.agenda = agenda;
+    }
+
+    public LocalDate getDato() {
+        return dato;
+    }
+
+    public void setDato(LocalDate dato) {
+        this.dato = dato;
+    }
+
+    public LocalTime getStartTidspunkt() {
+        return startTidspunkt;
+    }
+
+    public void setStartTidspunkt(LocalTime startTidspunkt) {
+        this.startTidspunkt = startTidspunkt;
+    }
+
+    public LocalTime getSlutTidspunkt() {
+        return slutTidspunkt;
+    }
+
+    public void setSlutTidspunkt(LocalTime slutTidspunkt) {
+        this.slutTidspunkt = slutTidspunkt;
+    }
+
+    public String getSted() {
+        return sted;
+    }
+
+    public void setSted(String sted) {
+        this.sted = sted;
+    }
+
+    public LocalDate getTilmeldingsfrist() {
+        return tilmeldingsfrist;
+    }
+
+    public void setTilmeldingsfrist(LocalDate tilmeldingsfrist) {
+        this.tilmeldingsfrist = tilmeldingsfrist;
+    }
+
+    public LocalDate getOpdateringsDato() {
+        return opdateringsDato;
+    }
+
+    public void setOpdateringsDato(LocalDate opdateringsDato) {
+        this.opdateringsDato = opdateringsDato;
+    }
 }

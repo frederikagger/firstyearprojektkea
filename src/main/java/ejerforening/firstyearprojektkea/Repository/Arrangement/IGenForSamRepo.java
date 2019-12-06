@@ -9,5 +9,9 @@ public interface IGenForSamRepo {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger();
     public List<ArrangementOplysninger> findArranOplysninger(int id);
+    public List<Generalforsamling> findGeneralforsamling(int id);
     public boolean sletGeneralforsamling(int id);
+    //public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
+    public boolean opdatereGeneralforsamling(Generalforsamling genfor);
+    public boolean opdatereArranOplys(ArrangementOplysninger arranOpl);
 }

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +24,6 @@ public abstract class Arrangement {
     /**
      * Felter med validerings-annotationer.
      * Annotationen Id angiver, hvilken kolonne er primary key i tabellen.
-     * Annotationen DateTimeFormat definerer, hvordan datoen skal formateres.
      * Datatypen LocalDate er en javaklasse, som repraesenterer dato.
      * Klassen faar ogsaa ArrangementOplysninegr som felt (composition, dvs. hvis man sletter Arrangement,
      * sletter man ogsaa ArranegementOplysninger)
@@ -32,9 +32,7 @@ public abstract class Arrangement {
     private int arrangementId;
     @NotNull (message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate oprettelsesDato;
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate opdateringsDato;
     private ArrangementOplysninger arrangementOplysninger;
 
@@ -49,10 +47,22 @@ public abstract class Arrangement {
     public void setArrangementId(int arrangementId) { this.arrangementId = arrangementId; }
     public String getNavn() { return navn; }
     public void setNavn(String navn) { this.navn = navn; }
-    public LocalDate getOprettelsesDato() { return oprettelsesDato; }
-    public void setOprettelsesDato(LocalDate oprettelsesDato) { this.oprettelsesDato = oprettelsesDato; }
-    public LocalDate getOpdateringsDato() { return opdateringsDato; }
-    public void setOpdateringsDato(LocalDate opdateringsDato) { this.opdateringsDato = opdateringsDato; }
+
+    public LocalDate getOprettelsesDato() {
+        return oprettelsesDato;
+    }
+
+    public void setOprettelsesDato(LocalDate oprettelsesDato) {
+        this.oprettelsesDato = oprettelsesDato;
+    }
+
+    public LocalDate getOpdateringsDato() {
+        return opdateringsDato;
+    }
+
+    public void setOpdateringsDato(LocalDate opdateringsDato) {
+        this.opdateringsDato = opdateringsDato;
+    }
     public ArrangementOplysninger getArrangementOplysninger() { return arrangementOplysninger; }
 
 }

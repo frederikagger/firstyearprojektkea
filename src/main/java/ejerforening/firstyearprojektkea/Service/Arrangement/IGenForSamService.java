@@ -2,6 +2,9 @@ package ejerforening.firstyearprojektkea.Service.Arrangement;
 
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import java.util.List;
 
 /**
@@ -15,5 +18,7 @@ public interface IGenForSamService {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger();
     public List<ArrangementOplysninger> findArranOplysninger(int id);
+    public List<Generalforsamling> findGeneralforsamling(int id);
     public boolean sletGeneralforsamling(int id);
+    public String validereOgOpdatereGenForSam(Generalforsamling genfor, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
 }

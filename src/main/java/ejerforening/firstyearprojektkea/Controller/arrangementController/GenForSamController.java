@@ -6,9 +6,12 @@ import ejerforening.firstyearprojektkea.Service.Arrangement.IGenForSamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -32,40 +35,76 @@ public class GenForSamController {
     }
 
     /**
-     * Viser forsiden for generalforsamlinger. Paa siden kan man se alle generalforsamlinger og
-     * arragementOplysninger, som fragtes til view i model, jf. metoden addAttribute().
-     * Saa metoden faar Model som parameter.
+     * Viser forsiden for generalforsamlinger. Paa siden kan man se alle generalforsamlinger,
+     * som fragtes til view i model, jf. metoden addAttribute().Saa metoden faar Model som parameter.
+     * @param model fragter generalforsamling til view
      * @return html-siden "generalforsamlinger"
      */
     @GetMapping ("/genforsamForside")
     public String visGenForSamSide(Model model){
         List<Generalforsamling> alleGeneralforsamlinger = iGenForSamService.hentAlleGeneralforsamlinger();
         model.addAttribute("alleGeneralforsamlinger", alleGeneralforsamlinger);
-        /*List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
-        model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);*/
         return "/arrangement/generalforsamlinger";
     }
+
+    /**
+     * Viser siden mere flere oplysninger om generalforsamlingen fra ArrangementOplysninger
+     * PathVariable laeser id sendt fra view og knytter data til metoden.
+     * @param id arrangementId paa arrangement,som skal vises
+     * @param model fragter oplysninger til view
+     * @return html-side flereOplysningerGeneralForsamling
+     */
 
     @GetMapping("/flereOplysningerSide/{arrangementId}")
     public String visFlereOplysningerSide(@PathVariable("arrangementId") int id, Model model) {
         List<ArrangementOplysninger> arranOplysninger = iGenForSamService.findArranOplysninger(id);
         model.addAttribute("arranOplysninger", arranOplysninger);
-        /*List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
-        model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);*/
         return "/arrangement/flereOplysningerGeneralforsamling";
     }
 
-
     /**
-     * Sender til getMapping for genforsamForside igen, men uden data, som der er blevet sendt fra view i
-     * foerste omgang (takket vaere redirect)
-     * @param id PathVariable laeser request sendt frea view og knytter data til metoden.
+     * Sletter generalforsamling og sender til getMapping for genforsamForside, men uden data,
+     * fordi sletning er udfoert og data skal ikke vaere der, naar siden oploades igen (redirect)
+     * PathVariable laeser id sendt fra view og knytter data til metoden.
+     * @param id arrangementId på den generalforsamling, som slettes
      * @return til GetMapping for genforsamForside
      */
     @GetMapping("/sletGeneralforsamling/{arrangementId}")
     public String visSlettetGeneralforsamling(@PathVariable("arrangementId") int id){
         boolean sletOk = iGenForSamService.sletGeneralforsamling(id);
         return "redirect:/genforsamForside";
+    }
+
+    /**
+     * PathVariable laeser id sendt fra view og knytter data til metoden.
+     * Foerst skal vi hente generalforsamling og arrangementOplysninger fra databasen.
+     * Viser siden, hvor man kan opdatere oplysninger.
+     * @param id arrangementId på den generalforsamling, som opdateres
+     * @param model fragter oplysninger til view
+     * @return html-siden opdateringGeneralforsamling, hvor oplysninger kan rettes
+     */
+    @GetMapping("/visOpdatereGeneralforsamling/{arrangementId}")
+    public String visOpdateringsside(@PathVariable("arrangementId") int id, Model model){
+        List<Generalforsamling> generalforsamling = iGenForSamService.findGeneralforsamling(id);
+        List<ArrangementOplysninger> arranOplysninger = iGenForSamService.findArranOplysninger(id);
+        model.addAttribute("generalforsamling", generalforsamling.get(0));
+        model.addAttribute("arrangementOplysninger", arranOplysninger.get(0));
+        return "/arrangement/opdateringGeneralforsamling";
+    }
+
+    /**
+     * Tager imod post fra view - der sendes baade Generalfosamling og ArrangementOplysninger
+     * Beder iGenForSamService om at validere og returnere view, som skal vises. Metoden returnerer saa dette view.
+     * Idet validering kraever mere arbejde end at vaelge view, er denne opgave delegeret til service
+     * @param genForSam
+     * @param bindingResult
+     * @param model
+     * @return
+     */
+    @PostMapping("/opdatereGeneralforsamling")
+    public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, @Valid ArrangementOplysninger arranopl, BindingResult bindingResult, Model model){
+        String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, arranopl,bindingResult,model);
+        return bedOmValideringOgOpdatering;
     }
 
 

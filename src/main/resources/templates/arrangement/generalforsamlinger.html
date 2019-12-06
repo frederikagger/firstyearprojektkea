@@ -6,10 +6,12 @@
     <title>Generalforsamlinger</title>
 </head>
 <body>
+<div class="container container-custom">
 <div th:replace="fragments/top_menu :: top_menuElement"></div>
 <div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-<div class="container">
+    <div class="container">
+
     <div class="main">
         <main>
             <h1> Velkommen til generalforsamlinger</h1>
@@ -23,11 +25,13 @@
                 <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
                 <br>
                 <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
+                <br>
+                <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
              </p>
 
         </main>
     </div>
 </div>
-
+</div>
 </body>
 </html>

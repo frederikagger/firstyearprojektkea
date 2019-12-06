@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <meta charset="UTF-8">
+    <title>Opdatering af generalfosamlinger</title>
+</head>
+<body>
+
+<div class="container container-custom">
+<div th:replace="fragments/top_menu :: top_menuElement"></div>
+<div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+    <div class="container">
+    <div class="main">
+        <main>
+            <h1> Opdatere generalforsamling</h1>
+
+            <form action="#" th:action="@{/opdatereGeneralforsamling}" method="post">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{generalforsamling.arrangementId}">
+                    <input type="text" th:field="*{generalforsamling.navn}" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.navn')}" th:errors="*{generalforsamling.navn}">Fejl i navnet</span>
+                </div>
+                 <div class="form-group">
+                    <input type="text" th:field="*{generalforsamling.oprettelsesDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.oprettelsesDato')}" th:errors="*{generalforsamling.oprettelsesDato}">Fejl i oprettelsesDato</span>
+                 </div>
+                   <div class="form-group">
+                    <input type="text" th:field="*{generalforsamling.opdateringsDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.opdateringsDato')}" th:errors="*{generalforsamling.opdateringsDato}">Fejl i opdateringsDato</span>
+                   </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{generalforsamling.referatId}" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.referatId')}" th:errors="*{generalforsamling.referatId}">Fejl i referatId</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{generalforsamling.emne}" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.emne')}" th:errors="*{generalforsamling.emne}">Fejl i emne</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.agenda}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.agenda')}" th:errors="*{arrangementOplysninger.agenda}">Fejl i agenda</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.dato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.dato')}" th:errors="*{arrangementOplysninger.dato}">Fejl i dato</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.startTidspunkt}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.startTidspunkt')}" th:errors="*{arrangementOplysninger.startTidspunkt}">Fejl i startTidspunkt</span>
+                </div>
+                 <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.slutTidspunkt}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.slutTidspunkt')}" th:errors="*{arrangementOplysninger.slutTidspunkt}">Fejl i slutTidspunkt</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.sted}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.sted')}" th:errors="*{arrangementOplysninger.sted}">Fejl i sted</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.tilmeldingsfrist}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.tilmeldingsfrist')}" th:errors="*{arrangementOplysninger.tilmeldingsfrist}">Fejl i tilmeldingsfrist</span>
+                </div>
+                 <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.opdateringsDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.opdateringsDato')}" th:errors="*{arrangementOplysninger.opdateringsDato}">Fejl i opdateringsDato</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Opdatere</button>
+
+                <span th:text="${bekraeftelse}">bekræftelse</span>
+                <span th:text="${fejlbesked}">fejlbesked</span>
+            </form>
+        </main>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,5 +1,4 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
-import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,33 @@ public class GenForSamRepo implements IGenForSamRepo {
         return (slettetRaekke != 0);
     }
 
+    /**
+     * Metoden henter generalforsamling knyttet til en bestemt arrangementId
+     * @param id arrangementId
+     * @return List, som indeholder referencen til instansen af Generalforsamling.
+     */
+    public List<Generalforsamling> findGeneralforsamling(int id){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
+        String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE a.arrangementId=?";
+        return jdbcTemplate.query(sql, rowmapper, id);
+    }
 
+    /*public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply){
+        String sql = "SP_call opdatere(true, genfor.getNavn(), arranoply.getAgenda(), arranoply.getDato(),arranoply.getSted(), genfor.getEmne())";
+        int opdateretGenFor = jdbcTemplate.update(sql);
+        return opdateretGenFor != 0;
+    }*/
 
+    public boolean opdatereGeneralforsamling(Generalforsamling genfor){
+        String sql = "UPDATE generalforsamling g,arrangement a SET a.navn=?, a.oprettelsesDato=?, a.opdateringsDato=?, g.referatId=?, g.emne=? WHERE a.arrangementId=?";
+        int opdateretGenFor = jdbcTemplate.update(sql, genfor.getNavn(), genfor.getOprettelsesDato(), genfor.getOpdateringsDato(), genfor.getReferatId(),genfor.getEmne(), genfor.getArrangementId());
+        return opdateretGenFor !=0;
+    }
+
+    public boolean opdatereArranOplys(ArrangementOplysninger arranOpl){
+        String sql = "UPDATE arrangementOplysninger SET agenda=?, dato=?, startTidspunkt=?, slutTidspunkt=?, sted=?, tilmeldingsfrist=?, opdateringsDato=? WHERE arrangementId=?";
+        int opdateretArranOpl = jdbcTemplate.update(sql, arranOpl.getAgenda(), arranOpl.getDato(),arranOpl.getStartTidspunkt(), arranOpl.getSlutTidspunkt(), arranOpl.getSted(), arranOpl.getTilmeldingsfrist(), arranOpl.getTilmeldingsfrist(), arranOpl.getArrangementId());
+        return opdateretArranOpl !=0;
+    }
 
 }
