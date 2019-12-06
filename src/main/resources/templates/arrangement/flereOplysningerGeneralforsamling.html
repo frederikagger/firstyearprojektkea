@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <meta charset="UTF-8">
+    <title>Flere oplysninger om generalforsamlingen</title>
+</head>
+<body>
+<div th:replace="fragments/top_menu :: top_menuElement"></div>
+<div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+<div class="container">
+    <div class="main">
+        <main>
+            <h1> Generalforsamlingen</h1>
+
+
+            <p th:each="arran: ${arranOplysninger}">
+
+                <span th:text="${'Generalforsamlingens dato: '+ arran.dato}"></span>
+                <br>
+                <span th:text="${'Generalforsamlingens sted: '+ arran.sted}"></span>
+                <br>
+
+            </p>
+
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

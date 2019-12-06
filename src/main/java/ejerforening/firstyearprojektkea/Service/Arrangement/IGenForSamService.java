@@ -14,6 +14,6 @@ import java.util.List;
 public interface IGenForSamService {
 
     public List<Generalforsamling> hentAlleGeneralforsamlinger();
-    public List<ArrangementOplysninger> hentAlleArranOplysninger();
+    public List<ArrangementOplysninger> findArranOplysninger(int id);
     public boolean sletGeneralforsamling(int id);
 }

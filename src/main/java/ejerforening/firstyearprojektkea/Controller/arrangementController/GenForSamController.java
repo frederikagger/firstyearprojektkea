@@ -41,10 +41,20 @@ public class GenForSamController {
     public String visGenForSamSide(Model model){
         List<Generalforsamling> alleGeneralforsamlinger = iGenForSamService.hentAlleGeneralforsamlinger();
         model.addAttribute("alleGeneralforsamlinger", alleGeneralforsamlinger);
-        List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
-        model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);
+        /*List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
+        model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);*/
         return "/arrangement/generalforsamlinger";
     }
+
+    @GetMapping("/flereOplysningerSide/{arrangementId}")
+    public String visFlereOplysningerSide(@PathVariable("arrangementId") int id, Model model) {
+        List<ArrangementOplysninger> arranOplysninger = iGenForSamService.findArranOplysninger(id);
+        model.addAttribute("arranOplysninger", arranOplysninger);
+        /*List<ArrangementOplysninger> alleArrangementOplysninger = iGenForSamService.hentAlleArranOplysninger();
+        model.addAttribute("alleArranOplysninger", alleArrangementOplysninger);*/
+        return "/arrangement/flereOplysningerGeneralforsamling";
+    }
+
 
     /**
      * Sender til getMapping for genforsamForside igen, men uden data, som der er blevet sendt fra view i
@@ -57,5 +67,6 @@ public class GenForSamController {
         boolean sletOk = iGenForSamService.sletGeneralforsamling(id);
         return "redirect:/genforsamForside";
     }
+
 
 }

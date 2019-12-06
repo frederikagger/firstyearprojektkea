@@ -23,8 +23,8 @@ public class GenForSamService implements IGenForSamService {
         return iGenForSamRepo.hentAlleGeneralforsamlinger();
     }
 
-    public List<ArrangementOplysninger> hentAlleArranOplysninger(){
-        return iGenForSamRepo.hentAlleArranOplysninger();
+    public List<ArrangementOplysninger> findArranOplysninger(int id){
+        return iGenForSamRepo.findArranOplysninger(id);
     }
 
     public boolean sletGeneralforsamling(int id){

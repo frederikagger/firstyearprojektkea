@@ -20,23 +20,10 @@
                 <br>
                 <span th:text="${'Generalforsamlingens emne: '+ genfor.emne}"></span>
                 <br>
-                <span th:text="${'Generalforsamlingens opdateringsdato: '+ genfor.opdateringsDato}"></span>
-                <br>
-                <span th:text="${'Generalforsamlingens id: '+ genfor.arrangementId}"></span>
+                <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
                 <br>
                 <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
              </p>
-
-            <p th:each="arran: ${alleArranOplysninger}">
-
-                <span th:text="${'Generalforsamlingens dato: '+ arran.dato}"></span>
-                <br>
-                <span th:text="${'Generalforsamlingens sted: '+ arran.sted}"></span>
-                <br>
-
-
-            </p>
-
 
         </main>
     </div>
