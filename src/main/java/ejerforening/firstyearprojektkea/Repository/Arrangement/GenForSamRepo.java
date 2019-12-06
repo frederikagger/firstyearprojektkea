@@ -7,6 +7,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +31,11 @@ public class GenForSamRepo implements IGenForSamRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
     RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
-    ArrayList<Integer> arrangementIdeer;
+    ArrayList<String> arrangementIdeer = new ArrayList<>();
 
     /**
      * Metoden henter alle kolonner fra generalforsamling og arrangement, hvor arrangementId har den samme vaerdi.
+     * Jeg vil kun vise generalforsamlinger fra sidste tre aar (datediff 1095 dage).
      * RowMapper har den begraensning, at man kun kan give den én klasse som parameter. Service har brug for ogsaa
      * at hente ArrangementOplysninger,som er knyttet til Arrangement, men jdbcTemplate kan ikke hente oplysninger
      * fra tre tabeller ad gangen.
@@ -42,19 +46,16 @@ public class GenForSamRepo implements IGenForSamRepo {
      */
 
      public List<Generalforsamling> hentAlleGeneralforsamlinger() {
-        String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE g.arrangementId=a.arrangementId";
+        String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE g.arrangementId=a.arrangementId AND DATEDIFF(now(),a.oprettelsesDato) < 1095";
         List<Generalforsamling> genList = jdbcTemplate.query(sql, rowmapper);
-
-        arrangementIdeer = new ArrayList<>();
-        for (Generalforsamling g : genList) {
-            arrangementIdeer.add(g.getArrangementId());
-        }
+         for (Generalforsamling g : genList) {
+             arrangementIdeer.add(String.valueOf(g.getArrangementId()));
+         }
         return genList;
     }
 
     /**
-     * Metoden konveterer foerst vaerdierne til String fra kolonnen arrangementId fra den tidligere metode.
-     * Disse vaerdier kan bruges i WHERE ..IN -clause.
+     * Vaerdier fra den tidligere metode hentes foerst, saadan at formatet passer til WHERE ..IN -clause.
      * Metoden laver beanPropertyMapper til ArrangementOplysninger (tabel- og klassenavnet).
      * Der hentes alle de raekker, hvor arrangementId har den samme vaerdi som i det foerste soegresultat.
      * @return List, som indeholder referencer til instanserne af ArranegementOplysninger.
@@ -63,10 +64,10 @@ public class GenForSamRepo implements IGenForSamRepo {
         String vaerdier = "";
         if (arrangementIdeer.size() != 0) {
             //pga. stakitproblem
-            vaerdier = String.valueOf(arrangementIdeer.get(0));
+            vaerdier = arrangementIdeer.get(0);
             if (arrangementIdeer.size() > 1) {
                 for (int i = 1; i < arrangementIdeer.size(); i++) {
-                    vaerdier = vaerdier + "," + String.valueOf(arrangementIdeer.get(i));
+                    vaerdier = vaerdier + "," + arrangementIdeer.get(i);
                 }
             }
         }
