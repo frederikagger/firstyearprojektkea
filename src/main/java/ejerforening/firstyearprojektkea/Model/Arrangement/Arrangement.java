@@ -1,10 +1,12 @@
 package ejerforening.firstyearprojektkea.Model.Arrangement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.annotation.Inherited;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  */
 
 @Inheritance
-public abstract class Arrangement {
+public class Arrangement {
 
     /**
      * Felter med validerings-annotationer.
@@ -30,7 +32,7 @@ public abstract class Arrangement {
      */
     @Id
     private int arrangementId;
-    @NotNull (message = "Indtast venligst navnet på generalforsamlingen")
+    @NotNull(message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
     private LocalDate oprettelsesDato;
     private ArrangementOplysninger arrangementOplysninger;

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IGenForSamRepo {
 
-    public List<Generalforsamling> hentAlleGeneralforsamlinger();
-    public List<ArrangementOplysninger> findArranOplysninger(int id);
-    public List<Generalforsamling> findGeneralforsamling(int id);
-    public boolean sletGeneralforsamling(int id);
-    public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
-    //public boolean opdatereGeneralforsamling(Generalforsamling genfor);
+    List<Generalforsamling> hentAlleGeneralforsamlinger();
+    List<ArrangementOplysninger> findArranOplysninger(int id);
+    List<Generalforsamling> findGeneralforsamling(int id);
+    boolean sletGeneralforsamling(int id);
+    boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
+    boolean opretGeneralforsamling(Generalforsamling genfor);
     //public boolean opdatereArranOplys(ArrangementOplysninger arranOpl);
 }

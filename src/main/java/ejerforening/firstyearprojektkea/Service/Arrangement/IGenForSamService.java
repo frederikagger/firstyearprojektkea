@@ -16,10 +16,10 @@ import java.util.List;
  */
 public interface IGenForSamService {
 
-    public List<Generalforsamling> hentAlleGeneralforsamlinger();
-    public List<ArrangementOplysninger> findArranOplysninger(int id);
-    public List<Generalforsamling> findGeneralforsamling(int id);
-    public boolean sletGeneralforsamling(int id);
-    //public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, Model model);
-    public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
+    List<Generalforsamling> hentAlleGeneralforsamlinger();
+    List<ArrangementOplysninger> findArranOplysninger(int id);
+    List<Generalforsamling> findGeneralforsamling(int id);
+    boolean sletGeneralforsamling(int id);
+    String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model);
+    String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
 }

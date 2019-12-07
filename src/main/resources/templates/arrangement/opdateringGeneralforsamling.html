@@ -28,12 +28,8 @@
                      <span th:if="${#fields.hasErrors('generalforsamling.oprettelsesDato')}" th:errors="*{generalforsamling.oprettelsesDato}">Fejl i oprettelsesDato</span>
                  </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{generalforsamling.referatId}" class="form-control">
-                    <span th:if="${#fields.hasErrors('generalforsamling.referatId')}" th:errors="*{generalforsamling.referatId}">Fejl i referatId</span>
-                </div>
-                <div class="form-group">
-                    <input type="text" th:field="*{generalforsamling.emne}" class="form-control">
-                    <span th:if="${#fields.hasErrors('generalforsamling.emne')}" th:errors="*{generalforsamling.emne}">Fejl i emne</span>
+                    <input type="text" th:field="*{generalforsamling.ordstyrer}"required="required" class="form-control">
+                    <span th:if="${#fields.hasErrors('generalforsamling.ordstyrer')}" th:errors="*{generalforsamling.ordstyrer}">Fejl i ordstyrer</span>
                 </div>
                 <div class="form-group">
                     <input type="text" th:field="*{arrangementOplysninger.arranOplysId}" class="form-control">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -38,32 +39,26 @@ public class GenForSamService implements IGenForSamService {
         return iGenForSamRepo.sletGeneralforsamling(id);
     }
 
-   /* public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model){
+   public String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model){
        if(bResult.hasErrors()){
            model.addAttribute("bResult", bResult);
-           System.out.println("kommer jeg her");
-           return "/arrangement/opdateringGeneralforsamling"; }
+           return "/arrangement/opretGeneralforsamling"; }
 
-       boolean opdateretGenFor = iGenForSamRepo.opdatereGeneralforsamling(genfor);
-       boolean opdateretArranOplys = iGenForSamRepo.opdatereArranOplys(arroplys);
+       boolean opretGenFor = iGenForSamRepo.opretGeneralforsamling(genfor);
 
-       if(opdateretGenFor && opdateretArranOplys){
-            String bekraeftelse = "Generalforsamlingen er opdateret";
-            model.addAttribute("bekraeftelse", bekraeftelse);
-            return "/arrangement/opdateringGeneralforsamling";
+       if(opretGenFor){ return "redirect:/bekraeftetGeneralforsamling";
        }
        else{
-           String fejlbesked = "Generalforsamlingen kunne ikke opdateres";
+           String fejlbesked = "Generalforsamlingen kunne ikke opdrettes";
            model.addAttribute("fejlbesked",fejlbesked);
-           return "/arrangement/opdateringGeneralforsamling";
+           return "/arrangement/opretGeneralforsamling";
        }
-    }*/
+    }
 
     public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("binding", binding);
             model.addAttribute("bResult", bResult);
-            System.out.println("kommer jeg her");
             return "/arrangement/opdateringGeneralforsamling";
         }
 

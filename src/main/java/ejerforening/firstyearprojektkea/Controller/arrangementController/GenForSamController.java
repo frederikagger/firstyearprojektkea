@@ -101,16 +101,31 @@ public class GenForSamController {
      * @param model
      * @return
      */
-    /*@PostMapping("/opdatereGeneralforsamling")
-    public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, BindingResult binding, @Valid ArrangementOplysninger arranopl, BindingResult bindingResult, Model model){
-        String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, binding, arranopl,bindingResult,model);
-        return bedOmValideringOgOpdatering;
-    }*/
 
     @PostMapping("/opdatereGeneralforsamling")
     public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, BindingResult binding, @Valid ArrangementOplysninger arrOply, BindingResult bResult, Model model){
         String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, binding, arrOply, bResult,model);
         return bedOmValideringOgOpdatering;
+    }
+
+    @GetMapping ("oprettelseForside")
+    public String visOprettelseSide(Generalforsamling genfor, Model model){
+        model.addAttribute("generalforsamling", genfor);
+        return "arrangement/opretGeneralforsamling";
+    }
+
+    @PostMapping("/dataTilGeneralforsamling")
+    public String opretGeneralForsamling(@Valid Generalforsamling generalforsamling, BindingResult binding, Model model){
+        String bedOmValidereOgOprette = iGenForSamService.validereOgOpretGenForSam(generalforsamling,binding,model);
+        return bedOmValidereOgOprette;
+    }
+
+    @GetMapping("/bekraeftetGeneralforsamling")
+    public String visOprettelseSideMedBekraeftelse(Generalforsamling generalforsamling, Model model){
+        String bekraeftelse = "Generalforsamlingen er oprettet";
+        model.addAttribute("bekraeftelse", bekraeftelse);
+        model.addAttribute("generalforsamling", generalforsamling);
+        return "/arrangement/opretGeneralforsamling";
     }
 
 }

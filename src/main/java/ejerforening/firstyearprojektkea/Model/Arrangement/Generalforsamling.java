@@ -12,27 +12,13 @@ public class Generalforsamling extends Arrangement{
 
     @Id
     private int genforsamId;
-    private int referatId;
-    private String emne;
+    private String ordstyrer;
 
-    public int getGenforsamId() {
-        return genforsamId;
-    }
+    public int getGenforsamId() { return genforsamId; }
+    public void setGenforsamId(int genforsamId) { this.genforsamId = genforsamId; }
+    public String getOrdstyrer() { return ordstyrer; }
+    public void setOrdstyrer(String ordstyrer) { this.ordstyrer = ordstyrer; }
 
-    public void setGenforsamId(int genforsamId) {
-        this.genforsamId = genforsamId;
-    }
-
-    public int getReferatId() {
-        return referatId;
-    }
-
-    public void setReferatId(int referatId) {
-        this.referatId = referatId;
-    }
-
-    public String getEmne() { return emne; }
-    public void setEmne(String emne) { this.emne = emne; }
 
 
 }
