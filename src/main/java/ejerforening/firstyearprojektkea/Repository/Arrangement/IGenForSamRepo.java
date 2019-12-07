@@ -13,5 +13,7 @@ public interface IGenForSamRepo {
     boolean sletGeneralforsamling(int id);
     boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
     boolean opretGeneralforsamling(Generalforsamling genfor);
+
+    boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys);
     //public boolean opdatereArranOplys(ArrangementOplysninger arranOpl);
 }

@@ -22,4 +22,6 @@ public interface IGenForSamService {
     boolean sletGeneralforsamling(int id);
     String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model);
     String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
+
+    String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model);
 }

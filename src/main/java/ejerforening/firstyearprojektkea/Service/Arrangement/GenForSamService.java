@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,6 +38,7 @@ public class GenForSamService implements IGenForSamService {
         return iGenForSamRepo.sletGeneralforsamling(id);
     }
 
+    //returnerer html-sider, fordi opgaven er delegeret fra controller her til service
    public String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model){
        if(bResult.hasErrors()){
            model.addAttribute("bResult", bResult);
@@ -46,15 +46,36 @@ public class GenForSamService implements IGenForSamService {
 
        boolean opretGenFor = iGenForSamRepo.opretGeneralforsamling(genfor);
 
-       if(opretGenFor){ return "redirect:/bekraeftetGeneralforsamling";
+       if(opretGenFor){ return "redirect:/opretGeneralforsamlingFortsatGet";
+
        }
        else{
-           String fejlbesked = "Generalforsamlingen kunne ikke opdrettes";
+           String fejlbesked = "Generalforsamlingen kunne ikke opdrettes. Ret venligst på oplysninger.";
            model.addAttribute("fejlbesked",fejlbesked);
            return "/arrangement/opretGeneralforsamling";
        }
     }
 
+    public String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model){
+        if(binding.hasErrors()){
+            model.addAttribute("binding", binding);
+            return "arrangement/opretGeneralforsamlingFortsat";
+        }
+        boolean opdateretGenfor = iGenForSamRepo.opretGeneralforsamlingAfslut(arrOplys);
+
+        if (opdateretGenfor) {
+            String bekraeftelse = "Generalforsamlingen er oprettet";
+            model.addAttribute("bekraeftelse", bekraeftelse);
+            return "/arrangement/opretGeneralforsamlingFortsat";
+        } else {
+            String fejlbesked = "Generalforsamlingen kunne ikke oprettes";
+            model.addAttribute("fejlbesked", fejlbesked);
+            return "/arrangement/opretGeneralforsamlingFortsat";
+        }
+    }
+
+
+    //returnerer html-sider, fordi opgaven er delegeret fra controller her til service
     public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("binding", binding);

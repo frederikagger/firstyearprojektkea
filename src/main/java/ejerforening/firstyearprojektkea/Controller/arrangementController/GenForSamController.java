@@ -120,12 +120,17 @@ public class GenForSamController {
         return bedOmValidereOgOprette;
     }
 
-    @GetMapping("/bekraeftetGeneralforsamling")
-    public String visOprettelseSideMedBekraeftelse(Generalforsamling generalforsamling, Model model){
-        String bekraeftelse = "Generalforsamlingen er oprettet";
-        model.addAttribute("bekraeftelse", bekraeftelse);
-        model.addAttribute("generalforsamling", generalforsamling);
-        return "/arrangement/opretGeneralforsamling";
+    @GetMapping("/opretGeneralforsamlingFortsatGet")
+    public String visOprettelseSideFortsat(ArrangementOplysninger arrOplys, Model model){
+        model.addAttribute("arrangementOplysninger", arrOplys);
+        return "arrangement/opretGeneralforsamlingFortsat";
     }
+
+
+   @PostMapping("/opretGeneralForsamlingAfslut")
+    public String visOprettelseSideMedBekraeftelse(@Valid ArrangementOplysninger arrOplys, BindingResult binding, Model model) {
+       String bedOmValidereOgAfslutOpret = iGenForSamService.validereOgOpretAfslut(arrOplys, binding, model);
+       return bedOmValidereOgAfslutOpret;
+   }
 
 }

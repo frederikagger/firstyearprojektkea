@@ -27,9 +27,8 @@
                         <span th:if="${#fields.hasErrors('generalforsamling.ordstyrer')}" th:errors="*{generalforsamling.ordstyrer}">Fejl i emne</span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Fortsæt til næste oplysninger</button>
+                    <button type="submit" class="btn btn-primary">Fortsæt til de næste oplysninger</button>
 
-                    <span th:text="${bekraeftelse}">bekræftelse</span>
                     <span th:text="${fejlbesked}">fejlbesked</span>
                 </form>
             </main>

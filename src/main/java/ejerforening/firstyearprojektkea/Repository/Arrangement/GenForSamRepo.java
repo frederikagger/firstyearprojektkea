@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -76,6 +77,7 @@ public class GenForSamRepo implements IGenForSamRepo {
         return jdbcTemplate.query(sql, rowmapper, id);
     }
 
+    //løsning på 0? Stored procedure returnerer ikke noget, men crasher, hvis den ikke virker
     public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arrOpl){
         String navn = genfor.getNavn();
         int arrangementId = genfor.getArrangementId();
@@ -87,25 +89,56 @@ public class GenForSamRepo implements IGenForSamRepo {
         return opdateretGenFor == 0;
     }
 
+    /**
+     * returnerer -1, hvis der hentes andet end 1 arrangementId
+     * @param navn
+     * @param oprettelsesDato
+     * @return
+     */
     public int findArrangementId(String navn, LocalDate oprettelsesDato){
         RowMapper rowMapper = new BeanPropertyRowMapper<>(Arrangement.class);
         String sqlFind = "SELECT arrangementId FROM arrangement WHERE navn=? AND oprettelsesDato =?";
         List<Arrangement> arrangementList = (List<Arrangement>) jdbcTemplate.query(sqlFind,rowMapper,navn,oprettelsesDato);
         int arrangementId = arrangementList.get(0).getArrangementId();
+        if(arrangementList.size() !=1){
+            arrangementId = -1;
+        }
         return arrangementId;
     }
 
+    /**
+     * returnerer false, hvis der er flere arrangementId'er men det samme navn og oprettelsesdato
+     * @param genfor
+     * @return
+     */
+    //erstat kolonnenavne med tallene
     public boolean opretGeneralforsamling(Generalforsamling genfor){
         String sql = "INSERT INTO arrangement(navn,oprettelsesDato) VALUES(?,?)";
         String navn = genfor.getNavn();
         LocalDate oprettelsesDato = LocalDate.now();
         int arranOpdateret = jdbcTemplate.update(sql, navn, oprettelsesDato);
         int arrangementId = findArrangementId(navn,oprettelsesDato);
-
+        if(arrangementId == -1){
+            return false;
+        }
         String sql2 = "INSERT INTO generalforsamling (arrangementId,ordstyrer)VALUES(?,?)";
         String ordstyrer = genfor.getOrdstyrer();
         int genforOpdateret = jdbcTemplate.update(sql2, arrangementId,ordstyrer);
-        return true;
+        int resultat = arranOpdateret + genforOpdateret;
+        return resultat == 2;
+    }
+
+    public boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys){
+        String sql = "INSERT INTO arrangementOplysninger (agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?)";
+        String agenda = arrOplys.getAgenda();
+        LocalDate dato = arrOplys.getDato();
+        LocalTime start = arrOplys.getStartTidspunkt();
+        LocalTime slut = arrOplys.getSlutTidspunkt();
+        String sted = arrOplys.getSted();
+        LocalDate frist = arrOplys.getTilmeldingsfrist();
+        LocalDate sidstOpdateret = LocalDate.now();
+        int genforOprettet = jdbcTemplate.update(sql,agenda,dato,start,slut,sted,frist,sidstOpdateret);
+        return genforOprettet !=0;
     }
 
 
