@@ -30,10 +30,10 @@ public class LejlighedsController {
      * @param model
      * @return
      */
-    @GetMapping("/seLejligheder")
+    @GetMapping("lejlighed/oversigt")
     public String seLejligheder(Model model){
         model.addAttribute("lejligheder",ilejlighedService.hentAlle());
-        return "/lejlighed/seLejligheder";
+        return "/lejlighed/oversigt";
     }
 
     @GetMapping("/form_opret_lejlighed")
