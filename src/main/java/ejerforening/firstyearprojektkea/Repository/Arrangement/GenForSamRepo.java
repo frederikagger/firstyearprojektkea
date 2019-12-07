@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -79,15 +81,31 @@ public class GenForSamRepo implements IGenForSamRepo {
         return opdateretGenFor != 0;
     }*/
 
-    public boolean opdatereGeneralforsamling(Generalforsamling genfor){
-        String sql = "UPDATE generalforsamling g,arrangement a SET a.navn=?, a.oprettelsesDato=?, a.opdateringsDato=?, g.referatId=?, g.emne=? WHERE a.arrangementId=?";
-        int opdateretGenFor = jdbcTemplate.update(sql, genfor.getNavn(), genfor.getOprettelsesDato(), genfor.getOpdateringsDato(), genfor.getReferatId(),genfor.getEmne(), genfor.getArrangementId());
+    /*public boolean opdatereGeneralforsamling(Generalforsamling genfor){
+        String sql = "UPDATE generalforsamling g,arrangement a SET a.navn=?, a.oprettelsesDato=?, g.arrangementId=?, g.referatId=?, g.emne=? WHERE a.arrangementId=?";
+        int opdateretGenFor = jdbcTemplate.update(sql, genfor.getNavn(), genfor.getOprettelsesDato(), genfor.getArrangementId(),genfor.getReferatId(),genfor.getEmne(), genfor.getArrangementId());
         return opdateretGenFor !=0;
+    }*/
+
+    public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arrOpl){
+        String navn = genfor.getNavn();
+        int arrangementId = genfor.getArrangementId();
+        System.out.println("arrangementId" + arrangementId);
+        String emne = genfor.getEmne();
+        String agenda = arrOpl.getAgenda();
+        String sted = arrOpl.getSted();
+        String sql = "CALL SL_opdatereGeneralforsamling(?,?,?,?,?)";
+        int opdateretGenFor = jdbcTemplate.update(sql,navn,emne,agenda,sted, arrangementId);
+        System.out.println("antallet " + opdateretGenFor);
+        return opdateretGenFor == 0;
     }
 
+
+    //arrangementId og arranOplysId har altid den samem vaerdi i databasen, saa jeg kan soege paa arranOplysId som PK med den vaerdi, som
+    //arrangementId har
     public boolean opdatereArranOplys(ArrangementOplysninger arranOpl){
-        String sql = "UPDATE arrangementOplysninger SET agenda=?, dato=?, startTidspunkt=?, slutTidspunkt=?, sted=?, tilmeldingsfrist=?, opdateringsDato=? WHERE arrangementId=?";
-        int opdateretArranOpl = jdbcTemplate.update(sql, arranOpl.getAgenda(), arranOpl.getDato(),arranOpl.getStartTidspunkt(), arranOpl.getSlutTidspunkt(), arranOpl.getSted(), arranOpl.getTilmeldingsfrist(), arranOpl.getTilmeldingsfrist(), arranOpl.getArrangementId());
+        String sql = "UPDATE arrangementOplysninger SET arrangementId=?, agenda=?, dato=?, startTidspunkt=?, slutTidspunkt=?, sted=?, tilmeldingsfrist=?, sidstOpdateret=? WHERE arranOplysId=?";
+        int opdateretArranOpl = jdbcTemplate.update(sql, arranOpl.getArrangementId(), arranOpl.getAgenda(), arranOpl.getDato(),arranOpl.getStartTidspunkt(), arranOpl.getSlutTidspunkt(), arranOpl.getSted(), arranOpl.getTilmeldingsfrist(), arranOpl.getSidstOpdateret(), arranOpl.getArranOplysId());
         return opdateretArranOpl !=0;
     }
 

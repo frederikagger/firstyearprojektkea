@@ -1,10 +1,8 @@
 package ejerforening.firstyearprojektkea.Model.Arrangement;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import javax.persistence.Id;
-import java.sql.Date;
-import java.sql.Time;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -23,6 +21,7 @@ public class ArrangementOplysninger{
      * til tabellen Arrangement med en-til-en -relation.
      */
     @Id
+    private int arranOplysId;
     private int arrangementId;
     private String agenda;
     private LocalDate dato;
@@ -30,9 +29,17 @@ public class ArrangementOplysninger{
     private LocalTime slutTidspunkt;
     private String sted;
     private LocalDate tilmeldingsfrist;
-    private LocalDate opdateringsDato;
+    private LocalDate sidstOpdateret;
 
     public ArrangementOplysninger(){}
+
+    public int getArranOplysId() {
+        return arranOplysId;
+    }
+
+    public void setArranOplysId(int arranOplysId) {
+        this.arranOplysId = arranOplysId;
+    }
 
     public int getArrangementId() {
         return arrangementId;
@@ -90,11 +97,11 @@ public class ArrangementOplysninger{
         this.tilmeldingsfrist = tilmeldingsfrist;
     }
 
-    public LocalDate getOpdateringsDato() {
-        return opdateringsDato;
+    public LocalDate getSidstOpdateret() {
+        return sidstOpdateret;
     }
 
-    public void setOpdateringsDato(LocalDate opdateringsDato) {
-        this.opdateringsDato = opdateringsDato;
+    public void setSidstOpdateret(LocalDate sidstOpdateret) {
+        this.sidstOpdateret = sidstOpdateret;
     }
 }

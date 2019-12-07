@@ -1,5 +1,7 @@
 package ejerforening.firstyearprojektkea.Model.Arrangement;
 
+import javax.persistence.Id;
+
 /**
  * @author Paivi
  * Klassen er en subklasse til Arrangement (extends). Den arver alt fra
@@ -8,8 +10,18 @@ package ejerforening.firstyearprojektkea.Model.Arrangement;
 
 public class Generalforsamling extends Arrangement{
 
+    @Id
+    private int genforsamId;
     private int referatId;
     private String emne;
+
+    public int getGenforsamId() {
+        return genforsamId;
+    }
+
+    public void setGenforsamId(int genforsamId) {
+        this.genforsamId = genforsamId;
+    }
 
     public int getReferatId() {
         return referatId;

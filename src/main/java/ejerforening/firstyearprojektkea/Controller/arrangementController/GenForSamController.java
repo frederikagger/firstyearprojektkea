@@ -97,15 +97,20 @@ public class GenForSamController {
      * Beder iGenForSamService om at validere og returnere view, som skal vises. Metoden returnerer saa dette view.
      * Idet validering kraever mere arbejde end at vaelge view, er denne opgave delegeret til service
      * @param genForSam
-     * @param bindingResult
+     * @param binding
      * @param model
      * @return
      */
+    /*@PostMapping("/opdatereGeneralforsamling")
+    public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, BindingResult binding, @Valid ArrangementOplysninger arranopl, BindingResult bindingResult, Model model){
+        String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, binding, arranopl,bindingResult,model);
+        return bedOmValideringOgOpdatering;
+    }*/
+
     @PostMapping("/opdatereGeneralforsamling")
-    public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, @Valid ArrangementOplysninger arranopl, BindingResult bindingResult, Model model){
-        String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, arranopl,bindingResult,model);
+    public String opdatereGeneralforsamling(@Valid Generalforsamling genForSam, BindingResult binding, @Valid ArrangementOplysninger arrOply, BindingResult bResult, Model model){
+        String bedOmValideringOgOpdatering = iGenForSamService.validereOgOpdatereGenForSam(genForSam, binding, arrOply, bResult,model);
         return bedOmValideringOgOpdatering;
     }
-
 
 }

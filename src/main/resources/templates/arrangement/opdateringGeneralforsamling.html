@@ -18,18 +18,15 @@
 
             <form action="#" th:action="@{/opdatereGeneralforsamling}" method="post">
                 <div class="form-group">
+                    <input type="hidden" th:field="*{generalforsamling.genforsamId}">
                     <input type="hidden" th:field="*{generalforsamling.arrangementId}">
                     <input type="text" th:field="*{generalforsamling.navn}" class="form-control">
                     <span th:if="${#fields.hasErrors('generalforsamling.navn')}" th:errors="*{generalforsamling.navn}">Fejl i navnet</span>
                 </div>
                  <div class="form-group">
                     <input type="text" th:field="*{generalforsamling.oprettelsesDato}" class="form-control">
-                    <span th:if="${#fields.hasErrors('generalforsamling.oprettelsesDato')}" th:errors="*{generalforsamling.oprettelsesDato}">Fejl i oprettelsesDato</span>
+                     <span th:if="${#fields.hasErrors('generalforsamling.oprettelsesDato')}" th:errors="*{generalforsamling.oprettelsesDato}">Fejl i oprettelsesDato</span>
                  </div>
-                   <div class="form-group">
-                    <input type="text" th:field="*{generalforsamling.opdateringsDato}" class="form-control">
-                    <span th:if="${#fields.hasErrors('generalforsamling.opdateringsDato')}" th:errors="*{generalforsamling.opdateringsDato}">Fejl i opdateringsDato</span>
-                   </div>
                 <div class="form-group">
                     <input type="text" th:field="*{generalforsamling.referatId}" class="form-control">
                     <span th:if="${#fields.hasErrors('generalforsamling.referatId')}" th:errors="*{generalforsamling.referatId}">Fejl i referatId</span>
@@ -37,6 +34,14 @@
                 <div class="form-group">
                     <input type="text" th:field="*{generalforsamling.emne}" class="form-control">
                     <span th:if="${#fields.hasErrors('generalforsamling.emne')}" th:errors="*{generalforsamling.emne}">Fejl i emne</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.arranOplysId}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.arranOplysId')}" th:errors="*{arrangementOplysninger.arranOplysId}">Fejl i agenda</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{arrangementOplysninger.arrangementId}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.arrangementId')}" th:errors="*{arrangementOplysninger.arrangementId}">Fejl i agenda</span>
                 </div>
                 <div class="form-group">
                     <input type="text" th:field="*{arrangementOplysninger.agenda}" class="form-control">
@@ -63,8 +68,8 @@
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.tilmeldingsfrist')}" th:errors="*{arrangementOplysninger.tilmeldingsfrist}">Fejl i tilmeldingsfrist</span>
                 </div>
                  <div class="form-group">
-                    <input type="text" th:field="*{arrangementOplysninger.opdateringsDato}" class="form-control">
-                    <span th:if="${#fields.hasErrors('arrangementOplysninger.opdateringsDato')}" th:errors="*{arrangementOplysninger.opdateringsDato}">Fejl i opdateringsDato</span>
+                    <input type="text" th:field="*{arrangementOplysninger.sidstOpdateret}" class="form-control">
+                    <span th:if="${#fields.hasErrors('arrangementOplysninger.sidstOpdateret')}" th:errors="*{arrangementOplysninger.sidstOpdateret}">Fejl i opdateringsDato</span>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Opdatere</button>

@@ -20,5 +20,6 @@ public interface IGenForSamService {
     public List<ArrangementOplysninger> findArranOplysninger(int id);
     public List<Generalforsamling> findGeneralforsamling(int id);
     public boolean sletGeneralforsamling(int id);
-    public String validereOgOpdatereGenForSam(Generalforsamling genfor, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
+    //public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, Model model);
+    public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
 }

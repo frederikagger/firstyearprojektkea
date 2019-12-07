@@ -33,7 +33,6 @@ public abstract class Arrangement {
     @NotNull (message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
     private LocalDate oprettelsesDato;
-    private LocalDate opdateringsDato;
     private ArrangementOplysninger arrangementOplysninger;
 
     /**
@@ -56,13 +55,6 @@ public abstract class Arrangement {
         this.oprettelsesDato = oprettelsesDato;
     }
 
-    public LocalDate getOpdateringsDato() {
-        return opdateringsDato;
-    }
-
-    public void setOpdateringsDato(LocalDate opdateringsDato) {
-        this.opdateringsDato = opdateringsDato;
-    }
     public ArrangementOplysninger getArrangementOplysninger() { return arrangementOplysninger; }
 
 }
