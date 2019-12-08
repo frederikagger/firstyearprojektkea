@@ -1,7 +1,7 @@
 package ejerforening.firstyearprojektkea.Controller.SlutbrugerController;
 
 import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerOversigt;
-import ejerforening.firstyearprojektkea.Service.ISlutbrugerService;
+import ejerforening.firstyearprojektkea.Service.Slutbruger.ISlutbrugerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

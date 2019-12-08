@@ -1,12 +1,11 @@
 package ejerforening.firstyearprojektkea.Controller;
 
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
-import ejerforening.firstyearprojektkea.Service.IlejlighedService;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
+import ejerforening.firstyearprojektkea.Service.Lejlighed.IlejlighedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

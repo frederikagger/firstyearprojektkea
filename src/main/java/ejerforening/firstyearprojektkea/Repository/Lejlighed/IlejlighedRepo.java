@@ -1,6 +1,6 @@
-package ejerforening.firstyearprojektkea.Repository;
+package ejerforening.firstyearprojektkea.Repository.Lejlighed;
 
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 
 import java.util.List;
 

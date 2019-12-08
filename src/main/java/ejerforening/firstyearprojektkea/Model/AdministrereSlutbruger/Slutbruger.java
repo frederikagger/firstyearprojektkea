@@ -1,6 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
 
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;

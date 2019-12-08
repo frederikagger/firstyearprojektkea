@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Model;
+package ejerforening.firstyearprojektkea.Model.Lejlighed;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
