@@ -6,45 +6,33 @@
     <title>Generalforsamlinger</title>
 </head>
 <body>
-<div class="container container-custom">
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-    <div class="container">
+    <div class="container-fluid">
+        <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-    <div class="main">
-        <main>
-            <h1> Velkommen til generalforsamlinger</h1>
+        <div class="d-flex">
+            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-            <div class="col-xs-10" style="height:30px;"></div>
+            <main class="d-flex flex-column">
+                <h1> Velkommen til generalforsamlinger</h1>
 
-            <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>
+                <p th:each="genfor: ${alleGeneralforsamlinger}">
 
-            <div class="col-xs-10" style="height:50px;"></div>
-
-            <h2>Tidligere generalforsamlinger</h2>
-
-            <div class="col-xs-10" style="height:30px;"></div>
-
-            <p th:each="genfor: ${alleGeneralforsamlinger}">
-                <b>
-                <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
-                </b>
-                <br>
-                <span th:text="${'Generalforsamlingens ordstyrer: '+ genfor.ordstyrer}"></span>
-                <br>
-                <span th:text="${'Er generalforsamlingen ordinær? (true = ordinær, false = ektraordinær) '+ genfor.ordinaer}"></span>
-                <br>
-                <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
-                <br>
-                <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
-                <br>
-                <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
-             </p>
-
-        </main>
+                    <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
+                    <br>
+                    <span th:text="${'Generalforsamlingens emne: '+ genfor.emne}"></span>
+                    <br>
+                    <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
+                    <br>
+                    <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
+                    <br>
+                    <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
+                </p>
+            </main>
+        </div>
     </div>
-</div>
-</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
 </html>

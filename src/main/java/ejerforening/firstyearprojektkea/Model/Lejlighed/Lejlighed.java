@@ -36,10 +36,20 @@ public class Lejlighed {
     {}
 
     /**
+     * Constructor for at opgave kan få fat i lejlighedsid
+     * @param lejlighedsid
+     */
+    public Lejlighed(int lejlighedsid)
+    {
+        this.lejlighedsid = lejlighedsid;
+    }
+
+    /**
      *
      * @param etage
      * @param lejlighedsside
      */
+
 
     public Lejlighed(@NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside) {
         this.etage = etage;

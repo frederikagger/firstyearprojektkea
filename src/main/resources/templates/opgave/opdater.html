@@ -6,18 +6,63 @@
     <title>Muligheder for slutbruger</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-<div class="container">
-    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
-        <main>
-            <h1>Bla</h1>
+        <main class="d-flex flex-column">
+            <h1>Opdater opgave</h1>
+
+            <form action="#" th:action="@{/validere}" method="post">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{opgave.opgaveId}">
+                    <input type="hidden" th:field="*{opgaveoplysninger.opgaveOplysningerId}">
+                    <input type="text" th:field="*{opgave.navn}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgave.navn')}" th:errors="*{opgave.navn}">Fejl i navnet</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgave.oprettelsesDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgave.oprettelsesDato')}" th:errors="*{opgave.oprettelsesDato}">Fejl i oprettelses dato</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgave.lejlighedsId}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgave.lejlighedsId')}" th:errors="*{opgave.lejlighedsId}">Fejl i lejligheds id</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.beskrivelse}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.beskrivelse')}" th:errors="*{opgaveoplysninger.beskrivelse}">Fejl i beskrivelse</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.varighed}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.varighed')}" th:errors="*{opgaveoplysninger.varighed}">Fejl i varighed</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.svaerhedsgrad}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.svaerhedsgrad')}" th:errors="*{opgaveoplysninger.svaerhedsgrad}">Fejl i sværhedsgrad</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.startDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.startDato')}" th:errors="*{opgaveoplysninger.startDato}">Fejl i start dato</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.slutDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.slutDato')}" th:errors="*{opgaveoplysninger.slutDato}">Fejl i slut dato</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{opgaveoplysninger.opdateringsDato}" class="form-control">
+                    <span th:if="${#fields.hasErrors('opgaveoplysninger.opdateringsDato')}" th:errors="*{opgaveoplysninger.opdateringsDato}">Fejl i opdaterings dato</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Opdater</button>
+
+                <span th:text="${bekraeftelse}">Bekræftelse</span>
+                <span th:text="${fejlbesked}">Fejlbesked</span>
+            </form>
         </main>
     </div>
 </div>
-
 
 <footer th:replace="fragments/footer :: footerElement"></footer>
 </body>

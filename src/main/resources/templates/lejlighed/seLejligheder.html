@@ -5,20 +5,33 @@
     <title>Lejligheder</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<h1>Lejligheder</h1>
 
-<table>
-<tr>
-    <th>LejlighedsID</th>
-    <th>Etage</th>
-    <th>Lejlighedsside</th>
-</tr>
-<tr th:each="lejlighed: ${lejligheder}">
-    <td th:text="${lejlighed.lejlighedsid}">LejlighedsID</td>
-    <td th:text="${lejlighed.etage}">Etage</td>
-    <td th:text="${lejlighed.lejlighedsside}">Lejlighedsside</td>
-</tr>
-</table>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
+
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+            <h1>Lejligheder</h1>
+
+            <table>
+                <tr>
+                    <th>LejlighedsID</th>
+                    <th>Etage</th>
+                    <th>Lejlighedsside</th>
+                </tr>
+                <tr th:each="lejlighed: ${lejligheder}">
+                    <td th:text="${lejlighed.lejlighedsid}">LejlighedsID</td>
+                    <td th:text="${lejlighed.etage}">Etage</td>
+                    <td th:text="${lejlighed.lejlighedsside}">Lejlighedsside</td>
+                </tr>
+            </table>
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
 
 </body>
+</html>

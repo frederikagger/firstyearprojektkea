@@ -1,5 +1,8 @@
 package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 
+import ejerforening.firstyearprojektkea.Model.Arrangement.Arbejdsdag;
+import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
+import ejerforening.firstyearprojektkea.Model.Lejlighed;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
@@ -17,9 +20,7 @@ public class Opgave
      *
      * @Id = primary key i tabellen
      * @NotNull = maa ikke være tom
-     * @DateTimeFormat = hvordan dato skal staa skrevet
      * LocalDate = datatype der udnytter javaklassen Time som er dato
-     * LocalDate.now() = dags dato
      */
     @Id
     private int opgaveId;
@@ -27,10 +28,72 @@ public class Opgave
     @NotNull(message = "Indtast venligst navnet på opgaven")
     private String navn;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate oprettelsesDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
+    private Arbejdsdag arbejdsdag;
 
+    private OpgaveOplysninger opgaveOplysninger;
+
+    private Lejlighed lejlighed;
+
+    /**
+     * Der laves en instans af OpgaveOplysninger i constructoren.
+     */
+    public Opgave(){
+        opgaveOplysninger = new OpgaveOplysninger();
+    }
+
+    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag, Lejlighed lejlighed)
+    {
+        this.opgaveId = opgaveId;
+        this.navn = navn;
+        this.oprettelsesDato = oprettelsesDato;
+        this.arbejdsdag = arbejdsdag;
+        this.lejlighed = lejlighed;
+    }
+
+    public int getOpgaveId()
+    {
+        return opgaveId;
+    }
+
+    public void setOpgaveId(int opgaveId)
+    {
+        this.opgaveId = opgaveId;
+    }
+
+    public String getNavn()
+    {
+        return navn;
+    }
+
+    public void setNavn(String navn)
+    {
+        this.navn = navn;
+    }
+
+    public LocalDate getOprettelsesDato()
+    {
+        return oprettelsesDato;
+    }
+
+    public void setOprettelsesDato(LocalDate oprettelsesDato)
+    {
+        this.oprettelsesDato = oprettelsesDato;
+    }
+
+    public OpgaveOplysninger getOpgaveOplysninger()
+    {
+        return opgaveOplysninger;
+    }
+
+    public Lejlighed getLejlighed()
+    {
+        return lejlighed;
+    }
+
+    public int getLejlighedsId()
+    {
+        return lejlighed.getLejlighedsid();
+    }
 }

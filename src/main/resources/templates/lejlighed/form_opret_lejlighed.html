@@ -5,21 +5,26 @@
     <title>Lejlighed</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
+    <div class="container-fluid">
+        <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-<div class="container">
-    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
-        <main>
-            <h1> Opret lejlighed </h1>
+        <div class="d-flex">
+            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-            <form method="post" action="/opret_lejlighed" modelAttribute="lejlighed">
-                <br>Hvilken etage <input type="number" name="etage" min="0" max="5"> </br>
-                <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="true" checked="checked">
-                <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="false">
-                <br><input type="submit" value="Opret lejlighed" >
-            </form>
-        </main>
+            <main class="d-flex flex-column">
+                <h1> Opret lejlighed </h1>
+
+                    <form method="post" action="/opret_lejlighed" modelAttribute="lejlighed">
+                        <br>Hvilken etage <input type="number" name="etage" min="0" max="5"> </br>
+                        <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="true" checked="checked">
+                        <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="false">
+                        <br><input type="submit" value="Opret lejlighed" >
+                    </form>
+            </main>
+        </div>
     </div>
-</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
+</html>

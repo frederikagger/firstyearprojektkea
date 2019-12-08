@@ -1,7 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,10 +16,11 @@ public class OpgaveOplysninger
      * Attributerne har validerings annotationerm som definerer:
      *
      * @NotNull = maa ikke være tom
-     * @DateTimeFormat = hvordan dato skal staa skrevet
      * LocalDate = datatype der udnytter javaklassen Time som er dato
-     * LocalDate.now() = dags dato
      */
+    @Id
+    private int opgaveOplysningerId;
+
     @NotNull(message = "Indtast venligst en beskrivelse af opgaven")
     private String beskrivelse;
 
@@ -30,17 +30,24 @@ public class OpgaveOplysninger
     @NotNull (message = "Indtast venligst sværheden for opgaven")
     private int svaerhedgrad;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalTime startDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalTime slutDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
+    private LocalDate sidstOpdateret;
 
     public OpgaveOplysninger()
     {
+    }
+
+    public int getOpgaveOplysningerId()
+    {
+        return opgaveOplysningerId;
+    }
+
+    public void setOpgaveOplysningerId(int opgaveOplysningerId)
+    {
+        this.opgaveOplysningerId = opgaveOplysningerId;
     }
 
     public String getBeskrivelse()
@@ -93,13 +100,13 @@ public class OpgaveOplysninger
         this.slutDato = slutDato;
     }
 
-    public LocalDate getOpdateringsDato()
+    public LocalDate getSidstOpdateret()
     {
-        return opdateringsDato;
+        return sidstOpdateret;
     }
 
-    public void setOpdateringsDato(LocalDate opdateringsDato)
+    public void setSidstOpdateret(LocalDate sidstOpdateret)
     {
-        this.opdateringsDato = opdateringsDato;
+        this.sidstOpdateret = sidstOpdateret;
     }
 }

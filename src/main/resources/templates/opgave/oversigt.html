@@ -3,35 +3,61 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
 
-    <title>Muligheder for slutbruger</title>
+    <title>Oversigt over slutbruger</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
 
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-<div class="container">
-    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
-        <main>
-            <h1>Tut tut</h1>
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+            <h1>Oversigt over slutbruger</h1>
+
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="/opgave/opret">Opret en opgave</a>
+                    <button type="submit" class="btn btn-primary"></button>
+                </div>
+            </div>
+
             <table>
-                <tr>
-                    <th>Navn</th>
-                    <th>OpgaveId</th>
-                    <th>LejlighedsId</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>OpgaveId</th>
+                        <th>LejlighedsId</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!--
+                <tr th:if="${opgaveoversigt.empty}">
+                    <td colspan="2"> Slutbrugere ikke fundet </td>
+                </tr> -->
+
                 <tr th:each="opgaveoversigt: ${opgaveoversigt}">
                     <td th:text="${opgaveoversigt.navn}">Navn</td>
                     <td th:text="${opgaveoversigt.opgaveId}">OpgaveId</td>
-                    <td th:text="${opgaveoversigt.lejlighedsId}">LLejlighedsId</td>
+                    <td th:text="${opgaveoversigt.lejlighedsId}">LejlighedsId</td>
+                    <td>
+                        <button type="button" class="btn btn-primary"></button>
+                        <button type="button" class="btn btn-success"></button>
+                        <button type="button" class="btn btn-danger"></button>
+                    </td>
+
                 </tr>
+
+                </tbody>
+
             </table>
         </main>
     </div>
 </div>
 
-
-
 <footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
 </html>
