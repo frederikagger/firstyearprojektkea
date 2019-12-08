@@ -1,4 +1,6 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerArrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
@@ -35,7 +37,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * Jeg vil kun vise generalforsamlinger fra sidste tre aar (datediff 1095 dage).
      * @return List, som indeholder referencer til instanser af Generalforsamling.
      */
-
+    @Override
      public List<Generalforsamling> hentAlleGeneralforsamlinger() {
          RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
          String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE g.arrangementId=a.arrangementId AND DATEDIFF(now(),a.oprettelsesDato) < 1095";
@@ -48,11 +50,31 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId
      * @return List, som indeholder referencen til instansen af ArranegementOplysninger.
      */
+    @Override
     public List<ArrangementOplysninger> findArranOplysninger(int id){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(ArrangementOplysninger.class);
         String sql = "SELECT * FROM arrangementOplysninger WHERE arrangementId=?";
         return jdbcTemplate.query(sql, rowmapper, id);
     }
+
+    public List<Slutbruger> findTilmeldte(int id){
+        RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
+        List<SlutbrugerArrangement> findId= jdbcTemplate.query(sql1,rowmapper1,id);
+        String vaerdier ="";
+        if(findId.size() > 0) {
+            for(int i = 0; i < findId.size()-1;i++){
+                vaerdier += findId.get(i).getSlutbrugerId() + ",";
+            }
+            //pga stakitproblem
+            vaerdier += Integer.toString(findId.get(findId.size()-1).getSlutbrugerId());
+        }
+
+        RowMapper rowmapper2 = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql2 = "SELECT * FROM slutbruger WHERE slutbrugerId=?";
+        return jdbcTemplate.query(sql2, rowmapper2, vaerdier);
+    }
+
 
     /**
      * Det er Arrangement, som holder arranegementId som PK for alle subklasser,
@@ -61,7 +83,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId paa det arrangement,som skal slettes
      * @return true, hvis antallet af raekker, som er blevet slettet, ikke er 0
      */
-
+    @Override
     public boolean sletGeneralforsamling(int id){
         String sql = "DELETE FROM arrangement WHERE arrangementId=?";
         System.out.println(sql);
@@ -74,6 +96,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId
      * @return List, som indeholder referencen til instansen af Generalforsamling.
      */
+    @Override
     public List<Generalforsamling> findGeneralforsamling(int id){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
         String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE a.arrangementId=?";
@@ -81,6 +104,7 @@ public class GenForSamRepo implements IGenForSamRepo {
     }
 
     //løsning på 0? Stored procedure returnerer ikke noget, men crasher, hvis den ikke virker
+    @Override
     public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arrOpl){
         String navn = genfor.getNavn();
         int arrangementId = genfor.getArrangementId();
@@ -99,6 +123,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param oprettelsesDato
      * @return
      */
+    @Override
     public int findArrangementId(String navn, LocalDate oprettelsesDato){
         RowMapper rowMapper = new BeanPropertyRowMapper<>(Arrangement.class);
         String sqlFind = "SELECT arrangementId FROM arrangement WHERE navn=? AND oprettelsesDato =?";
@@ -117,6 +142,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @return
      */
     //erstat kolonnenavne med tallene
+    @Override
     public boolean opretGeneralforsamling(Generalforsamling genfor){
         String sql = "INSERT INTO arrangement(navn,oprettelsesDato) VALUES(?,?)";
         String navn = genfor.getNavn();
@@ -134,6 +160,7 @@ public class GenForSamRepo implements IGenForSamRepo {
         return resultat == 2;
     }
 
+    @Override
     public boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys){
         String sql = "INSERT INTO arrangementOplysninger (arrangementId,agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?,?)";
         String agenda = arrOplys.getAgenda();
@@ -147,7 +174,23 @@ public class GenForSamRepo implements IGenForSamRepo {
         return genforOprettet !=0;
     }
 
+    //find slutbruger på fornavn og efternavn
+    public List<Slutbruger> findSlutbruger(String ...vaerdier){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql = "SELECT * FROM slutbruger WHERE fornavn=? AND efternavn=?";
+        return jdbcTemplate.query(sql, rowmapper, vaerdier);
+    }
 
-
+    public boolean knytSlutbrugerOgArrangement(int arrangementId,int slutbrugerId){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT * FROM slutbrugerArrangement WHERE slutbrugerId=? AND arrangementId=?";
+        List<SlutbrugerArrangement> resultat1 = jdbcTemplate.query(sql1, rowmapper,arrangementId, slutbrugerId);
+        if(resultat1.size() !=0){
+            return false;
+        }
+        String sql2 = "INSERT INTO slutbrugerarrangement (slutbrugerId,arrangementId) values (?,?)";
+        int resultat2 = jdbcTemplate.update(sql2, slutbrugerId,arrangementId);
+        return resultat2 !=0;
+    }
 
 }

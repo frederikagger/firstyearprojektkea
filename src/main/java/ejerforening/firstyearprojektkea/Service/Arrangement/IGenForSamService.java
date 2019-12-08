@@ -1,9 +1,11 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -24,4 +26,8 @@ public interface IGenForSamService {
     String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
 
     String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model);
+
+    String findDeltager(WebRequest webr, int id, Model model);
+    List<Slutbruger> findTilmeldte(int id);
+
 }
