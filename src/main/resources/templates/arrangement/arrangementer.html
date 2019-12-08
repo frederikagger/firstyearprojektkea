@@ -13,12 +13,15 @@
         <div class="d-flex">
             <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-            <main class="d-flex flex-column">
+            <main>
                 <h1> Velkommen til arrangementer</h1>
 
-                    <span> <a th:href="@{genforsamForside}">Gå til generalforsamlinger </a></span>
-                    <br>
-                    <span> <a th:href="@{arbejdsdagForside}">Gå til arbejdsdage </a></span>
+                <div class="col-xs-10" style="height:30px;"></div>
+
+                <span> <a th:href="@{genforsamForside}">Gå til generalforsamlinger </a></span>
+                <br>
+                <div class="col-xs-10" style="height:30px;"></div>
+                <span> <a th:href="@{arbejdsdagForside}">Gå til arbejdsdage </a></span>
             </main>
         </div>
     </div>
