@@ -50,9 +50,9 @@ public class OpgaveService implements IOpgaveService
     }
 
     @Override
-    public boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger)
+    public boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger, Opgave opgave)
     {
-        boolean erOpgaveOplysningerOprettet = opgaveRepository.opretOplysninger(opgaveOplysninger);
+        boolean erOpgaveOplysningerOprettet = opgaveRepository.opretOplysninger(opgaveOplysninger, opgave);
 
         return erOpgaveOplysningerOprettet;
     }
