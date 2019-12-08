@@ -31,10 +31,17 @@
                     <span th:text="${'Tilmeldingsfrist: '+ arran.tilmeldingsfrist}"></span>
                     <br>
 
-                <div class="col-xs-10" style="height:30px;"></div>
-                <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
 
                 </p>
+                <h4>Tilmeldte til generalforsamlingen</h4>
+                <p th:each="tilmeldt: ${tilmeldte}">
+                    <span th:text="${'Fornavn: '+ tilmeldt.fornavn}"></span>
+                    <br>
+                </p>
+
+
+                <div class="col-xs-10" style="height:30px;"></div>
+                <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
 
             </main>
         </div>
