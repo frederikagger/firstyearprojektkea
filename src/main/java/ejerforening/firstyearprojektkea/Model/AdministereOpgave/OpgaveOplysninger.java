@@ -28,11 +28,13 @@ public class OpgaveOplysninger
     private int varighed;
 
     @NotNull (message = "Indtast venligst sværheden for opgaven")
-    private int svaerhedgrad;
+    private int svaerhedsgrad;
 
-    private LocalTime startDato;
+    @NotNull(message = "Indtast venligst dato: dd/mm/åååå")
+    private LocalDate startDato;
 
-    private LocalTime slutDato;
+    @NotNull(message = "Indtast venligst dato: dd/mm/åååå")
+    private LocalDate slutDato;
 
     private LocalDate sidstOpdateret;
 
@@ -70,32 +72,32 @@ public class OpgaveOplysninger
         this.varighed = varighed;
     }
 
-    public int getSvaerhedgrad()
+    public int getSvaerhedsgrad()
     {
-        return svaerhedgrad;
+        return svaerhedsgrad;
     }
 
-    public void setSvaerhedgrad(int svaerhedgrad)
+    public void setSvaerhedsgrad(int svaerhedsgrad)
     {
-        this.svaerhedgrad = svaerhedgrad;
+        this.svaerhedsgrad = svaerhedsgrad;
     }
 
-    public LocalTime getStartDato()
+    public LocalDate getStartDato()
     {
         return startDato;
     }
 
-    public void setStartDato(LocalTime startDato)
+    public void setStartDato(LocalDate startDato)
     {
         this.startDato = startDato;
     }
 
-    public LocalTime getSlutDato()
+    public LocalDate getSlutDato()
     {
         return slutDato;
     }
 
-    public void setSlutDato(LocalTime slutDato)
+    public void setSlutDato(LocalDate slutDato)
     {
         this.slutDato = slutDato;
     }
