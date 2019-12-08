@@ -13,7 +13,7 @@
     <div class="container">
     <div class="main">
         <main>
-            <h1> Generalforsamlingen</h1>
+            <h1>Generalforsamlingen</h1>
 
             <p th:each="arran: ${arranOplysninger}">
 
@@ -30,10 +30,16 @@
                 <span th:text="${'Tilmeldingsfrist: '+ arran.tilmeldingsfrist}"></span>
                 <br>
 
+            </p>
+            <h4>Tilmeldte til generalforsamlingen</h4>
+            <p th:each="tilmeldt: ${tilmeldte}">
+                <span th:text="${'Fornavn: '+ tilmeldt.fornavn}"></span>
+                <br>
+            </p>
+
+
             <div class="col-xs-10" style="height:30px;"></div>
             <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
-
-            </p>
 
         </main>
     </div>

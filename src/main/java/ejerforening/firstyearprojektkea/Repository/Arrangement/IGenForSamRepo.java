@@ -19,4 +19,5 @@ public interface IGenForSamRepo {
     int findArrangementId(String navn, LocalDate oprettelsesDato);
     List<Slutbruger> findSlutbruger(String ...vaerdier);
     boolean knytSlutbrugerOgArrangement(int arrangementId, int slutbrugerId);
+    List<Slutbruger> findTilmeldte(int id);
 }

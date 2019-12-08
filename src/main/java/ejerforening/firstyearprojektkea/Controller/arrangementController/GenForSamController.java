@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Controller.arrangementController;
 
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import ejerforening.firstyearprojektkea.Service.Arrangement.IGenForSamService;
@@ -62,7 +63,9 @@ public class GenForSamController {
     @GetMapping("/flereOplysningerSide/{arrangementId}")
     public String visFlereOplysningerSide(@PathVariable("arrangementId") int id, Model model) {
         List<ArrangementOplysninger> arranOplysninger = iGenForSamService.findArranOplysninger(id);
+        List<Slutbruger> tilmeldteSlutbrugere = iGenForSamService.findTilmeldte(id);
         model.addAttribute("arranOplysninger", arranOplysninger);
+        model.addAttribute("tilmeldte",tilmeldteSlutbrugere);
         return "/arrangement/flereOplysningerGeneralforsamling";
     }
 

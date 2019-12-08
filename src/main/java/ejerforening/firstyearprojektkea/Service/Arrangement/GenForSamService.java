@@ -31,6 +31,9 @@ public class GenForSamService implements IGenForSamService {
     public List<ArrangementOplysninger> findArranOplysninger(int id) {
         return iGenForSamRepo.findArranOplysninger(id);
     }
+    public List<Slutbruger> findTilmeldte(int id){
+        return iGenForSamRepo.findTilmeldte(id);
+    }
 
     public List<Generalforsamling> findGeneralforsamling(int id) {
         return iGenForSamRepo.findGeneralforsamling(id);

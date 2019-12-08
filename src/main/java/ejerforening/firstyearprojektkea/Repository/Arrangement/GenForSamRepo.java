@@ -57,6 +57,25 @@ public class GenForSamRepo implements IGenForSamRepo {
         return jdbcTemplate.query(sql, rowmapper, id);
     }
 
+    public List<Slutbruger> findTilmeldte(int id){
+        RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
+        List<SlutbrugerArrangement> findId= jdbcTemplate.query(sql1,rowmapper1,id);
+        String vaerdier ="";
+        if(findId.size() > 0) {
+            for(int i = 0; i < findId.size()-1;i++){
+                vaerdier += findId.get(i).getSlutbrugerId() + ",";
+            }
+            //pga stakitproblem
+            vaerdier += Integer.toString(findId.get(findId.size()-1).getSlutbrugerId());
+        }
+
+        RowMapper rowmapper2 = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql2 = "SELECT * FROM slutbruger WHERE slutbrugerId=?";
+        return jdbcTemplate.query(sql2, rowmapper2, vaerdier);
+    }
+
+
     /**
      * Det er Arrangement, som holder arranegementId som PK for alle subklasser,
      * saa generalforsamling skal slettes fra den. Samtidigt slettes automatisk ArrangementOplysninger (composition)
@@ -173,8 +192,5 @@ public class GenForSamRepo implements IGenForSamRepo {
         int resultat2 = jdbcTemplate.update(sql2, slutbrugerId,arrangementId);
         return resultat2 !=0;
     }
-
-
-
 
 }
