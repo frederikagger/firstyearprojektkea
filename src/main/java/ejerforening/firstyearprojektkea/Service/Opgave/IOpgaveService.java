@@ -13,7 +13,7 @@ public interface IOpgaveService
     List<Opgave> findOpgave(int opgaveId);
     List<OpgaveOplysninger> findValgteOpgave(int opgaveId);
     boolean erOpgaveOprettet(Opgave opgave);
-    boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger);
+    boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger, Opgave opgave);
     boolean erOpgaveOpdateret(Opgave opgave, OpgaveOplysninger opgaveOplysninger);
 
     void slet(int opgaveId);
