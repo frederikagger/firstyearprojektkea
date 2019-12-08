@@ -3,6 +3,7 @@ import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IGenForSamRepo {
@@ -13,6 +14,6 @@ public interface IGenForSamRepo {
     boolean sletGeneralforsamling(int id);
     boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
     boolean opretGeneralforsamling(Generalforsamling genfor);
-
     boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys);
+    public int findArrangementId(String navn, LocalDate oprettelsesDato);
 }

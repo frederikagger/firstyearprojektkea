@@ -28,18 +28,27 @@
 
             <p th:each="genfor: ${alleGeneralforsamlinger}">
                 <b>
-                <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
+                <span th:text="${'Navn: '+ genfor.navn}"></span>
                 </b>
                 <br>
-                <span th:text="${'Generalforsamlingens ordstyrer: '+ genfor.ordstyrer}"></span>
+                <span th:text="${'Ordstyrer: '+ genfor.ordstyrer}"></span>
                 <br>
-                <span th:text="${'Er generalforsamlingen ordinær? (true = ordinær, false = ektraordinær) '+ genfor.ordinaer}"></span>
+
+                <!--boolean vises på html-siden som en tekst for true og en anden tekst for false-->
+                <span th:if="${genfor.ordinaer}">Ordinær generalforsamling</span>
+                <span th:unless="${genfor.ordinaer}">Ekstra ordinær generalforsamling</span>
+
                 <br>
+                <br>
+
                 <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
                 <br>
                 <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
                 <br>
                 <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
+                <br>
+                <br>
+                <br>
              </p>
 
         </main>
