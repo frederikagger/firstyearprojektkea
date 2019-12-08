@@ -18,7 +18,7 @@ public interface IOpgaveRepository {
 
     boolean opretOpgave(Opgave opgave);
 
-    boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger);
+    boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger, Opgave opgave);
 
     boolean opdaterOpgave(Opgave opgave, OpgaveOplysninger opgaveOplysninger);
 
