@@ -18,16 +18,25 @@
 
                 <form action="#" th:action="@{/dataTilGeneralforsamling}" method="post">
 
-                    <div class="form-group">
-                        <input type="text" th:field="*{generalforsamling.navn}" class="form-control" placeholder="Indtast generalforsamlingens navn">
+                    <div class="form-group col-sm-4">
+                        <input type="text" th:field="*{generalforsamling.navn}" class="form-control" required="required" placeholder="Indtast generalforsamlingens navn">
                         <span th:if="${#fields.hasErrors('generalforsamling.navn')}" th:errors="*{generalforsamling.navn}">Fejl i navnet</span>
                     </div>
-                    <div class="form-group">
-                        <input type="text" th:field="*{generalforsamling.ordstyrer}" class="form-control" placeholder="Hvem er ordstyrer?">
+
+                    <div class="form-group col-sm-4">
+                        <input type="text" th:field="*{generalforsamling.ordstyrer}" class="form-control" required="required" placeholder="Hvem er ordstyrer?">
                         <span th:if="${#fields.hasErrors('generalforsamling.ordstyrer')}" th:errors="*{generalforsamling.ordstyrer}">Fejl i emne</span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Fortsæt til de næste oplysninger</button>
+                    <div class="form-group col-sm-4">
+                        Ordinær generalforsamling?
+                        <input type="radio" name="ordinær" value="1" th:field="*{generalforsamling.ordinaer}"class="form-control">
+                        Eller ekstraordinær generalforsamling?
+                        <input type="radio" name="ekstraordinær" value="0" th:field="*{generalforsamling.ordinaer}"class="form-control">
+                        <span th:if="${#fields.hasErrors('generalforsamling.ordinaer')}" th:errors="*{generalforsamling.ordinaer}">Fejl i ordinaer</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Fortsæt til de næste oplysninger (skal udfyldes)</button>
 
                     <span th:text="${fejlbesked}">fejlbesked</span>
                 </form>

@@ -48,7 +48,7 @@ public class GenForSamController {
     }
 
     /**
-     * Viser siden mere flere oplysninger om generalforsamlingen fra ArrangementOplysninger
+     * Viser siden med flere oplysninger om generalforsamlingen fra ArrangementOplysninger
      * PathVariable laeser id sendt fra view og knytter data til metoden.
      * @param id arrangementId paa arrangement,som skal vises
      * @param model fragter oplysninger til view

@@ -16,16 +16,24 @@
         <main>
             <h1> Velkommen til generalforsamlinger</h1>
 
+            <div class="col-xs-10" style="height:30px;"></div>
+
             <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>
-            <br>
+
+            <div class="col-xs-10" style="height:50px;"></div>
 
             <h2>Tidligere generalforsamlinger</h2>
 
-            <p th:each="genfor: ${alleGeneralforsamlinger}">
+            <div class="col-xs-10" style="height:30px;"></div>
 
+            <p th:each="genfor: ${alleGeneralforsamlinger}">
+                <b>
                 <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
+                </b>
                 <br>
                 <span th:text="${'Generalforsamlingens ordstyrer: '+ genfor.ordstyrer}"></span>
+                <br>
+                <span th:text="${'Er generalforsamlingen ordinær? (true = ordinær, false = ektraordinær) '+ genfor.ordinaer}"></span>
                 <br>
                 <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
                 <br>

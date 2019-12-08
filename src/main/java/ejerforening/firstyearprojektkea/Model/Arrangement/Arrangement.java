@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.Inherited;
 import java.sql.Date;
@@ -12,11 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance. Dog har annotation
- * kun symbolsk betydning her for at markere superklassen, idet systemet ikke bruger hibernate eller anden ORM, som
- * flere af annotationerne er knyttet til. Dermed er klasserne heller ikke annoteret som entity.
+ * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance.
  * Klassen repraesenterer tabellen Arrangement i databasen og indeholder stamdata om et arrangement.
- * Den er abstract, fordi man ikke skal lave instanser af den, kun af subklasserne.
  * @Author Paivi
  */
 
@@ -26,13 +24,14 @@ public class Arrangement {
     /**
      * Felter med validerings-annotationer.
      * Annotationen Id angiver, hvilken kolonne er primary key i tabellen.
-     * Datatypen LocalDate er en javaklasse, som repraesenterer dato.
+     * Datatypen LocalDate er en javaklasse, som repraesenterer dato. Feltet har ikke noget
+     * validering-annotation, fordi den genereres i systemet i stedet for bruger-input.
      * Klassen faar ogsaa ArrangementOplysninegr som felt (composition, dvs. hvis man sletter Arrangement,
      * sletter man ogsaa ArranegementOplysninger)
      */
     @Id
     private int arrangementId;
-    @NotNull(message = "Indtast venligst navnet på generalforsamlingen")
+    @NotBlank (message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
     private LocalDate oprettelsesDato;
     private ArrangementOplysninger arrangementOplysninger;
@@ -48,15 +47,12 @@ public class Arrangement {
     public void setArrangementId(int arrangementId) { this.arrangementId = arrangementId; }
     public String getNavn() { return navn; }
     public void setNavn(String navn) { this.navn = navn; }
-
     public LocalDate getOprettelsesDato() {
         return oprettelsesDato;
     }
-
     public void setOprettelsesDato(LocalDate oprettelsesDato) {
         this.oprettelsesDato = oprettelsesDato;
     }
-
     public ArrangementOplysninger getArrangementOplysninger() { return arrangementOplysninger; }
 
 }

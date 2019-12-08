@@ -23,9 +23,12 @@ public class GenForSamRepo implements IGenForSamRepo {
      *  Klassen autowirer jdbctemplate, som den bruger i metoderne til at udfoere sql-statements.
      *  BeanPropertyRowMapper (interface er RowMapper), som bruges i metoderne sammen med jdbcTemplate,
      *  henter en raekke fra databasen som et object af den type, som den faar som parameter.
+     *  id paa klasseniveuaet bruges til at gemme arrangementId mellem udfoersel af to metoder.
+     *  Scope skal vaere klassen og ikke kun lokatl i metoden.
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
+    private int id =0;
 
     /**
      * Metoden henter alle kolonner fra generalforsamling og arrangement, hvor arrangementId har den samme vaerdi.
@@ -82,10 +85,11 @@ public class GenForSamRepo implements IGenForSamRepo {
         String navn = genfor.getNavn();
         int arrangementId = genfor.getArrangementId();
         String ordstyrer = genfor.getOrdstyrer();
+        boolean ordinaer = genfor.isOrdinaer();
         String agenda = arrOpl.getAgenda();
         String sted = arrOpl.getSted();
-        String sql = "CALL SL_opdatereGeneralforsamling(?,?,?,?,?)";
-        int opdateretGenFor = jdbcTemplate.update(sql,navn,ordstyrer,agenda,sted,arrangementId);
+        String sql = "CALL SL_opdatereGeneralforsamling(?,?,?,?,?,?)";
+        int opdateretGenFor = jdbcTemplate.update(sql,navn,ordstyrer,ordinaer,agenda,sted,arrangementId);
         return opdateretGenFor == 0;
     }
 
@@ -99,11 +103,12 @@ public class GenForSamRepo implements IGenForSamRepo {
         RowMapper rowMapper = new BeanPropertyRowMapper<>(Arrangement.class);
         String sqlFind = "SELECT arrangementId FROM arrangement WHERE navn=? AND oprettelsesDato =?";
         List<Arrangement> arrangementList = (List<Arrangement>) jdbcTemplate.query(sqlFind,rowMapper,navn,oprettelsesDato);
-        int arrangementId = arrangementList.get(0).getArrangementId();
+        id = arrangementList.get(0).getArrangementId();
         if(arrangementList.size() !=1){
-            arrangementId = -1;
+            id = -1;
         }
-        return arrangementId;
+
+        return id;
     }
 
     /**
@@ -115,21 +120,22 @@ public class GenForSamRepo implements IGenForSamRepo {
     public boolean opretGeneralforsamling(Generalforsamling genfor){
         String sql = "INSERT INTO arrangement(navn,oprettelsesDato) VALUES(?,?)";
         String navn = genfor.getNavn();
+        boolean ordinaer = genfor.isOrdinaer();
         LocalDate oprettelsesDato = LocalDate.now();
         int arranOpdateret = jdbcTemplate.update(sql, navn, oprettelsesDato);
         int arrangementId = findArrangementId(navn,oprettelsesDato);
         if(arrangementId == -1){
             return false;
         }
-        String sql2 = "INSERT INTO generalforsamling (arrangementId,ordstyrer)VALUES(?,?)";
+        String sql2 = "INSERT INTO generalforsamling (arrangementId,ordstyrer,ordinaer)VALUES(?,?,?)";
         String ordstyrer = genfor.getOrdstyrer();
-        int genforOpdateret = jdbcTemplate.update(sql2, arrangementId,ordstyrer);
+        int genforOpdateret = jdbcTemplate.update(sql2, arrangementId,ordstyrer, ordinaer);
         int resultat = arranOpdateret + genforOpdateret;
         return resultat == 2;
     }
 
     public boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys){
-        String sql = "INSERT INTO arrangementOplysninger (agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO arrangementOplysninger (arrangementId,agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?,?)";
         String agenda = arrOplys.getAgenda();
         LocalDate dato = arrOplys.getDato();
         LocalTime start = arrOplys.getStartTidspunkt();
@@ -137,7 +143,7 @@ public class GenForSamRepo implements IGenForSamRepo {
         String sted = arrOplys.getSted();
         LocalDate frist = arrOplys.getTilmeldingsfrist();
         LocalDate sidstOpdateret = LocalDate.now();
-        int genforOprettet = jdbcTemplate.update(sql,agenda,dato,start,slut,sted,frist,sidstOpdateret);
+        int genforOprettet = jdbcTemplate.update(sql,this.id,agenda,dato,start,slut,sted,frist,sidstOpdateret);
         return genforOprettet !=0;
     }
 

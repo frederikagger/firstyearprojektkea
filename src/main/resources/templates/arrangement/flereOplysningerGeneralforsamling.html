@@ -17,11 +17,21 @@
 
             <p th:each="arran: ${arranOplysninger}">
 
-                <span th:text="${'Generalforsamlingens dato: '+ arran.dato}"></span>
+                <span th:text="${'Agenda: '+ arran.agenda}"></span>
                 <br>
-                <span th:text="${'Generalforsamlingens sted: '+ arran.sted}"></span>
+                <span th:text="${'Dato: '+ arran.dato}"></span>
                 <br>
-                <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
+                <span th:text="${'Starttidspunkt: '+ arran.startTidspunkt}"></span>
+                <br>
+                <span th:text="${'Sluttidspunkt: '+ arran.slutTidspunkt}"></span>
+                <br>
+                <span th:text="${'Sted: '+ arran.sted}"></span>
+                <br>
+                <span th:text="${'Tilmeldingsfrist: '+ arran.tilmeldingsfrist}"></span>
+                <br>
+
+            <div class="col-xs-10" style="height:30px;"></div>
+            <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
 
             </p>
 
