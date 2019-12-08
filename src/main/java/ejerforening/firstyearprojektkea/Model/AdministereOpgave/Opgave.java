@@ -1,9 +1,9 @@
 package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 
 import ejerforening.firstyearprojektkea.Model.Arrangement.Arbejdsdag;
-import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
-import org.springframework.format.annotation.DateTimeFormat;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
+
+
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -34,6 +34,8 @@ public class Opgave
 
     private OpgaveOplysninger opgaveOplysninger;
 
+    private int lejlighedsId;
+
     private Lejlighed lejlighed;
 
     /**
@@ -43,13 +45,18 @@ public class Opgave
         opgaveOplysninger = new OpgaveOplysninger();
     }
 
-    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag, Lejlighed lejlighed)
+    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag, int lejlighedsId)
     {
         this.opgaveId = opgaveId;
         this.navn = navn;
         this.oprettelsesDato = oprettelsesDato;
         this.arbejdsdag = arbejdsdag;
-        this.lejlighed = lejlighed;
+        this.lejlighedsId = lejlighedsId;
+    }
+
+    public void setLejlighedsId(int lejlighedsId)
+    {
+        this.lejlighedsId = lejlighedsId;
     }
 
     public int getOpgaveId()
@@ -94,6 +101,6 @@ public class Opgave
 
     public int getLejlighedsId()
     {
-        return lejlighed.getLejlighedsid();
+        return lejlighedsId;
     }
 }
