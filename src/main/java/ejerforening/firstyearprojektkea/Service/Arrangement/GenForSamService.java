@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import ejerforening.firstyearprojektkea.Repository.Arrangement.IGenForSamRepo;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -95,4 +97,29 @@ public class GenForSamService implements IGenForSamService {
             return "/arrangement/opdateringGeneralforsamling";
         }
     }
+
+    public String findDeltager(WebRequest webr, int arrangementId, Model model){
+        String fornavnet = webr.getParameter("fornavn");
+        String efternavnet = webr.getParameter("efternavn");
+        List<Slutbruger> deltager = iGenForSamRepo.findSlutbruger(fornavnet,efternavnet);
+        if(deltager.size() == 0){
+            String fejlbesked = "Ingen søgeresultater, prøv igen";
+            model.addAttribute("fejlbesked", fejlbesked);
+        }
+        else {
+            model.addAttribute("deltager", deltager);
+            int slutbrugerId = deltager.get(0).getSlutbrugerId();
+            boolean tilfoej = iGenForSamRepo.knytSlutbrugerOgArrangement(arrangementId, slutbrugerId);
+            System.out.println("tilfoej " + tilfoej);
+            if(tilfoej) {
+                String bekraeftelse = "Deltageren er tilføjet";
+                model.addAttribute("bekraeftelse", bekraeftelse);
+            }else{
+                String fejl = "Deltageren kunne ikke tilføjes, prøv en anden deltager";
+                model.addAttribute("fejl", fejl);
+            }
+        }
+        return "/arrangement/tilfoejSlutbrugerTilGenforsam";
+    }
+
 }

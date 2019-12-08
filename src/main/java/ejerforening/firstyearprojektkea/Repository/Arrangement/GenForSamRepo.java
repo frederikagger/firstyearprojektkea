@@ -1,4 +1,6 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerArrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
@@ -151,6 +153,25 @@ public class GenForSamRepo implements IGenForSamRepo {
         LocalDate sidstOpdateret = LocalDate.now();
         int genforOprettet = jdbcTemplate.update(sql,this.id,agenda,dato,start,slut,sted,frist,sidstOpdateret);
         return genforOprettet !=0;
+    }
+
+    //find slutbruger på fornavn og efternavn
+    public List<Slutbruger> findSlutbruger(String ...vaerdier){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql = "SELECT * FROM slutbruger WHERE fornavn=? AND efternavn=?";
+        return jdbcTemplate.query(sql, rowmapper, vaerdier);
+    }
+
+    public boolean knytSlutbrugerOgArrangement(int arrangementId,int slutbrugerId){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT * FROM slutbrugerArrangement WHERE slutbrugerId=? AND arrangementId=?";
+        List<SlutbrugerArrangement> resultat1 = jdbcTemplate.query(sql1, rowmapper,arrangementId, slutbrugerId);
+        if(resultat1.size() !=0){
+            return false;
+        }
+        String sql2 = "INSERT INTO slutbrugerarrangement (slutbrugerId,arrangementId) values (?,?)";
+        int resultat2 = jdbcTemplate.update(sql2, slutbrugerId,arrangementId);
+        return resultat2 !=0;
     }
 
 

@@ -1,4 +1,5 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
@@ -15,5 +16,7 @@ public interface IGenForSamRepo {
     boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply);
     boolean opretGeneralforsamling(Generalforsamling genfor);
     boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys);
-    public int findArrangementId(String navn, LocalDate oprettelsesDato);
+    int findArrangementId(String navn, LocalDate oprettelsesDato);
+    List<Slutbruger> findSlutbruger(String ...vaerdier);
+    boolean knytSlutbrugerOgArrangement(int arrangementId, int slutbrugerId);
 }
