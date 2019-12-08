@@ -13,14 +13,27 @@
         <div class="d-flex">
             <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-            <main class="d-flex flex-column">
+            <main>
                 <h1> Velkommen til generalforsamlinger</h1>
 
-                <p th:each="genfor: ${alleGeneralforsamlinger}">
+                <div class="col-xs-10" style="height:30px;"></div>
 
-                    <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
+                <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>
+
+                <div class="col-xs-10" style="height:50px;"></div>
+
+                <h2>Tidligere generalforsamlinger</h2>
+
+                <div class="col-xs-10" style="height:30px;"></div>
+
+                <p th:each="genfor: ${alleGeneralforsamlinger}">
+                    <b>
+                        <span th:text="${'Generalforsamlingens navn: '+ genfor.navn}"></span>
+                    </b>
                     <br>
-                    <span th:text="${'Generalforsamlingens emne: '+ genfor.emne}"></span>
+                    <span th:text="${'Generalforsamlingens ordstyrer: '+ genfor.ordstyrer}"></span>
+                    <br>
+                    <span th:text="${'Er generalforsamlingen ordinær? (true = ordinær, false = ektraordinær) '+ genfor.ordinaer}"></span>
                     <br>
                     <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
                     <br>
@@ -28,6 +41,7 @@
                     <br>
                     <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
                 </p>
+
             </main>
         </div>
     </div>
