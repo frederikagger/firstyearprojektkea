@@ -1,6 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
 
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
@@ -19,9 +19,7 @@ public class Slutbruger
      *
      * @Id = primary key i tabellen
      * @NotNull = maa ikke være tom
-     * @DateTimeFormat = hvordan dato skal staa skrevet
      * LocalDate = datatype der udnytter javaklassen Time som er dato
-     * LocalDate.now() = dags dato
      * !!!!!@Column(unique=true) = skal naevnes hvad det, hvis den bliver brugt!!!!!!
      */
     @Id
@@ -36,14 +34,12 @@ public class Slutbruger
     @NotNull(message = "Indtast venligst efternavnet")
     private String efternavn;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate oprettelsesDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
+    private LocalDate opdateringsDato;
 
     //@Column(unique=true) -- Skal måske være her, da jeg mener mellem lejlighed og slutbruger er en-til-en relation
-    private int lejlighedsId;
+    private Lejlighed lejlighed;;
 
 
     /**

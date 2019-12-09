@@ -6,21 +6,27 @@
     <title>Arrangementer</title>
 </head>
 <body>
-<div class="container container-custom">
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-<div class="container">
-    <div class="main">
-        <main>
-            <h1> Velkommen til arrangementer</h1>
+    <div class="container-fluid">
+        <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-            <span> <a th:href="@{genforsamForside}">Gå til generalforsamlinger </a></span>
-            <br>
-            <span> <a th:href="@{arbejdsdagForside}">Gå til arbejdsdage </a></span>
-        </main>
+        <div class="d-flex">
+            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+            <main>
+                <h1> Velkommen til arrangementer</h1>
+
+                <div class="col-xs-10" style="height:30px;"></div>
+
+                <span> <a th:href="@{genforsamForside}">Gå til generalforsamlinger </a></span>
+                <br>
+                <div class="col-xs-10" style="height:30px;"></div>
+                <span> <a th:href="@{arbejdsdagForside}">Gå til arbejdsdage </a></span>
+            </main>
+        </div>
     </div>
-</div>
-</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
 </html>

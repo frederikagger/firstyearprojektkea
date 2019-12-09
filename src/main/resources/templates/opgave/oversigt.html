@@ -3,35 +3,59 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
 
-    <title>Muligheder for slutbruger</title>
+    <title>Oversigt over opgave</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
 
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-<div class="container">
-    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
-        <main>
-            <h1>Tut tut</h1>
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+            <h1>Oversigt over opgave</h1>
+            <a class="btn btn-primary" th:href="@{/opgave/opret}" role="button">Opret opgave</a>
+
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+            </div>
+
             <table>
-                <tr>
-                    <th>Navn</th>
-                    <th>OpgaveId</th>
-                    <th>LejlighedsId</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>OpgaveId</th>
+                        <th>LejlighedsId</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!--
+                <tr th:if="${opgaveoversigt.empty}">
+                    <td colspan="2"> Slutbrugere ikke fundet </td>
+                </tr> -->
+
                 <tr th:each="opgaveoversigt: ${opgaveoversigt}">
                     <td th:text="${opgaveoversigt.navn}">Navn</td>
                     <td th:text="${opgaveoversigt.opgaveId}">OpgaveId</td>
-                    <td th:text="${opgaveoversigt.lejlighedsId}">LLejlighedsId</td>
+                    <td th:text="${opgaveoversigt.lejlighedsId}">LejlighedsId</td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/opgave/detaljer' + ${opgaveoversigt.opgaveId}}" role="button">Flere detaljer</a>
+                        <a class="btn btn-primary" th:href="@{'/opgave/slet' + ${opgaveoversigt.opgaveId}}" role="button">Slet opgave</a>
+                        <a class="btn btn-primary" th:href="@{'/opgave/opdater' + ${opgaveoversigt.opgaveId}}" role="button">Opdater</a>
+                    </td>
+
                 </tr>
+
+                </tbody>
+
             </table>
         </main>
     </div>
 </div>
 
-
-
 <footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
 </html>

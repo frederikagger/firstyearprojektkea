@@ -17,10 +17,8 @@ public class SlutbrugerOplysninger
      * Attributerne har validerings annotationerm som definerer:
      *
      * @NotNull = maa ikke være tom
-     * @DateTimeFormat = hvordan dato skal staa skrevet
      * !!!!@AssertFalse = Skal navnes hvad det er!!!
      * LocalDate = datatype der udnytter javaklassen Time som er dato
-     * LocalDate.now() = dags dato
      */
     @NotNull(message = "Indtast venligst emailen")
     private String email;
@@ -31,7 +29,6 @@ public class SlutbrugerOplysninger
     @AssertFalse //Vil være som udgangspunkt at en slutbruger ikke er medlem af bestyrelsen
     private boolean erBestyrelsesmedlem;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
     private LocalDate opdateringsDato = LocalDate.now();
 
 

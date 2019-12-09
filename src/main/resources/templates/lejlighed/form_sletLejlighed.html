@@ -5,19 +5,25 @@
     <title>Slet lejlighed</title>
 </head>
 <body>
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-<div class="container">
-    <div class="main"> <!--Skal pege på hvor "main" er på hjemmesiden, da css og html ellers ikke er enige om centeringen -->
-        <main>
-            <h1>Slet lejlighed </h1>
+    <div class="container-fluid">
+        <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-            <form method="post" action="/sletLejlighed" modelAttribute="lejlighed">
-                <br>Indtast ID <input type="number" name="lejlighedsid" min="0" max="100">
-                <br><input type="submit" value="Slet lejlighed" >
-            </form>
-        </main>
+        <div class="d-flex">
+            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+            <main class="d-flex flex-column">
+                <h1>Slet lejlighed </h1>
+
+                    <form method="post" action="/sletLejlighed" modelAttribute="lejlighed">
+                        <br>Indtast ID <input type="number" name="lejlighedsid" min="0" max="100">
+                        <br><input type="submit" value="Slet lejlighed" >
+                    </form>
+            </main>
+        </div>
     </div>
-</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
+</html>

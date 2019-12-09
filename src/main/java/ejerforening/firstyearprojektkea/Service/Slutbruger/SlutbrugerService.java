@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Service;
+package ejerforening.firstyearprojektkea.Service.Slutbruger;
 
 import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerOversigt;
 import ejerforening.firstyearprojektkea.Repository.Slutbruger.ISlutbrugerRepository;

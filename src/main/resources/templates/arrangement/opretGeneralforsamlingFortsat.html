@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <meta charset="UTF-8">
+    <title>Opdatering af generalfosamlinger fortsat</title>
+</head>
+<body>
+
+<div class="container container-custom">
+    <div th:replace="fragments/top_menu :: top_menuElement"></div>
+    <div th:replace="fragments/side_menu :: side_menuElement"></div>
+
+    <div class="container">
+        <div class="main">
+            <main>
+                <h1>Indtast oplysninger om generalforsamling</h1>
+
+                <form action="#" th:action="@{/opretGeneralForsamlingAfslut}" method="post">
+
+                    <div class="form-group">
+                        <label for="Agenda">Agenda</label>
+                        <textarea input th:field="*{arrangementOplysninger.agenda}" class="form-control" id="Agenda" rows="3"  required="required" placeholder="Skriv agenda her"></textarea>
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.agenda')}" th:errors="*{arrangementOplysninger.agenda}">Fejl i agenda</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        Dato:<input type="text" th:field="*{arrangementOplysninger.dato}" class="form-control" placeholder="Indtast dato her: dd/mm/åååå">
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.dato')}" th:errors="*{arrangementOplysninger.dato}">Fejl i dato</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        Starttidspunkt:<input type="text" th:field="*{arrangementOplysninger.startTidspunkt}" class="form-control" placeholder="Indtast starttidspunkt her: hh.mm">
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.startTidspunkt')}" th:errors="*{arrangementOplysninger.startTidspunkt}">Fejl i startTidspunkt</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        Sluttidspunkt:<input type="text" th:field="*{arrangementOplysninger.slutTidspunkt}" class="form-control" placeholder="Indtast sluttidspunkt her: hh.mm">
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.slutTidspunkt')}" th:errors="*{arrangementOplysninger.slutTidspunkt}">Fejl i slutTidspunkt</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                       Stedet: <input type="text" th:field="*{arrangementOplysninger.sted}" class="form-control" required="required" placeholder="Indtast stedet her">
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.sted')}" th:errors="*{arrangementOplysninger.sted}">Fejl i sted</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        Tilmeldingsfrist:<input type="text" th:field="*{arrangementOplysninger.tilmeldingsfrist}" class="form-control" placeholder="Indtast tilmeldingsfrist her: dd/mm/åååå">
+                        <span th:if="${#fields.hasErrors('arrangementOplysninger.tilmeldingsfrist')}" th:errors="*{arrangementOplysninger.tilmeldingsfrist}">Fejl i tilmeldingsfrist</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Opret generalforsamling</button>
+
+                    <span th:text="${bekraeftelse}">bekræftelse</span>
+                    <span th:text="${fejlbesked}">fejlbesked</span>
+
+                    <div class="col-xs-10" style="height:30px;"></div>
+                    <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
+
+                </form>
+            </main>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

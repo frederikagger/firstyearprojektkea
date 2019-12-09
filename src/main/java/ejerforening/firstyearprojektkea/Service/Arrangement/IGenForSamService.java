@@ -1,9 +1,11 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -16,10 +18,16 @@ import java.util.List;
  */
 public interface IGenForSamService {
 
-    public List<Generalforsamling> hentAlleGeneralforsamlinger();
-    public List<ArrangementOplysninger> findArranOplysninger(int id);
-    public List<Generalforsamling> findGeneralforsamling(int id);
-    public boolean sletGeneralforsamling(int id);
-    //public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, Model model);
-    public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
+    List<Generalforsamling> hentAlleGeneralforsamlinger();
+    List<ArrangementOplysninger> findArranOplysninger(int id);
+    List<Generalforsamling> findGeneralforsamling(int id);
+    boolean sletGeneralforsamling(int id);
+    String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model);
+    String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model);
+
+    String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model);
+
+    String findDeltager(WebRequest webr, int id, Model model);
+    List<Slutbruger> findTilmeldte(int id);
+
 }

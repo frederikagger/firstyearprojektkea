@@ -1,5 +1,6 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import ejerforening.firstyearprojektkea.Repository.Arrangement.IGenForSamRepo;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class GenForSamService implements IGenForSamService {
     public List<ArrangementOplysninger> findArranOplysninger(int id) {
         return iGenForSamRepo.findArranOplysninger(id);
     }
+    public List<Slutbruger> findTilmeldte(int id){
+        return iGenForSamRepo.findTilmeldte(id);
+    }
 
     public List<Generalforsamling> findGeneralforsamling(int id) {
         return iGenForSamRepo.findGeneralforsamling(id);
@@ -38,32 +43,48 @@ public class GenForSamService implements IGenForSamService {
         return iGenForSamRepo.sletGeneralforsamling(id);
     }
 
-   /* public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model){
+    //returnerer html-sider, fordi opgaven er delegeret fra controller her til service
+   public String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model){
        if(bResult.hasErrors()){
            model.addAttribute("bResult", bResult);
-           System.out.println("kommer jeg her");
-           return "/arrangement/opdateringGeneralforsamling"; }
+           return "/arrangement/opretGeneralforsamling"; }
 
-       boolean opdateretGenFor = iGenForSamRepo.opdatereGeneralforsamling(genfor);
-       boolean opdateretArranOplys = iGenForSamRepo.opdatereArranOplys(arroplys);
+       boolean opretGenFor = iGenForSamRepo.opretGeneralforsamling(genfor);
 
-       if(opdateretGenFor && opdateretArranOplys){
-            String bekraeftelse = "Generalforsamlingen er opdateret";
-            model.addAttribute("bekraeftelse", bekraeftelse);
-            return "/arrangement/opdateringGeneralforsamling";
+       if(opretGenFor){ return "redirect:/opretGeneralforsamlingFortsatGet";
+
        }
        else{
-           String fejlbesked = "Generalforsamlingen kunne ikke opdateres";
+           String fejlbesked = "Generalforsamlingen kunne ikke opdrettes. Ret venligst på oplysninger.";
            model.addAttribute("fejlbesked",fejlbesked);
-           return "/arrangement/opdateringGeneralforsamling";
+           return "/arrangement/opretGeneralforsamling";
        }
-    }*/
+    }
 
+    public String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model){
+        if(binding.hasErrors()){
+            model.addAttribute("binding", binding);
+            return "arrangement/opretGeneralforsamlingFortsat";
+        }
+        boolean opdateretGenfor = iGenForSamRepo.opretGeneralforsamlingAfslut(arrOplys);
+
+        if (opdateretGenfor) {
+            String bekraeftelse = "Generalforsamlingen er oprettet";
+            model.addAttribute("bekraeftelse", bekraeftelse);
+            return "/arrangement/opretGeneralforsamlingFortsat";
+        } else {
+            String fejlbesked = "Generalforsamlingen kunne ikke oprettes";
+            model.addAttribute("fejlbesked", fejlbesked);
+            return "/arrangement/opretGeneralforsamlingFortsat";
+        }
+    }
+
+
+    //returnerer html-sider, fordi opgaven er delegeret fra controller her til service
     public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("binding", binding);
             model.addAttribute("bResult", bResult);
-            System.out.println("kommer jeg her");
             return "/arrangement/opdateringGeneralforsamling";
         }
 
@@ -79,4 +100,29 @@ public class GenForSamService implements IGenForSamService {
             return "/arrangement/opdateringGeneralforsamling";
         }
     }
+
+    public String findDeltager(WebRequest webr, int arrangementId, Model model){
+        String fornavnet = webr.getParameter("fornavn");
+        String efternavnet = webr.getParameter("efternavn");
+        List<Slutbruger> deltager = iGenForSamRepo.findSlutbruger(fornavnet,efternavnet);
+        if(deltager.size() == 0){
+            String fejlbesked = "Ingen søgeresultater, prøv igen";
+            model.addAttribute("fejlbesked", fejlbesked);
+        }
+        else {
+            model.addAttribute("deltager", deltager);
+            int slutbrugerId = deltager.get(0).getSlutbrugerId();
+            boolean tilfoej = iGenForSamRepo.knytSlutbrugerOgArrangement(arrangementId, slutbrugerId);
+            System.out.println("tilfoej " + tilfoej);
+            if(tilfoej) {
+                String bekraeftelse = "Deltageren er tilføjet";
+                model.addAttribute("bekraeftelse", bekraeftelse);
+            }else{
+                String fejl = "Deltageren kunne ikke tilføjes, prøv en anden deltager";
+                model.addAttribute("fejl", fejl);
+            }
+        }
+        return "/arrangement/tilfoejSlutbrugerTilGenforsam";
+    }
+
 }

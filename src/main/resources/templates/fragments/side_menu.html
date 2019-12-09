@@ -3,24 +3,24 @@
 <!-- https://getbootstrap.com/docs/4.0/components/navs/ -->
 <head>
 </head>
-<body th:fragment="side_menuElement">
-    <div id="sidebar">
-        <aside>
-            <!-- Side navigation -->
+<body>
 
-            <nav class="nav flex-column">
-                <a class="nav-link active" href="/form_opret_lejlighed">Opret lejlighed</a>
-                <a class="nav-link" href="/arrangementer">Arrangementer</a>
-                <a class="nav-link" href="/slutbruger/oversigt">Oversigt over slutbruger</a>
-                <a class="nav-link" href="/opgave/oversigt">Oversigt over opgaver</a>
-                <a class="nav-link disabled" href="#">Disabled</a>
+    <aside  th:fragment="side_menuElement">
+        <!-- Side navigation -->
+        <div class="sidebar-sticky">
+            <div class="col-sm-2">
+            <nav class="nav nav-tabs flex-column">
+                <span class="border-right">
+                    <a class="nav-link" href="/form_opret_lejlighed">Opret lejlighed</a>
+                    <a class="nav-link" href="/arrangementer">Arrangementer</a>
+                    <a class="nav-link" href="/slutbruger/oversigt">Oversigt over slutbruger</a>
+                    <a class="nav-link" href="/opgave/oversigt">Oversigt over opgaver</a>
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </span>
             </nav>
-
-        </aside>
-    </div>
-
-
-
+            </div>
+        </div>
+    </aside>
 
 </body>
 </html>

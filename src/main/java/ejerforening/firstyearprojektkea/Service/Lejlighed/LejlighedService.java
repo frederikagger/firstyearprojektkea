@@ -1,7 +1,7 @@
-package ejerforening.firstyearprojektkea.Service;
+package ejerforening.firstyearprojektkea.Service.Lejlighed;
 
-import ejerforening.firstyearprojektkea.Model.Lejlighed;
-import ejerforening.firstyearprojektkea.Repository.IlejlighedRepo;
+import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
+import ejerforening.firstyearprojektkea.Repository.Lejlighed.IlejlighedRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,7 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerArrangement;
+import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -21,16 +25,19 @@ public class GenForSamRepo implements IGenForSamRepo {
      *  Klassen autowirer jdbctemplate, som den bruger i metoderne til at udfoere sql-statements.
      *  BeanPropertyRowMapper (interface er RowMapper), som bruges i metoderne sammen med jdbcTemplate,
      *  henter en raekke fra databasen som et object af den type, som den faar som parameter.
+     *  id paa klasseniveuaet bruges til at gemme arrangementId mellem udfoersel af to metoder.
+     *  Scope skal vaere klassen og ikke kun lokatl i metoden.
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
+    private int id =0;
 
     /**
      * Metoden henter alle kolonner fra generalforsamling og arrangement, hvor arrangementId har den samme vaerdi.
      * Jeg vil kun vise generalforsamlinger fra sidste tre aar (datediff 1095 dage).
      * @return List, som indeholder referencer til instanser af Generalforsamling.
      */
-
+    @Override
      public List<Generalforsamling> hentAlleGeneralforsamlinger() {
          RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
          String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE g.arrangementId=a.arrangementId AND DATEDIFF(now(),a.oprettelsesDato) < 1095";
@@ -43,11 +50,31 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId
      * @return List, som indeholder referencen til instansen af ArranegementOplysninger.
      */
+    @Override
     public List<ArrangementOplysninger> findArranOplysninger(int id){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(ArrangementOplysninger.class);
         String sql = "SELECT * FROM arrangementOplysninger WHERE arrangementId=?";
         return jdbcTemplate.query(sql, rowmapper, id);
     }
+
+    public List<Slutbruger> findTilmeldte(int id){
+        RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
+        List<SlutbrugerArrangement> findId= jdbcTemplate.query(sql1,rowmapper1,id);
+        String vaerdier ="";
+        if(findId.size() > 0) {
+            for(int i = 0; i < findId.size()-1;i++){
+                vaerdier += findId.get(i).getSlutbrugerId() + ",";
+            }
+            //pga stakitproblem
+            vaerdier += Integer.toString(findId.get(findId.size()-1).getSlutbrugerId());
+        }
+
+        RowMapper rowmapper2 = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql2 = "SELECT * FROM slutbruger WHERE slutbrugerId=?";
+        return jdbcTemplate.query(sql2, rowmapper2, vaerdier);
+    }
+
 
     /**
      * Det er Arrangement, som holder arranegementId som PK for alle subklasser,
@@ -56,7 +83,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId paa det arrangement,som skal slettes
      * @return true, hvis antallet af raekker, som er blevet slettet, ikke er 0
      */
-
+    @Override
     public boolean sletGeneralforsamling(int id){
         String sql = "DELETE FROM arrangement WHERE arrangementId=?";
         System.out.println(sql);
@@ -69,44 +96,101 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId
      * @return List, som indeholder referencen til instansen af Generalforsamling.
      */
+    @Override
     public List<Generalforsamling> findGeneralforsamling(int id){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(Generalforsamling.class);
         String sql = "SELECT * FROM generalforsamling g, arrangement a WHERE a.arrangementId=?";
         return jdbcTemplate.query(sql, rowmapper, id);
     }
 
-    /*public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arranoply){
-        String sql = "SP_call opdatere(true, genfor.getNavn(), arranoply.getAgenda(), arranoply.getDato(),arranoply.getSted(), genfor.getEmne())";
-        int opdateretGenFor = jdbcTemplate.update(sql);
-        return opdateretGenFor != 0;
-    }*/
-
-    /*public boolean opdatereGeneralforsamling(Generalforsamling genfor){
-        String sql = "UPDATE generalforsamling g,arrangement a SET a.navn=?, a.oprettelsesDato=?, g.arrangementId=?, g.referatId=?, g.emne=? WHERE a.arrangementId=?";
-        int opdateretGenFor = jdbcTemplate.update(sql, genfor.getNavn(), genfor.getOprettelsesDato(), genfor.getArrangementId(),genfor.getReferatId(),genfor.getEmne(), genfor.getArrangementId());
-        return opdateretGenFor !=0;
-    }*/
-
+    //løsning på 0? Stored procedure returnerer ikke noget, men crasher, hvis den ikke virker
+    @Override
     public boolean opdatereGeneralforsamling(Generalforsamling genfor, ArrangementOplysninger arrOpl){
         String navn = genfor.getNavn();
         int arrangementId = genfor.getArrangementId();
-        System.out.println("arrangementId" + arrangementId);
-        String emne = genfor.getEmne();
+        String ordstyrer = genfor.getOrdstyrer();
+        boolean ordinaer = genfor.isOrdinaer();
         String agenda = arrOpl.getAgenda();
         String sted = arrOpl.getSted();
-        String sql = "CALL SL_opdatereGeneralforsamling(?,?,?,?,?)";
-        int opdateretGenFor = jdbcTemplate.update(sql,navn,emne,agenda,sted, arrangementId);
-        System.out.println("antallet " + opdateretGenFor);
+        String sql = "CALL SL_opdatereGeneralforsamling(?,?,?,?,?,?)";
+        int opdateretGenFor = jdbcTemplate.update(sql,navn,ordstyrer,ordinaer,agenda,sted,arrangementId);
         return opdateretGenFor == 0;
     }
 
+    /**
+     * returnerer -1, hvis der hentes andet end 1 arrangementId
+     * @param navn
+     * @param oprettelsesDato
+     * @return
+     */
+    @Override
+    public int findArrangementId(String navn, LocalDate oprettelsesDato){
+        RowMapper rowMapper = new BeanPropertyRowMapper<>(Arrangement.class);
+        String sqlFind = "SELECT arrangementId FROM arrangement WHERE navn=? AND oprettelsesDato =?";
+        List<Arrangement> arrangementList = (List<Arrangement>) jdbcTemplate.query(sqlFind,rowMapper,navn,oprettelsesDato);
+        id = arrangementList.get(0).getArrangementId();
+        if(arrangementList.size() !=1){
+            id = -1;
+        }
 
-    //arrangementId og arranOplysId har altid den samem vaerdi i databasen, saa jeg kan soege paa arranOplysId som PK med den vaerdi, som
-    //arrangementId har
-    public boolean opdatereArranOplys(ArrangementOplysninger arranOpl){
-        String sql = "UPDATE arrangementOplysninger SET arrangementId=?, agenda=?, dato=?, startTidspunkt=?, slutTidspunkt=?, sted=?, tilmeldingsfrist=?, sidstOpdateret=? WHERE arranOplysId=?";
-        int opdateretArranOpl = jdbcTemplate.update(sql, arranOpl.getArrangementId(), arranOpl.getAgenda(), arranOpl.getDato(),arranOpl.getStartTidspunkt(), arranOpl.getSlutTidspunkt(), arranOpl.getSted(), arranOpl.getTilmeldingsfrist(), arranOpl.getSidstOpdateret(), arranOpl.getArranOplysId());
-        return opdateretArranOpl !=0;
+        return id;
+    }
+
+    /**
+     * returnerer false, hvis der er flere arrangementId'er men det samme navn og oprettelsesdato
+     * @param genfor
+     * @return
+     */
+    //erstat kolonnenavne med tallene
+    @Override
+    public boolean opretGeneralforsamling(Generalforsamling genfor){
+        String sql = "INSERT INTO arrangement(navn,oprettelsesDato) VALUES(?,?)";
+        String navn = genfor.getNavn();
+        boolean ordinaer = genfor.isOrdinaer();
+        LocalDate oprettelsesDato = LocalDate.now();
+        int arranOpdateret = jdbcTemplate.update(sql, navn, oprettelsesDato);
+        int arrangementId = findArrangementId(navn,oprettelsesDato);
+        if(arrangementId == -1){
+            return false;
+        }
+        String sql2 = "INSERT INTO generalforsamling (arrangementId,ordstyrer,ordinaer)VALUES(?,?,?)";
+        String ordstyrer = genfor.getOrdstyrer();
+        int genforOpdateret = jdbcTemplate.update(sql2, arrangementId,ordstyrer, ordinaer);
+        int resultat = arranOpdateret + genforOpdateret;
+        return resultat == 2;
+    }
+
+    @Override
+    public boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys){
+        String sql = "INSERT INTO arrangementOplysninger (arrangementId,agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?,?)";
+        String agenda = arrOplys.getAgenda();
+        LocalDate dato = arrOplys.getDato();
+        LocalTime start = arrOplys.getStartTidspunkt();
+        LocalTime slut = arrOplys.getSlutTidspunkt();
+        String sted = arrOplys.getSted();
+        LocalDate frist = arrOplys.getTilmeldingsfrist();
+        LocalDate sidstOpdateret = LocalDate.now();
+        int genforOprettet = jdbcTemplate.update(sql,this.id,agenda,dato,start,slut,sted,frist,sidstOpdateret);
+        return genforOprettet !=0;
+    }
+
+    //find slutbruger på fornavn og efternavn
+    public List<Slutbruger> findSlutbruger(String ...vaerdier){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(Slutbruger.class);
+        String sql = "SELECT * FROM slutbruger WHERE fornavn=? AND efternavn=?";
+        return jdbcTemplate.query(sql, rowmapper, vaerdier);
+    }
+
+    public boolean knytSlutbrugerOgArrangement(int arrangementId,int slutbrugerId){
+        RowMapper rowmapper = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
+        String sql1 = "SELECT * FROM slutbrugerArrangement WHERE slutbrugerId=? AND arrangementId=?";
+        List<SlutbrugerArrangement> resultat1 = jdbcTemplate.query(sql1, rowmapper,arrangementId, slutbrugerId);
+        if(resultat1.size() !=0){
+            return false;
+        }
+        String sql2 = "INSERT INTO slutbrugerarrangement (slutbrugerId,arrangementId) values (?,?)";
+        int resultat2 = jdbcTemplate.update(sql2, slutbrugerId,arrangementId);
+        return resultat2 !=0;
     }
 
 }

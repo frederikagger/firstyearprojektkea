@@ -1,7 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,10 +16,11 @@ public class OpgaveOplysninger
      * Attributerne har validerings annotationerm som definerer:
      *
      * @NotNull = maa ikke være tom
-     * @DateTimeFormat = hvordan dato skal staa skrevet
      * LocalDate = datatype der udnytter javaklassen Time som er dato
-     * LocalDate.now() = dags dato
      */
+    @Id
+    private int opgaveOplysningerId;
+
     @NotNull(message = "Indtast venligst en beskrivelse af opgaven")
     private String beskrivelse;
 
@@ -28,19 +28,28 @@ public class OpgaveOplysninger
     private int varighed;
 
     @NotNull (message = "Indtast venligst sværheden for opgaven")
-    private int svaerhedgrad;
+    private int svaerhedsgrad;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalTime startDato;
+    @NotNull(message = "Indtast venligst dato: dd/mm/åååå")
+    private LocalDate startDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalTime slutDato;
+    @NotNull(message = "Indtast venligst dato: dd/mm/åååå")
+    private LocalDate slutDato;
 
-    @DateTimeFormat(pattern="dd/MM/YYYY")
-    private LocalDate opdateringsDato = LocalDate.now();
+    private LocalDate sidstOpdateret;
 
     public OpgaveOplysninger()
     {
+    }
+
+    public int getOpgaveOplysningerId()
+    {
+        return opgaveOplysningerId;
+    }
+
+    public void setOpgaveOplysningerId(int opgaveOplysningerId)
+    {
+        this.opgaveOplysningerId = opgaveOplysningerId;
     }
 
     public String getBeskrivelse()
@@ -63,43 +72,43 @@ public class OpgaveOplysninger
         this.varighed = varighed;
     }
 
-    public int getSvaerhedgrad()
+    public int getSvaerhedsgrad()
     {
-        return svaerhedgrad;
+        return svaerhedsgrad;
     }
 
-    public void setSvaerhedgrad(int svaerhedgrad)
+    public void setSvaerhedsgrad(int svaerhedsgrad)
     {
-        this.svaerhedgrad = svaerhedgrad;
+        this.svaerhedsgrad = svaerhedsgrad;
     }
 
-    public LocalTime getStartDato()
+    public LocalDate getStartDato()
     {
         return startDato;
     }
 
-    public void setStartDato(LocalTime startDato)
+    public void setStartDato(LocalDate startDato)
     {
         this.startDato = startDato;
     }
 
-    public LocalTime getSlutDato()
+    public LocalDate getSlutDato()
     {
         return slutDato;
     }
 
-    public void setSlutDato(LocalTime slutDato)
+    public void setSlutDato(LocalDate slutDato)
     {
         this.slutDato = slutDato;
     }
 
-    public LocalDate getOpdateringsDato()
+    public LocalDate getSidstOpdateret()
     {
-        return opdateringsDato;
+        return sidstOpdateret;
     }
 
-    public void setOpdateringsDato(LocalDate opdateringsDato)
+    public void setSidstOpdateret(LocalDate sidstOpdateret)
     {
-        this.opdateringsDato = opdateringsDato;
+        this.sidstOpdateret = sidstOpdateret;
     }
 }

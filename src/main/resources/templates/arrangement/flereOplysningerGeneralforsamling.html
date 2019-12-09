@@ -6,29 +6,48 @@
     <title>Flere oplysninger om generalforsamlingen</title>
 </head>
 <body>
-<div class="container container-custom">
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-    <div class="container">
-    <div class="main">
-        <main>
-            <h1> Generalforsamlingen</h1>
+    <div class="container-fluid">
+        <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-            <p th:each="arran: ${arranOplysninger}">
+        <div class="d-flex">
+            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-                <span th:text="${'Generalforsamlingens dato: '+ arran.dato}"></span>
-                <br>
-                <span th:text="${'Generalforsamlingens sted: '+ arran.sted}"></span>
-                <br>
+            <main>
+                <h1> Generalforsamlingen</h1>
+
+                <p th:each="arran: ${arranOplysninger}">
+
+                    <span th:text="${'Agenda: '+ arran.agenda}"></span>
+                    <br>
+                    <span th:text="${'Dato: '+ arran.dato}"></span>
+                    <br>
+                    <span th:text="${'Starttidspunkt: '+ arran.startTidspunkt}"></span>
+                    <br>
+                    <span th:text="${'Sluttidspunkt: '+ arran.slutTidspunkt}"></span>
+                    <br>
+                    <span th:text="${'Sted: '+ arran.sted}"></span>
+                    <br>
+                    <span th:text="${'Tilmeldingsfrist: '+ arran.tilmeldingsfrist}"></span>
+                    <br>
+
+
+                </p>
+                <h4>Tilmeldte til generalforsamlingen</h4>
+                <p th:each="tilmeldt: ${tilmeldte}">
+                    <span th:text="${'Fornavn: '+ tilmeldt.fornavn}"></span>
+                    <br>
+                </p>
+
+
+                <div class="col-xs-10" style="height:30px;"></div>
                 <a th:href="@{'/genforsamForside/'}">Tilbage til generalforsamlinger </a>
 
-            </p>
-
-        </main>
+            </main>
+        </div>
     </div>
-</div>
-</div>
-</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
 </body>
 </html>
