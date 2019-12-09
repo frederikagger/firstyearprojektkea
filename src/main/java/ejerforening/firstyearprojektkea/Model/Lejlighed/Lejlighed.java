@@ -21,7 +21,7 @@ public class Lejlighed {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int lejlighedsid;
+    private int lejlighedsId;
     @NotNull(message = "Indtast venligst etagen på lejligheden")
     @Min(0)
     @Max(5)
@@ -37,11 +37,11 @@ public class Lejlighed {
 
     /**
      * Constructor for at opgave kan få fat i lejlighedsid
-     * @param lejlighedsid
+     * @param lejlighedsId
      */
-    public Lejlighed(int lejlighedsid)
+    public Lejlighed(int lejlighedsId)
     {
-        this.lejlighedsid = lejlighedsid;
+        this.lejlighedsId = lejlighedsId;
     }
 
     /**
@@ -60,11 +60,11 @@ public class Lejlighed {
 
 
     public int getLejlighedsid() {
-        return lejlighedsid;
+        return lejlighedsId;
     }
 
     public void setLejlighedsid(int lejlighedsid) {
-        this.lejlighedsid = lejlighedsid;
+        this.lejlighedsId = lejlighedsid;
     }
 
     public int getEtage() {

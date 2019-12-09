@@ -34,9 +34,7 @@ public class Opgave
 
     private OpgaveOplysninger opgaveOplysninger;
 
-    private int lejlighedsId;
 
-    private Lejlighed lejlighed;
 
     /**
      * Der laves en instans af OpgaveOplysninger i constructoren.
@@ -45,19 +43,14 @@ public class Opgave
         opgaveOplysninger = new OpgaveOplysninger();
     }
 
-    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag, int lejlighedsId)
+    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag)
     {
         this.opgaveId = opgaveId;
         this.navn = navn;
         this.oprettelsesDato = oprettelsesDato;
         this.arbejdsdag = arbejdsdag;
-        this.lejlighedsId = lejlighedsId;
     }
 
-    public void setLejlighedsId(int lejlighedsId)
-    {
-        this.lejlighedsId = lejlighedsId;
-    }
 
     public int getOpgaveId()
     {
@@ -94,13 +87,4 @@ public class Opgave
         return opgaveOplysninger;
     }
 
-    public Lejlighed getLejlighed()
-    {
-        return lejlighed;
-    }
-
-    public int getLejlighedsId()
-    {
-        return lejlighedsId;
-    }
 }

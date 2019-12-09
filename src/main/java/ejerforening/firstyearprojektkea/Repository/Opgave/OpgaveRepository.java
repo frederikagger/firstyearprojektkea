@@ -40,7 +40,7 @@ public class OpgaveRepository implements IOpgaveRepository
     public List<OpgaveOversigt> hentAlle()
     {
         RowMapper<OpgaveOversigt> rowmapper = new BeanPropertyRowMapper<>(OpgaveOversigt.class);
-        String sql = "SELECT opgaveregister_view.opgaveid, opgaveregister_view.navn, opgaveregister_view.lejlighedsid FROM opgaveregister_view";
+        String sql = "SELECT opg.opgaveId, navn, lejlighedsId FROM opgaveregister_view";
 
         List<OpgaveOversigt> resultHentAlle = jdbcTemplate.query(sql, rowmapper);
         return resultHentAlle;
@@ -50,7 +50,7 @@ public class OpgaveRepository implements IOpgaveRepository
     public List<Opgave> findOpgave(int opgaveId)
     {
         RowMapper<Opgave> rowmapper = new BeanPropertyRowMapper<>(Opgave.class);
-        String sql = "SELECT opgaveregister_view.opgaveid, opgaveregister_view.navn, opgaveregister_view.lejlighedsid FROM opgaveregister_view WHERE opgaveId=?";
+        String sql = "SELECT opgaveregister_view.opgaveId, opgaveregister_view.navn, opgaveregister_view.lejlighedsId FROM opgaveregister_view WHERE opgaveId=?";
         List<Opgave> resultFindOpgave = jdbcTemplate.query(sql, rowmapper, opgaveId);
         return resultFindOpgave;
     }
@@ -68,7 +68,7 @@ public class OpgaveRepository implements IOpgaveRepository
     public int erOpgaveOprettetFoer(String navn, LocalDate oprettelsesDato)
     {
         RowMapper rowmapper = new BeanPropertyRowMapper<>(Opgave.class);
-        String sql = "SELECT opgaveid FROM opgave WHERE navn=? AND oprettelsesDato=?";
+        String sql = "SELECT opgaveId FROM opgave WHERE navn=? AND oprettelsesDato=?";
         List<Opgave> opgaveList = (List<Opgave>) jdbcTemplate.query(sql, rowmapper, navn, oprettelsesDato);
 
         int opgaveId = opgaveList.get(0).getOpgaveId();
@@ -105,14 +105,15 @@ public class OpgaveRepository implements IOpgaveRepository
         String navn = opgave.getNavn();
         LocalDate oprettelsesDato = LocalDate.now();
         int opgaveId = erOpgaveOprettetFoer(navn,oprettelsesDato);
+
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
         int svaerhedsgrad = opgaveOplysninger.getSvaerhedsgrad();
         LocalDate startDato = opgaveOplysninger.getStartDato();
         LocalDate slutDato = opgaveOplysninger.getSlutDato();
         LocalDate sidstOpdateret = LocalDate.now();
-        String sql = "INSERT INTO opgaveOplysninger(opgaveId, beskrivelse, svaerhedsgrad, startDato, slutDato, sidstOpdateret) VALUES(?,?,?,?,?,?)";
-        int opgaveOplysningerOprettet = jdbcTemplate.update(sql, opgaveId, beskrivelse, svaerhedsgrad, startDato, slutDato, sidstOpdateret);
+        String sql = "INSERT INTO opgaveOplysninger(opgaveId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato, sidstOpdateret) VALUES(?,?,?,?,?,?,?)";
+        int opgaveOplysningerOprettet = jdbcTemplate.update(sql, opgaveId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato, sidstOpdateret);
 
         return opgaveOplysningerOprettet !=0;
     }
@@ -123,7 +124,6 @@ public class OpgaveRepository implements IOpgaveRepository
     {
         int opgaveId = opgave.getOpgaveId();
         String navn = opgave.getNavn();
-        int lejlighedsId = opgave.getLejlighedsId();
         int opgaveOplysningerId = opgaveOplysninger.getOpgaveOplysningerId();
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
@@ -133,8 +133,8 @@ public class OpgaveRepository implements IOpgaveRepository
         LocalDate slutDato = opgaveOplysninger.getSlutDato();
         //LocalDate opdateringsDato = opgaveOplysninger.getOpdateringsDato();
 
-        String sql = "CALL SP_opdaterOpgave(?,?,?,?,?,?,?,?,?)";
-        int erOpgaveOpdateret = jdbcTemplate.update(sql, opgaveId, navn, lejlighedsId, opgaveOplysningerId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato);
+        String sql = "CALL SP_opdaterOpgave(?,?,?,?,?,?,?,?)";
+        int erOpgaveOpdateret = jdbcTemplate.update(sql, opgaveId, navn, opgaveOplysningerId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato);
         return erOpgaveOpdateret == 0;
     }
 
@@ -147,7 +147,7 @@ public class OpgaveRepository implements IOpgaveRepository
     @Override
     public void slet(int opgaveId)
     {
-        String sql = "DELETE FROM opgave WHERE opgave.opgaveid = ?;";
+        String sql = "DELETE FROM opgave WHERE opgave.opgaveId = ?;";
         jdbcTemplate.update(sql, opgaveId);
     }
 }
