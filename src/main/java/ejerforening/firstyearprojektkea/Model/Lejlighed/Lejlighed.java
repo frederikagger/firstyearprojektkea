@@ -22,20 +22,30 @@ public class Lejlighed {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int lejlighedsId;
+    private int lejlighedsid;
     @NotNull(message = "Indtast venligst etagen på lejligheden")
     @Min(0)
     @Max(5)
     private int etage;
     @NotNull
     private boolean lejlighedsside;
-
+    private LocalDate oprettelsesDato;
+    private LocalDate sidsOpdateret;
 
     /**
      * Default constructor
      */
-    public Lejlighed()
-    {}
+    public Lejlighed() {
+    }
+
+    /**
+     * Constructor for at opgave kan få fat i lejlighedsid
+     *
+     * @param lejlighedsid
+     */
+    public Lejlighed(int lejlighedsid) {
+        this.lejlighedsid = lejlighedsid;
+    }
 
     /**
      *
@@ -43,20 +53,19 @@ public class Lejlighed {
      * @param lejlighedsside
      */
 
-    public Lejlighed(@NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside) {
+    public Lejlighed(@NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside, LocalDate oprettelsesDato, LocalDate sidsOpdateret) {
         this.etage = etage;
         this.lejlighedsside = lejlighedsside;
+        this.oprettelsesDato = oprettelsesDato;
+        this.sidsOpdateret = sidsOpdateret;
     }
 
-
-
-
-    public int getLejlighedsId() {
-        return lejlighedsId;
+    public int getLejlighedsid() {
+        return lejlighedsid;
     }
 
-    public void setLejlighedsId(int lejlighedsId) {
-        this.lejlighedsId = lejlighedsId;
+    public void setLejlighedsid(int lejlighedsid) {
+        this.lejlighedsid = lejlighedsid;
     }
 
     public int getEtage() {
@@ -75,4 +84,19 @@ public class Lejlighed {
         this.lejlighedsside = lejlighedsside;
     }
 
+    public LocalDate getOprettelsesDato() {
+        return oprettelsesDato;
+    }
+
+    public void setOprettelsesDato(LocalDate oprettelsesDato) {
+        this.oprettelsesDato = oprettelsesDato;
+    }
+
+    public LocalDate getSidsOpdateret() {
+        return sidsOpdateret;
+    }
+
+    public void setSidsOpdateret(LocalDate sidsOpdateret) {
+        this.sidsOpdateret = sidsOpdateret;
+    }
 }
