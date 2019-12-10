@@ -158,4 +158,5 @@ public class GenForSamController {
         String visSideMedSvar = iGenForSamService.findDeltager(webr,arrangementId,model);
         return visSideMedSvar;
     }
+
 }

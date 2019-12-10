@@ -112,13 +112,13 @@ public class GenForSamService implements IGenForSamService {
         else {
             model.addAttribute("deltager", deltager);
             int slutbrugerId = deltager.get(0).getSlutbrugerId();
-            boolean tilfoej = iGenForSamRepo.knytSlutbrugerOgArrangement(arrangementId, slutbrugerId);
+            boolean tilfoej = iGenForSamRepo.knytSlutbrugerOgArrangement(slutbrugerId,arrangementId);
             System.out.println("tilfoej " + tilfoej);
             if(tilfoej) {
                 String bekraeftelse = "Deltageren er tilføjet";
                 model.addAttribute("bekraeftelse", bekraeftelse);
             }else{
-                String fejl = "Deltageren kunne ikke tilføjes, prøv en anden deltager";
+                String fejl = "Deltageren er allerede på listen; prøv en anden deltager";
                 model.addAttribute("fejl", fejl);
             }
         }

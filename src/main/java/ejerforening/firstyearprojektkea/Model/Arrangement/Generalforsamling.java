@@ -8,8 +8,9 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Paivi
- * Klassen er en subklasse til Arrangement (extends). Den arver alt fra
- * superklassenm, men har nogle felt, som kun tilhoerer den selv.
+ * @since 10-12-2019
+ * Klassen er en subklasse til Arrangement (extends). Den arver konstruktoer uden
+ * parametre, felter og metoder fra superklassen, men den har ogsaa nogle felt, som kun tilhoerer den selv.
  */
 
 public class Generalforsamling extends Arrangement{

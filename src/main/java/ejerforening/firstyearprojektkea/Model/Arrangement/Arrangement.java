@@ -13,9 +13,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance.
- * Klassen repraesenterer tabellen Arrangement i databasen og indeholder stamdata om et arrangement.
  * @Author Paivi
+ * @since 8-12-2019
+ * Klassen er superklassen til Generalforsamling og Arbejdsdag, dvs. annoteret med @Inheritance.
+ * Klassen repraesenterer tabellen Arrangement i databasen
+ * og indeholder stamdata (navn og oprettelsesdato) om et arrangement.
  */
 
 @Inheritance
@@ -23,13 +25,14 @@ public class Arrangement {
 
     /**
      * Felter med validerings-annotationer.
-     * Annotationen Id angiver, hvilken kolonne er primary key i tabellen.
-     * Datatypen LocalDate er en javaklasse, som repraesenterer dato. Feltet har ikke noget
-     * validering-annotation, fordi den genereres i systemet i stedet for bruger-input.
+     * Annotationen Id angiver, hvilken kolonne er primary key i tabellen. Id genereres i databasen.
+     * Datatypen LocalDate er en javaklasse, som repraesenterer dato.
+     * Feltet har ikke noget validering-annotation, fordi den genereres i systemet i stedet for at vaere bruger-input.
      * Klassen faar ogsaa ArrangementOplysninegr som felt (composition, dvs. hvis man sletter Arrangement,
      * sletter man ogsaa ArranegementOplysninger)
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int arrangementId;
     @NotBlank (message = "Indtast venligst navnet på generalforsamlingen")
     private String navn;
