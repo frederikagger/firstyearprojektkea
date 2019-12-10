@@ -3,22 +3,19 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
 
-    <title>Hvad skal der stå her?</title>
+    <title>Forside</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <header th:replace="fragments/top_menu :: top_menuElement"></header>
+    <div th:replace="fragments/top_menu :: top_menuElement"></div>
+    <div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-        <div class="d-flex">
-            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-            <main class="d-flex flex-column">
-                <h1>Velkommen til ejerforeningen Mathildevej 20 administrative system</h1>
+    <div class="container">
+            <main class="main">
+                <h1>Velkommen til ejerforeningen Mathildevej 20</h1>
             </main>
-        </div>
     </div>
 
-    <footer th:replace="fragments/footer :: footerElement"></footer>
-
+<footer th:replace="fragments/footer :: footerElement"></footer>
 </body>
 </html>

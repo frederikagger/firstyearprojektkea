@@ -6,59 +6,56 @@
     <title>Generalforsamlinger</title>
 </head>
 <body>
+<div class="container container-custom">
+<div th:replace="fragments/top_menu :: top_menuElement"></div>
+<div th:replace="fragments/side_menu :: side_menuElement"></div>
 
-    <div class="container-fluid">
-        <header th:replace="fragments/top_menu :: top_menuElement"></header>
+    <div class="container">
 
-        <div class="d-flex">
-            <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+    <div class="main">
+        <main>
+            <h1> Velkommen til generalforsamlinger</h1>
 
-            <main>
+            <div class="col-xs-10" style="height:30px;"></div>
 
+            <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>
 
-                <h1> Velkommen til generalforsamlinger</h1>
+            <div class="col-xs-10" style="height:50px;"></div>
 
-                <div class="col-xs-10" style="height:30px;"></div>
+            <h2>Generalforsamlinger</h2>
 
-                <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>
+            <div class="col-xs-10" style="height:30px;"></div>
 
-                <div class="col-xs-10" style="height:50px;"></div>
+            <p th:each="genfor: ${alleGeneralforsamlinger}">
+                <b>
+                <span th:text="${'Navn: '+ genfor.navn}"></span>
+                </b>
+                <br>
+                <span th:text="${'Ordstyrer: '+ genfor.ordstyrer}"></span>
+                <br>
 
-                <h2>Generalforsamlinger</h2>
+                <!--boolean vises på html-siden som en tekst for true og en anden tekst for false-->
+                <span th:if="${genfor.ordinaer}">Ordinær generalforsamling</span>
+                <span th:unless="${genfor.ordinaer}">Ekstraordinær generalforsamling</span>
 
-                <div class="col-xs-10" style="height:30px;"></div>
+                <br>
+                <br>
 
-                <p th:each="genfor: ${alleGeneralforsamlinger}">
-                    <b>
-                        <span th:text="${'Navn: '+ genfor.navn}"></span>
-                    </b>
-                    <br>
-                    <span th:text="${'Ordstyrer: '+ genfor.ordstyrer}"></span>
-                    <br>
+                <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
+                <br>
+                <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
+                <br>
+                <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
+                <br>
+                <a th:href="@{'/visTilfoejSlutbruger/' + ${genfor.arrangementId}}">Tilføj deltager til denne generalforsamling</a>
+                <br>
+                <br>
+                <br>
+             </p>
 
-                    <!--boolean vises på html-siden som en tekst for true og en anden tekst for false-->
-                    <span th:if="${genfor.ordinaer}">Ordinær generalforsamling</span>
-                    <span th:unless="${genfor.ordinaer}">Ekstra ordinær generalforsamling</span>
-
-                    <br>
-                    <br>
-
-                    <a th:href="@{'/flereOplysningerSide/' + ${genfor.arrangementId}}">Flere oplysninger om denne generalforsamling </a>
-                    <br>
-                    <a th:href="@{'/sletGeneralforsamling/' + ${genfor.arrangementId}}">Slet denne generalforsamling</a>
-                    <br>
-                    <a th:href="@{'/visOpdatereGeneralforsamling/' + ${genfor.arrangementId}}">Opdatere denne generalforsamling</a>
-                    <br>
-                    <a th:href="@{'/visTilfoejSlutbruger/' + ${genfor.arrangementId}}">Tilføj deltager til denne generalforsamling</a>
-                    <br>
-                    <br>
-                    <br>
-                </p>
-            </main>
-        </div>
+        </main>
     </div>
-
-<footer th:replace="fragments/footer :: footerElement"></footer>
-
+</div>
+</div>
 </body>
 </html>

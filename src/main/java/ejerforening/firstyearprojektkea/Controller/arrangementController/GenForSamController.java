@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,7 +78,7 @@ public class GenForSamController {
      * @param id arrangementId på den generalforsamling, som slettes
      * @return til GetMapping for genforsamForside
      */
-    @GetMapping("/sletGeneralforsamling/{arrangementId}")
+    @GetMapping ("/sletGeneralforsamling/{arrangementId}")
     public String visSlettetGeneralforsamling(@PathVariable("arrangementId") int id) {
         boolean sletOk = iGenForSamService.sletGeneralforsamling(id);
         return "redirect:/genforsamForside";

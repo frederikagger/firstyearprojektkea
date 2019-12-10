@@ -21,12 +21,6 @@ public class LejlighedsController {
     @Autowired
     private IlejlighedService ilejlighedService;
 
-
-    @GetMapping("/lejlighed")
-    public String seLejlighedForside(){
-        return "lejlighed/lejligheder";
-    }
-
     /**
      * Lavet af FA 29-11-2019.
      * Denne metode linker til html siden seAlleLejligheder
@@ -35,29 +29,28 @@ public class LejlighedsController {
      * @param model
      * @return
      */
-
-    @GetMapping("/lejlighed/oversigt")
+    @GetMapping("/seLejligheder")
     public String seLejligheder(Model model){
         model.addAttribute("lejligheder",ilejlighedService.hentAlle());
-        return "lejlighed/oversigt";
+        return "/lejlighed/seLejligheder";
     }
 
-    @GetMapping("/lejlighed/form_opret_lejlighed")
+    @GetMapping("/form_opret_lejlighed")
     public String form_opret_lejligheder(){
-        return "lejlighed/form_opret_lejlighed";
+        return "/lejlighed/form_opret_lejlighed";
     }
 
-    @GetMapping("/lejlighed/form_sletLejlighed")
+    @GetMapping("/form_sletLejlighed")
     public String form_sletLejlighed(){
-        return "lejlighed/form_sletLejlighed";
+        return "/lejlighed/form_sletLejlighed";
     }
 
-    @GetMapping("/lejlighed/form_soegLejlighed")
+    @GetMapping("/form_soegLejlighed")
     public String form_soegLejlighed(){
-        return "lejlighed/form_soegLejlighed";
+        return "/lejlighed/form_soegLejlighed";
     }
 
-    @PostMapping("/lejlighed/opret_lejlighed")
+    @PostMapping("/opret_lejlighed")
     public String opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             return "Fejl indtastning";
@@ -65,24 +58,24 @@ public class LejlighedsController {
         model.addAttribute("etage",lejlighed.getEtage());
         model.addAttribute("lejlighedsside",lejlighed.isLejlighedsside());
         ilejlighedService.opret(lejlighed);
-        return "lejlighed/lejligheder";
+        return "/bekræftelse";
     }
 
-    @PostMapping("/lejlighed/findLejlighed")
+    @PostMapping("/findLejlighed")
     public String findLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             return "Fejl indtastning";
         }
-        model.addAttribute("lejlighedsid",ilejlighedService.findMedId(lejlighed.getLejlighedsid()));
-        return "lejlighed/visSoegningsSide";
+        model.addAttribute("lejlighedsid",ilejlighedService.findMedId(lejlighed.getLejlighedsId()));
+        return "/lejlighed/visSoegningsSide";
     }
-    @PostMapping("/lejlighed/sletLejlighed")
+    @PostMapping("/sletLejlighed")
     public String sletLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "Fejl indtastning";
         }
-        model.addAttribute("lejlighedsid", lejlighed.getLejlighedsid());
-        ilejlighedService.sletLejlighed(lejlighed.getLejlighedsid());
-        return "lejlighed/lejligheder";
+        model.addAttribute("lejlighedsid", lejlighed.getLejlighedsId());
+        ilejlighedService.sletLejlighed(lejlighed.getLejlighedsId());
+        return "/bekræftelse";
     }
 }

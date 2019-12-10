@@ -27,10 +27,11 @@ public class GenForSamRepo implements IGenForSamRepo {
      *  henter en raekke fra databasen som et object af den type, som den faar som parameter.
      *  id paa klasseniveuaet bruges til at gemme arrangementId mellem udfoersel af to metoder.
      *  Scope skal vaere klassen og ikke kun lokatl i metoden.
+     *  kommentar om call by reference
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
-    private int id =0;
+    private Integer id = 0;
 
     /**
      * Metoden henter alle kolonner fra generalforsamling og arrangement, hvor arrangementId har den samme vaerdi.
@@ -57,6 +58,13 @@ public class GenForSamRepo implements IGenForSamRepo {
         return jdbcTemplate.query(sql, rowmapper, id);
     }
 
+    /**
+     * Foerst skal der hentes slutbrugernes, som er tilmeldt til arrangementet, slutbrugerId'er
+     * fra SlutbrugerArrangement.
+     * Saa en ny rowmapper til at hente slutbrugernes oplysninger med disse id'er.
+     * @param id
+     * @return
+     */
     public List<Slutbruger> findTilmeldte(int id){
         RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
         String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
