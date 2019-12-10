@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Navn</th>
@@ -31,25 +31,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                <!--
-                <tr th:if="${opgaveoversigt.empty}">
-                    <td colspan="2"> Slutbrugere ikke fundet </td>
-                </tr> -->
 
-                <tr th:each="opgaveoversigt: ${opgaveoversigt}">
-                    <td th:text="${opgaveoversigt.navn}">Navn</td>
-                    <td th:text="${opgaveoversigt.opgaveId}">OpgaveId</td>
-                    <td th:text="${opgaveoversigt.lejlighedsId}">LejlighedsId</td>
+                <tr th:each="opgaveOversigt: ${opgaveOversigt}">
+                    <td th:text="${opgaveOversigt.navn}">Navn</td>
+                    <td th:text="${opgaveOversigt.opgaveId}">OpgaveId</td>
+                    <td th:text="${opgaveOversigt.lejlighedsId}">LejlighedsId</td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{'/opgave/detaljer' + ${opgaveoversigt.opgaveId}}" role="button">Flere detaljer</a>
-                        <a class="btn btn-primary" th:href="@{'/opgave/slet' + ${opgaveoversigt.opgaveId}}" role="button">Slet opgave</a>
-                        <a class="btn btn-primary" th:href="@{'/opgave/opdater' + ${opgaveoversigt.opgaveId}}" role="button">Opdater</a>
+                        <a class="btn btn-primary" th:href="@{'/opgave/detaljer/' + ${opgaveOversigt.opgaveId}}" role="button">Flere detaljer</a>
+                        <a class="btn btn-primary" th:href="@{'/opgave/slet/' + ${opgaveOversigt.opgaveId}}" role="button">Slet opgave</a>
+                        <a class="btn btn-primary" th:href="@{'/opgave/opdater/' + ${opgaveOversigt.opgaveId}}" role="button">Opdater</a>
                     </td>
 
                 </tr>
-
                 </tbody>
-
             </table>
         </main>
     </div>
