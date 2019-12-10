@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="form-group col-sm-4">
-                    Dato for generalforsamlingen:<input type="text" th:field="*{arrangementOplysninger.dato}" required="required" class="form-control">
+                    Dato:<input type="text" th:field="*{arrangementOplysninger.dato}" required="required" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.dato')}" th:errors="*{arrangementOplysninger.dato}">Fejl i dato</span>
                 </div>
 

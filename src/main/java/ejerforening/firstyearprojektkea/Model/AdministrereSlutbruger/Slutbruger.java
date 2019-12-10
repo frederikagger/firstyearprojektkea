@@ -1,7 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
 
 import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -36,7 +35,7 @@ public class Slutbruger
 
     private LocalDate oprettelsesDato;
 
-    private LocalDate opdateringsDato;
+    private LocalDate sidstOpdateret;
 
     //@Column(unique=true) -- Skal måske være her, da jeg mener mellem lejlighed og slutbruger er en-til-en relation
     private Lejlighed lejlighed;;
@@ -55,17 +54,17 @@ public class Slutbruger
      * @param mellemnavn
      * @param efternavn
      * @param oprettelsesDato
-     * @param opdateringsDato
+     * @param sidstOpdateret
      * @param lejlighed
      */
-    public Slutbruger(int slutbrugerId, String fornavn, String mellemnavn, String efternavn, LocalDate oprettelsesDato, LocalDate opdateringsDato, Lejlighed lejlighed)
+    public Slutbruger(int slutbrugerId, String fornavn, String mellemnavn, String efternavn, LocalDate oprettelsesDato, LocalDate sidstOpdateret, Lejlighed lejlighed)
     {
         this.slutbrugerId = slutbrugerId;
         this.fornavn = fornavn;
         this.mellemnavn = mellemnavn;
         this.efternavn = efternavn;
         this.oprettelsesDato = oprettelsesDato;
-        this.opdateringsDato = opdateringsDato;
+        this.sidstOpdateret = sidstOpdateret;
     }
 
 
@@ -119,13 +118,13 @@ public class Slutbruger
         this.oprettelsesDato = oprettelsesDato;
     }
 
-    public LocalDate getOpdateringsDato()
+    public LocalDate getSidstOpdateret()
     {
-        return opdateringsDato;
+        return sidstOpdateret;
     }
 
-    public void setOpdateringsDato(LocalDate opdateringsDato)
+    public void setSidstOpdateret(LocalDate sidstOpdateret)
     {
-        this.opdateringsDato = opdateringsDato;
+        this.sidstOpdateret = sidstOpdateret;
     }
 }
