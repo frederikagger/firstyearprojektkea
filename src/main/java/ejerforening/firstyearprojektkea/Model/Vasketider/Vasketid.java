@@ -1,29 +1,34 @@
 package ejerforening.firstyearprojektkea.Model.Vasketider;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
-@Entity()
+@Entity
 public class Vasketid {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int vaskeId;
 
     private UGEDAG ugedag;
 
     private boolean erFormiddag;
 
+    @Column(name = "erBooketEllerEj")
     private boolean erBooket;
+
+    private int lejlighedsId;
+
+    private int vaskeugeId;
 
     public Vasketid() {
     }
 
-    public Vasketid(int vaskeId, UGEDAG ugedag, boolean erFormiddag, boolean erBooket) {
-        this.vaskeId = vaskeId;
+    public Vasketid(UGEDAG ugedag, boolean erFormiddag, boolean erBooket, int lejlighedsId, int vaskeugeId) {
         this.ugedag = ugedag;
         this.erFormiddag = erFormiddag;
         this.erBooket = erBooket;
+        this.lejlighedsId = lejlighedsId;
+        this.vaskeugeId = vaskeugeId;
     }
 
     public int getVaskeId() {
@@ -56,5 +61,21 @@ public class Vasketid {
 
     public void setErBooket(boolean erBooket) {
         this.erBooket = erBooket;
+    }
+
+    public int getLejlighedsId() {
+        return lejlighedsId;
+    }
+
+    public void setLejlighedsId(int lejlighedsId) {
+        this.lejlighedsId = lejlighedsId;
+    }
+
+    public int getVaskeugeId() {
+        return vaskeugeId;
+    }
+
+    public void setVaskeugeId(int vaskeugeId) {
+        this.vaskeugeId = vaskeugeId;
     }
 }
