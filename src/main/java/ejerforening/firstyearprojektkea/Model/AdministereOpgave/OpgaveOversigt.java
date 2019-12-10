@@ -21,10 +21,29 @@ public class OpgaveOversigt
     private String navn;
     private int lejlighedsId;
 
+    public OpgaveOversigt()
+    {
+    }
+
     public OpgaveOversigt(int opgaveId, String navn, int lejlighedsId)
     {
         this.opgaveId = opgaveId;
         this.navn = navn;
+        this.lejlighedsId = lejlighedsId;
+    }
+
+    public void setOpgaveId(int opgaveId)
+    {
+        this.opgaveId = opgaveId;
+    }
+
+    public void setNavn(String navn)
+    {
+        this.navn = navn;
+    }
+
+    public void setLejlighedsId(int lejlighedsId)
+    {
         this.lejlighedsId = lejlighedsId;
     }
 
