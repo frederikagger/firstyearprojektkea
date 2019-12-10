@@ -24,26 +24,29 @@ import java.util.List;
 public class GenForSamService implements IGenForSamService {
 
     /**
-     * Klassen autowirer interface for repository, fordi den beder repository om at udfoere operationer (repository danner kontakt til databasen).
+     * Klassen autowirer interface for repository, fordi den beder repository om at
+     * udfoere operationer (repository danner kontakt til databasen).
      */
     @Autowired
     IGenForSamRepo iGenForSamRepo;
 
+    @Override
     public List<Generalforsamling> hentAlleGeneralforsamlinger() {
         return iGenForSamRepo.hentAlleGeneralforsamlinger();
     }
-
+    @Override
     public List<ArrangementOplysninger> findArranOplysninger(int id) {
         return iGenForSamRepo.findArranOplysninger(id);
     }
+    @Override
     public List<Slutbruger> findTilmeldte(int id){
         return iGenForSamRepo.findTilmeldte(id);
     }
-
+    @Override
     public List<Generalforsamling> findGeneralforsamling(int id) {
         return iGenForSamRepo.findGeneralforsamling(id);
     }
-
+    @Override
     public boolean sletGeneralforsamling(int id) {
         return iGenForSamRepo.sletGeneralforsamling(id);
     }
@@ -61,6 +64,7 @@ public class GenForSamService implements IGenForSamService {
      * @param model model, hvori generalforsamling blev fragtet fra controller til view
      * @return navnet paa html-siden, som controller skal soerge for at vise.
      */
+    @Override
    public String validereOgOpretGenForSam(Generalforsamling genfor, BindingResult bResult, Model model){
        if(bResult.hasErrors()){
            model.addAttribute("bResult", bResult);
@@ -85,9 +89,10 @@ public class GenForSamService implements IGenForSamService {
      * Ellers returneres den samme side med en fejlbesked.
      * @param arrOplys arrangementOplysninger, som skal oprettes
      * @param binding BindingResult, som er et objekt til validering
-     * @param model model, hvori arrangementOplysinger blev fragtet fra controller til view
+     * @param model model, hvori arrangementOplysninger blev fragtet fra controller til view
      * @return navnet paa den html-side, som controller skal vise
      */
+    @Override
     public String validereOgOpretAfslut(ArrangementOplysninger arrOplys, BindingResult binding, Model model){
         if(binding.hasErrors()){
             model.addAttribute("binding", binding);
@@ -118,6 +123,7 @@ public class GenForSamService implements IGenForSamService {
      * @param model model, hvori generalforsamling og arrangementOplysninger fragtes fra controller til view
      * @return navnet paa den html-side, som controller skal vise
      */
+    @Override
     public String validereOgOpdatereGenForSam(Generalforsamling genfor, BindingResult binding, ArrangementOplysninger arroplys, BindingResult bResult, Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("binding", binding);
@@ -151,6 +157,7 @@ public class GenForSamService implements IGenForSamService {
      * @param model model, hvori generalforsamling fragtes fra controller til view
      * @return navnet paa den html-side, som controller skal vise
      */
+    @Override
     public String findDeltager(WebRequest webr, int arrangementId, Model model){
         String fornavnet = webr.getParameter("fornavn");
         String efternavnet = webr.getParameter("efternavn");

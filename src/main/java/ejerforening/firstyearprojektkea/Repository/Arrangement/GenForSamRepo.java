@@ -75,6 +75,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param id arrangementId paa det arrangement, som slutbrugerne er tilmeldt til
      * @return List, som indeholder referencen til Slutbrugerne.
      */
+    @Override
     public List<Slutbruger> findTilmeldte(int id){
         RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
         String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
@@ -237,6 +238,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param vaerdier varargs, dvs. array af String med fornavn og efternavn, som brugeren indtaster paa html-siden
      * @return List med reference til Slutbruger
      */
+    @Override
     public List<Slutbruger> findSlutbruger(String ...vaerdier){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(Slutbruger.class);
         String sql = "SELECT * FROM slutbruger WHERE fornavn=? AND efternavn=?";
@@ -254,7 +256,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * @param arrangementId
      * @return
      */
-
+     @Override
     public boolean knytSlutbrugerOgArrangement(int slutbrugerId, int arrangementId){
         RowMapper rowmapper = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
         String sql1 = "SELECT * FROM slutbrugerArrangement WHERE slutbrugerId=? AND arrangementId=?";
