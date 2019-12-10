@@ -6,16 +6,16 @@
     <title>Generalforsamlinger</title>
 </head>
 <body>
-<div class="container container-custom">
-<div th:replace="fragments/top_menu :: top_menuElement"></div>
-<div th:replace="fragments/side_menu :: side_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-    <div class="container">
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-    <div class="main">
         <main>
             <h1> Velkommen til generalforsamlinger</h1>
 
+            <!--ekstra plads mellem overskriften og teksten-->
             <div class="col-xs-10" style="height:30px;"></div>
 
             <a th:href="@{oprettelseForside}">Opret en ny generalforsamling</a></span>

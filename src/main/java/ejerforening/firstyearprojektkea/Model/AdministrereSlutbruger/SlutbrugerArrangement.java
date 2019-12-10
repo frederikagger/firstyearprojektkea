@@ -3,8 +3,10 @@ package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
 import javax.persistence.Id;
 
 /**
+ * @Author Päivi
  * Klassen repræsenterer mellemtabellen i mange-til-mange forbindelse mellem
  * Slutbruger og Arrangement
+ *
  */
 public class SlutbrugerArrangement {
 

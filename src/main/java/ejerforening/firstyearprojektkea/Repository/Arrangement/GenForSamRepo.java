@@ -6,13 +6,19 @@ import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterUtils;
+import org.springframework.jdbc.core.namedparam.ParsedSql;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author paivi
@@ -31,6 +37,8 @@ public class GenForSamRepo implements IGenForSamRepo {
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    NamedParameterJdbcTemplate namedTemplate;
     private Integer id = 0;
 
     /**
@@ -69,18 +77,10 @@ public class GenForSamRepo implements IGenForSamRepo {
         RowMapper rowmapper1 = new BeanPropertyRowMapper<>(SlutbrugerArrangement.class);
         String sql1 = "SELECT slutbrugerId FROM slutbrugerArrangement WHERE arrangementId=?";
         List<SlutbrugerArrangement> findId= jdbcTemplate.query(sql1,rowmapper1,id);
-        String vaerdier ="";
-        if(findId.size() > 0) {
-            for(int i = 0; i < findId.size()-1;i++){
-                vaerdier += findId.get(i).getSlutbrugerId() + ",";
-            }
-            //pga stakitproblem
-            vaerdier += Integer.toString(findId.get(findId.size()-1).getSlutbrugerId());
-        }
 
         RowMapper rowmapper2 = new BeanPropertyRowMapper<>(Slutbruger.class);
-        String sql2 = "SELECT * FROM slutbruger WHERE slutbrugerId=?";
-        return jdbcTemplate.query(sql2, rowmapper2, vaerdier);
+        String sql2 = "SELECT * FROM slutbruger WHERE slutbrugerId < ?";
+        return jdbcTemplate.query(sql2, rowmapper2, findId.size()+1);
     }
 
 

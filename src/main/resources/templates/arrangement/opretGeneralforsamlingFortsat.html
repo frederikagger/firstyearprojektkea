@@ -7,20 +7,23 @@
 </head>
 <body>
 
-<div class="container container-custom">
-    <div th:replace="fragments/top_menu :: top_menuElement"></div>
-    <div th:replace="fragments/side_menu :: side_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
-    <div class="container">
-        <div class="main">
-            <main>
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main>
                 <h1>Indtast oplysninger om generalforsamling</h1>
+
+                <!--ekstra plads mellem overskriften og teksten-->
+                <div class="col-xs-10" style="height:30px;"></div>
 
                 <form action="#" th:action="@{/opretGeneralForsamlingAfslut}" method="post">
 
                     <div class="form-group">
                         <label for="Agenda">Agenda</label>
-                        <textarea input th:field="*{arrangementOplysninger.agenda}" class="form-control" id="Agenda" rows="3"  required="required" placeholder="Skriv agenda her"></textarea>
+                        <textarea input th:field="*{arrangementOplysninger.agenda}" class="form-control" id="Agenda" rows="4"  required="required" placeholder="Skriv agenda her"></textarea>
                         <span th:if="${#fields.hasErrors('arrangementOplysninger.agenda')}" th:errors="*{arrangementOplysninger.agenda}">Fejl i agenda</span>
                     </div>
 
