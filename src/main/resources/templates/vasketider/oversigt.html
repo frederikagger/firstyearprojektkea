@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <title>Vasketider</title>
+</head>
+<body>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
+
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+            <h1> Book vasketid </h1>
+
+            <table>
+                <tr>
+                    <th>Ugedag</th>
+                    <th>Formiddagstid</th>
+                    <th>Booket</th>
+                    <th>Vaskeuge</th>
+
+                </tr>
+                <tr th:each="vasketid: ${vasketider}">
+                    <td th:text="${vasketid.ugedag}">Uge</td>
+                    <td th:text="${vasketid.erFormiddag}">Formiddagstid</td>
+                    <td th:text="${vasketid.erBooket}"></td>
+                    <th th:text="${vasketid.vaskeugeId}"></th>
+                </tr>
+            </table>
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
+</body>
+</html>

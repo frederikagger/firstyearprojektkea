@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <title>Slet lejlighed</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
+
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+
+            <a href=""></a>
+            <br>
+            <a href="/vasketider/oversigt">Se vasketider</a>
+            <br>
+            <a href=""></a>
+            <a href="#" class="btn btn-info" role="button">Link Button</a>        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
+</body>
