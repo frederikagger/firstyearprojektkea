@@ -7,20 +7,17 @@ import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOversigt;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface IOpgaveRepository {
+public interface IOpgaveRepository
+{
     List<OpgaveOversigt> hentAlle();
 
-    List<Opgave> findOpgave(int opgaveId);
-
-    List<OpgaveOplysninger> findValgteOpgave(int opgaveId);
-
-    int erOpgaveOprettetFoer(String navn, LocalDate oprettelsesDato);
+    OpgaveOplysninger findValgteOpgaveOplysninger(int opgaveId);
 
     boolean opretOpgave(Opgave opgave);
 
-    boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger, Opgave opgave);
+    boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger);
 
-    boolean opdaterOpgave(Opgave opgave, OpgaveOplysninger opgaveOplysninger);
+    boolean opdaterOpgave(OpgaveOplysninger opgaveOplysninger);
 
     void slet(int opgaveId);
 }
