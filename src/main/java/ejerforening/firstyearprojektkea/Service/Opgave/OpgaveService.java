@@ -27,42 +27,36 @@ public class OpgaveService implements IOpgaveService
         List<OpgaveOversigt> resultHentAlle = opgaveRepository.hentAlle();
         return resultHentAlle;
     }
+
+
     @Override
-    public List<Opgave> findOpgave(int opgaveId)
+    public OpgaveOplysninger findValgteOpgaveOplysninger(int opgaveId)
     {
-        List<Opgave> resultFindOpgave = opgaveRepository.findOpgave(opgaveId);
-        return resultFindOpgave;
+        OpgaveOplysninger resultfindValgteOpgaveOplysninger = opgaveRepository.findValgteOpgaveOplysninger(opgaveId);
+        return resultfindValgteOpgaveOplysninger;
     }
 
     @Override
-    public List<OpgaveOplysninger> findValgteOpgave(int opgaveId)
+    public boolean OpretOpgave (Opgave opgave)
     {
-        List<OpgaveOplysninger> resultfindValgteOpgave = opgaveRepository.findValgteOpgave(opgaveId);
-        return resultfindValgteOpgave;
+        boolean opretOpgave = opgaveRepository.opretOpgave(opgave);
+        return true;
     }
 
     @Override
-    public boolean erOpgaveOprettet(Opgave opgave)
+    public boolean OpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger)
     {
-        boolean erOpgaveOprettet = opgaveRepository.opretOpgave(opgave);
+        boolean OpgaveOplysningerOprettet = opgaveRepository.opretOplysninger(opgaveOplysninger);
 
-        return erOpgaveOprettet;
-    }
-
-    @Override
-    public boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger, Opgave opgave)
-    {
-        boolean erOpgaveOplysningerOprettet = opgaveRepository.opretOplysninger(opgaveOplysninger, opgave);
-
-        return erOpgaveOplysningerOprettet;
+        return true;
     }
 
 
     @Override
     //Metoden returnere om der er fejl i nogle af valideringerne ud fra at om _result stringen er tom eller ej.
-    public boolean erOpgaveOpdateret(Opgave opgave, OpgaveOplysninger opgaveOplysninger)
+    public boolean erOpgaveOpdateret(OpgaveOplysninger opgaveOplysninger)
     {
-        boolean erOpgaveOpdateret = opgaveRepository.opdaterOpgave(opgave, opgaveOplysninger);
+        boolean erOpgaveOpdateret = opgaveRepository.opdaterOpgave(opgaveOplysninger);
         return erOpgaveOpdateret;
     }
 
