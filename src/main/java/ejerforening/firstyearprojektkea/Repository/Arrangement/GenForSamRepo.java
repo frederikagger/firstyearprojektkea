@@ -148,7 +148,7 @@ public class GenForSamRepo implements IGenForSamRepo {
      * Stamdata findes i superklassen, som der laves foerst en ny raekke til tabellen Arrangement.
      *
      * Saa skal der hentes arrangementId paa denne nye raekke (databasen har genereret) med metoden findArrangementid().
-     * (se den naeste metode). Hvis metoden returnerer -1, hvis der ikke er blevet oprettet én raekke i Arranegement
+     * (se den naeste metode). Metoden returnerer -1, hvis der ikke er blevet oprettet én raekke i Arrangement
      * og hele oprettelsen returnerer false til service.
      * Hvis metoden returnerer en arrangementId(), indsaetter vi de naeste oplysninger i tabellen Generalsamling.
      *
@@ -176,11 +176,11 @@ public class GenForSamRepo implements IGenForSamRepo {
 
 
     /**
-     * Metoden henter arrangementId til et arrangement, som man lige har oprettet i metoden opretGeneralforsamling().
-     * ArrangementId hentes med arrangementats navn og oprettelsesDato.
-     * Metoden returnerer -1, hvis der hentes andet end 1 arrangementId.
+     * Metoden henter arrangementId til det arrangement, som man lige har oprettet i metoden opretGeneralforsamling().
+     * ArrangementId hentes med arrangementets navn og oprettelsesDato.
+     * Metoden returnerer -1, hvis resultatet er andet end én arrangementId.
      * Samtidigt opdageters Integer-feltet, som nu faar arrangementid som sin vaerdi.
-     * Den skal vi brude som parameter i den naeste metode, hvor vi henter arrangementOplysninger til det samme arrangement.
+     * Den skal vi bruge som parameter i den naeste metode, hvor vi henter arrangementOplysninger til det samme arrangement.
      * @param navn navn paa arrangement som et soegekriterium
      * @param oprettelsesDato oprettelsesDato som et andet soegekriterium
      * @return arrangementId
@@ -202,11 +202,21 @@ public class GenForSamRepo implements IGenForSamRepo {
      * Metoden opretter arrangementOplysninger til den generalsamling, som lige er blevet oprettet. Den faar
      * Integer-feltet arrangementId, som blev opdateret i metoden findArrangementId() som sin parameter.
      * Dermed bliver oplysninger knyttet til det rigtige arrangement.
+     * Foerst skal man tjekke, at arrangementOplysninger ikke findes i forvejen. Vi faar
+     * arrangementid fra Integer-felt i klassen,som blev opdateret i metoden findArrangementId().
+     * Findes arrangementOplysninger findes i forvejen, returneres false.
+     * Ellers tilfoejes raekken til arrangementOplysninger.
      * @param arrOplys arrangementOplysninger
      * @return true, hvis jdbcTemplate ikke returnerer 0 opdaterede raekker.
      */
     @Override
     public boolean opretGeneralforsamlingAfslut(ArrangementOplysninger arrOplys){
+        RowMapper rowMapper = new BeanPropertyRowMapper<>(ArrangementOplysninger.class);
+        String sqlFind = "SELECT arranOplysId FROM ArrangementOplysninger WHERE arrangementId=?";
+        List<ArrangementOplysninger> arrOplysListe = jdbcTemplate.query(sqlFind,rowMapper,this.id);
+        if(arrOplysListe.size() > 0){
+            return false;
+        }
         String sql = "INSERT INTO arrangementOplysninger (arrangementId,agenda,dato, startTidspunkt, slutTidspunkt, sted, tilmeldingsfrist, sidstOpdateret) VALUES(?,?,?,?,?,?,?,?)";
         String agenda = arrOplys.getAgenda();
         LocalDate dato = arrOplys.getDato();
@@ -220,10 +230,10 @@ public class GenForSamRepo implements IGenForSamRepo {
     }
 
     /**
-     * Metoden bruges til at hente slutbruger med et fornavn op et efternavn, inden slutbrugeren kan tilfoejes til generalforsamling
-     * paa html-siden "tilfoejSlutbrugerTilGenforsam".
-     * Der er kun 10 lejligheder, saa det er ikke sandsynligt, at der er to personer med det samme navn i tabellen Slutbruger, men
-     * man kan komme til at tilmelde den samme person to gange.
+     * Metoden bruges til at hente slutbruger med et fornavn op et efternavn, inden slutbrugeren
+     * kan tilfoejes til generalforsamling paa html-siden "tilfoejSlutbrugerTilGenforsam".
+     * Der er kun 10 lejligheder, saa det er ikke sandsynligt, at der er to personer med det samme navn
+     * i tabellen Slutbruger, men man kan komme til at tilmelde den samme person to gange.
      * @param vaerdier varargs, dvs. array af String med fornavn og efternavn, som brugeren indtaster paa html-siden
      * @return List med reference til Slutbruger
      */

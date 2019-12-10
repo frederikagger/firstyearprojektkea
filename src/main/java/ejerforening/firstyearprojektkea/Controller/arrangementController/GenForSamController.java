@@ -144,6 +144,7 @@ public class GenForSamController {
         return bedOmValidereOgAfslutOpret;
     }
 
+
     @GetMapping("/visTilfoejSlutbruger/{arrangementId}")
     public String visTilfoejSlutbrugerSide(@PathVariable("arrangementId") int id, Model model) {
         List<Generalforsamling> generalforsamlinger = iGenForSamService.findGeneralforsamling(id);
