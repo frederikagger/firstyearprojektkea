@@ -33,6 +33,11 @@ public class LejlighedService implements IlejlighedService {
     }
 
     @Override
+    public void opdaterLejlighed(Lejlighed lejlighed) {
+        ilejlighedRepo.opdaterLejlighed(lejlighed);
+    }
+
+    @Override
     public void sletLejlighed(int id) {
         ilejlighedRepo.sletLejlighed(id);
     }

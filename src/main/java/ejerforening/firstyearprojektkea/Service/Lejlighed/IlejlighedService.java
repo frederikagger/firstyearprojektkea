@@ -2,6 +2,7 @@ package ejerforening.firstyearprojektkea.Service.Lejlighed;
 
 import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface IlejlighedService {
@@ -13,4 +14,6 @@ public interface IlejlighedService {
     void opret(Lejlighed lejlighed);
 
     void sletLejlighed(int id);
+
+    void opdaterLejlighed(Lejlighed lejlighed);
 }
