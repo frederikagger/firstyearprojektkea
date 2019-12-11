@@ -15,7 +15,8 @@
         <main class="d-flex flex-column">
             <h1>Lejligheder</h1>
 
-            <table>
+            <table class="table">
+                <thead>
                 <tr>
                     <th>LejlighedsID</th>
                     <th>Etage</th>
@@ -26,6 +27,7 @@
                     <td th:text="${lejlighed.etage}">Etage</td>
                     <td th:text="${lejlighed.lejlighedsside}">Lejlighedsside</td>
                 </tr>
+                </thead>
             </table>
         </main>
     </div>

@@ -16,28 +16,30 @@
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>VaskeID</th>
-                        <th>Ugedag</th>
-                        <th>Formiddagstid</th>
-                        <th>Vaskeuge</th>
-                    </tr>
+                <tr>
+                    <th>VaskeID</th>
+                    <th>Ugedag</th>
+                    <th>Formiddagstid</th>
+                    <th>Vaskeuge</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tr th:each="vasketid: ${vasketider}">
                     <td th:text="${vasketid.vaskeId}">VaskeID</td>
                     <td th:text="${vasketid.ugedag}">Uge</td>
                     <td th:text="${vasketid.erFormiddag}">Formiddagstid</td>
                     <td th:text="${vasketid.vaskeugeId}">ID</td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/vasketid/opdater/' + ${vasketid.vaskeId}}" role="button">Book vasketid</a>
+                    </td>
                 </tr>
             </table>
 
-            <div>
-                <form method="post" action="/vasketider/opdater/" modelAttribute="vasketid">
-                    <br>Indtast lejlighedsID: <input type="number" name="lejlighedsId" min="0" max="10000" required> </br>
-                    <br>Indtast vaskeID: <input type="number" name="vaskeId" min="0" max="10000" required> </br>
-                    <br><button type="submit" class="btn btn-primary">Book vasketid</button>
-                </form>
-            </div>
+            <form method="post" action="/vasketider/opdater/" modelAttribute="vasketid">
+                <br>Indtast lejlighedsID <input type="number" name="lejlighedsId" min="0" max="1000" required> </br>
+                <br><button type="submit" class="btn btn-primary">Book vasketid</button>
+
+            </form>
         </main>
     </div>
 </div>
