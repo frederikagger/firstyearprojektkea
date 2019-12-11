@@ -14,10 +14,5 @@ public interface IlejlighedRepo {
 
     void sletLejlighed(int id);
 
-
-
-
-
-
-
+    void opdaterLejlighed(Lejlighed lejlighed);
 }
