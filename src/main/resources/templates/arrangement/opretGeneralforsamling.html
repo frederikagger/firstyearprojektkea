@@ -13,7 +13,8 @@
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-        <main>
+        <main class="d-flex flex-column">
+            <br>
                 <h1>Opret generalforsamling</h1>
 
                  <!--ekstra plads mellem overskriften og teksten-->
@@ -47,6 +48,7 @@
         </div>
     </div>
 </div>
+<div class="col-xs-10" style="height:30px;"></div>
 <footer th:replace="fragments/footer :: footerElement"></footer>
 </body>
 </html>
