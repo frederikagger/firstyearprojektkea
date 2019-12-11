@@ -1,9 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.Lejlighed;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,7 +18,7 @@ public class Lejlighed {
      * Hvilke attributer som lejlighed har
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="idGenerator")
     private int lejlighedsid;
     @NotNull(message = "Indtast venligst etagen på lejligheden")
     @Min(0)
@@ -47,13 +44,8 @@ public class Lejlighed {
         this.lejlighedsid = lejlighedsid;
     }
 
-    /**
-     *
-     * @param etage
-     * @param lejlighedsside
-     */
-
-    public Lejlighed(@NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside, LocalDate oprettelsesDato, LocalDate sidsOpdateret) {
+    public Lejlighed(int lejlighedsid, @NotNull(message = "Indtast venligst etagen på lejligheden") @Min(0) @Max(5) int etage, @NotNull boolean lejlighedsside, LocalDate oprettelsesDato, LocalDate sidsOpdateret) {
+        this.lejlighedsid = lejlighedsid;
         this.etage = etage;
         this.lejlighedsside = lejlighedsside;
         this.oprettelsesDato = oprettelsesDato;

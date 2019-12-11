@@ -15,7 +15,7 @@
                 <h1> Opret lejlighed </h1>
 
                     <form method="post" action="/lejlighed/opret_lejlighed" modelAttribute="lejlighed">
-                        <br>Hvilken etage <input type="number" name="etage" min="0" max="5"> </br>
+                        <br>Hvilken etage <input type="number" name="etage" min="0" max="5" required> </br>
                         <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="true" checked="checked">
                         <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="false">
                         <br><input type="submit" value="Opret lejlighed" >

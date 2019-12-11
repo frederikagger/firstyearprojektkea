@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: headerElement">
+    <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
+    <title>Lejlighed</title>
+</head>
+<body>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
+
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
+
+        <main class="d-flex flex-column">
+            <h1> Opdater en lejlighed </h1>
+
+            <form method="post" action="/lejlighed/opdater/" modelAttribute="lejlighed">
+                <br>Indtast lejlighedhedsID<input type="number" name="lejlighedsid" min="0" max="1000" required> </br>
+                <br>Indtast etage <input type="number" name="etage" min="0" max="5" required> </br>
+                <br>Ligger lejligheden til højre    <input type="radio" name="lejlighedsside" value="true" checked="checked">
+                <br>Ligger lejligheden til venstre  <input type="radio" name="lejlighedsside" value="false">
+                <br><input type="submit" value="Opdater lejlighed" >
+            </form>
+        </main>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footerElement"></footer>
+
+</body>
+</html>

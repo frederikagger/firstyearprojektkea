@@ -16,19 +16,26 @@
 
             <table>
                 <tr>
+                    <th>VaskeID</th>
                     <th>Ugedag</th>
                     <th>Formiddagstid</th>
-                    <th>Booket</th>
                     <th>Vaskeuge</th>
+                    <th></th>
 
                 </tr>
                 <tr th:each="vasketid: ${vasketider}">
+                    <td th:text="${vasketid.vaskeId}">VaskeID</td>
                     <td th:text="${vasketid.ugedag}">Uge</td>
                     <td th:text="${vasketid.erFormiddag}">Formiddagstid</td>
-                    <td th:text="${vasketid.erBooket}"></td>
-                    <th th:text="${vasketid.vaskeugeId}"></th>
+                    <td th:text="${vasketid.vaskeugeId}">ID</td>
                 </tr>
             </table>
+
+            <form method="post" action="/vasketider/opdater/" modelAttribute="vasketid">
+                <br>Indtast lejlighedsID <input type="number" name="vaskeugeId" value="5" min="0" max="1000" required> </br>
+                <br>Indtast vaskeID <input type="number" name="vaskeId" min="0" max="10000" required> </br>
+                <br><input type="submit" value="Book vasketid" >
+            </form>
         </main>
     </div>
 </div>

@@ -15,10 +15,11 @@
             <main class="d-flex flex-column">
                 <h1>Find lejlighed </h1>
 
-                    <form method="post" action="lejlighed/findLejlighed" modelAttribute="lejlighed">
-                        <br>Indtast ID <input type="number" name="id" min="1" max="100"> </br>
+                    <form method="get" action="/lejlighed/findLejlighed/" modelAttribute="lejlighed">
+                        <br>Indtast ID <input type="number" name="lejlighedsId" min="1" max="100"> </br>
                         <br><input type="submit" value="Søg lejlighed" >
                     </form>
+
             </main>
         </div>
     </div>
