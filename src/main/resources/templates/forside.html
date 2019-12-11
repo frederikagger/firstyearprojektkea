@@ -6,16 +6,20 @@
     <title>Forside</title>
 </head>
 <body>
-    <div th:replace="fragments/top_menu :: top_menuElement"></div>
-    <div th:replace="fragments/side_menu :: side_menuElement"></div>
+<div class="container-fluid">
+    <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
+    <div class="d-flex">
+        <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
-    <div class="container">
-            <main class="main">
-                <h1>Velkommen til ejerforeningen Mathildevej 20</h1>
+        <main class="d-flex flex-column">
+            <br>
+                <h1>Velkommen til Mathildevej 20</h1>
+            <br>
+            <img th:src="@{/Mathildevej_20.jpg}" width="550"/>
             </main>
     </div>
-
+</div>
 <footer th:replace="fragments/footer :: footerElement"></footer>
 </body>
 </html>

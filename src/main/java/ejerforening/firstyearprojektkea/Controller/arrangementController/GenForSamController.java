@@ -86,7 +86,6 @@ public class GenForSamController {
     }
 
 
-
     /**
      * Viser html-siden, hvor man kan oprette en generalforsamling
      * @param genfor generalforsamling, som paa dette tidspunkt kun har default-vaerdier
