@@ -19,8 +19,13 @@ public class VasketidService implements IVasketidService {
     }
 
     @Override
-    public boolean book() {
-        return false;
+    public void book(Vasketid vasketid) {
+        iVasketidRepository.book(vasketid);
+    }
+
+    @Override
+    public Vasketid findbyVaskeId(int vaskeid) {
+        return iVasketidRepository.findbyVaskeId(vaskeid);
     }
 
     @Override
