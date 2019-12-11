@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author paivi
+ * @since 09-12-2019
  * Interface til genforsamlingens service. I Spring kan interfaces autowires (laves en instans af bean),
  * saa Controller faar autowired denne interface i stedet for selve service.
  * Fordelen er, at man ville kunne genbruge interface i en anden sammenhaeng.

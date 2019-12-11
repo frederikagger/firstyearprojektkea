@@ -30,25 +30,18 @@ public class Opgave
 
     private LocalDate oprettelsesDato;
 
-    private Arbejdsdag arbejdsdag;
-
-    private OpgaveOplysninger opgaveOplysninger;
+    //private Arbejdsdag arbejdsdag;
 
 
-
-    /**
-     * Der laves en instans af OpgaveOplysninger i constructoren.
-     */
-    public Opgave(){
-        opgaveOplysninger = new OpgaveOplysninger();
+    public Opgave()
+    {
     }
 
-    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato, Arbejdsdag arbejdsdag)
+    public Opgave(int opgaveId, @NotNull(message = "Indtast venligst navnet på opgaven") String navn, LocalDate oprettelsesDato)
     {
         this.opgaveId = opgaveId;
         this.navn = navn;
         this.oprettelsesDato = oprettelsesDato;
-        this.arbejdsdag = arbejdsdag;
     }
 
 
@@ -82,9 +75,5 @@ public class Opgave
         this.oprettelsesDato = oprettelsesDato;
     }
 
-    public OpgaveOplysninger getOpgaveOplysninger()
-    {
-        return opgaveOplysninger;
-    }
 
 }

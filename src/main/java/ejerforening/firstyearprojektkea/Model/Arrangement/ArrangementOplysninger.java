@@ -1,6 +1,9 @@
 package ejerforening.firstyearprojektkea.Model.Arrangement;
 
 import org.springframework.stereotype.Component;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +12,9 @@ import java.time.LocalTime;
 
 /**
  * @author paivi
- * Klassen er en uadskillelig del af Arrangement (composition, jf. forklaring i Arrangement)
+ * @since 7-12-2019
+ * Klassen er en uadskillelig del af Arrangement (composition, jf. forklaring i Arrangement).
+ * Den indeholder oplysninger om arrangement (alle oplysninger ud over stamdata navn og oprettelsesdato i Arrangement).
  * Den er annoteret som Component for at markere, at den er en komponent i en anden klasse.
  */
 @Component
@@ -17,11 +22,11 @@ public class ArrangementOplysninger{
 
     /**
      * Datatypen LocalDate og LocalTime er javaklasser, som repraesenterer dato og tid.
-     * Time skrives i databasen saaledes: fx kl 14.00 er 140000. Så bliver det 14.00 med LocalTime.
-     * arrangementId (FK) knytter i databasen ArrangementOplysninger til Arrangement. Den hentes
-     * i systemet (ikke bruger input), så valideres ikke med annotation.
+     * arrangementId (FK) knytter i databasen ArrangementOplysninger til Arrangement.
+     * ArrangementId hentes i systemet (er ikke bruger-input), så valideres ikke med annotation.
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int arranOplysId;
     private int arrangementId;
     @NotBlank(message = "Indtast venligst agenda")

@@ -6,7 +6,6 @@
     <title>Flere oplysninger om generalforsamlingen</title>
 </head>
 <body>
-
     <div class="container-fluid">
         <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
@@ -14,7 +13,10 @@
             <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
             <main>
-                <h1> Generalforsamlingen</h1>
+                <h1>Flere oplysninger om generalforsamlingen</h1>
+
+                <!--ekstra plads mellem overskriften og teksten-->
+                <div class="col-xs-10" style="height:30px;"></div>
 
                 <p th:each="arran: ${arranOplysninger}">
 

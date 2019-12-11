@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -40,45 +39,20 @@ public class OpgaveRepository implements IOpgaveRepository
     public List<OpgaveOversigt> hentAlle()
     {
         RowMapper<OpgaveOversigt> rowmapper = new BeanPropertyRowMapper<>(OpgaveOversigt.class);
-        String sql = "SELECT opg.opgaveId, navn, lejlighedsId FROM opgaveregister_view";
+        String sql = "SELECT opgaveId, navn, lejlighedsId FROM opgaveregister_view";
 
-        List<OpgaveOversigt> resultHentAlle = jdbcTemplate.query(sql, rowmapper);
+        List<OpgaveOversigt> resultHentAlle =  jdbcTemplate.query(sql, rowmapper);
         return resultHentAlle;
     }
 
     @Override
-    public List<Opgave> findOpgave(int opgaveId)
-    {
-        RowMapper<Opgave> rowmapper = new BeanPropertyRowMapper<>(Opgave.class);
-        String sql = "SELECT opgaveregister_view.opgaveId, opgaveregister_view.navn, opgaveregister_view.lejlighedsId FROM opgaveregister_view WHERE opgaveId=?";
-        List<Opgave> resultFindOpgave = jdbcTemplate.query(sql, rowmapper, opgaveId);
-        return resultFindOpgave;
-    }
-
-    @Override
-    public List<OpgaveOplysninger> findValgteOpgave(int opgaveId)
+    public OpgaveOplysninger findValgteOpgaveOplysninger(int opgaveId)
     {
         RowMapper<OpgaveOplysninger> rowmapper = new BeanPropertyRowMapper<>(OpgaveOplysninger.class);
-        String sql = "SELECT * FROM opgaveregister_view WHERE opgaveId=?";
-        List<OpgaveOplysninger> resultfindValgteOpgave = jdbcTemplate.query(sql, rowmapper, opgaveId);
-        return resultfindValgteOpgave;
+        String sql = "SELECT * FROM opgaveregister_view WHERE opgaveId=? LIMIT 1";
+        List<OpgaveOplysninger> resultfindValgteOpgaveOplysninger = jdbcTemplate.query(sql, rowmapper, opgaveId);
+        return resultfindValgteOpgaveOplysninger.get(0);
     }
-
-    @Override
-    public int erOpgaveOprettetFoer(String navn, LocalDate oprettelsesDato)
-    {
-        RowMapper rowmapper = new BeanPropertyRowMapper<>(Opgave.class);
-        String sql = "SELECT opgaveId FROM opgave WHERE navn=? AND oprettelsesDato=?";
-        List<Opgave> opgaveList = (List<Opgave>) jdbcTemplate.query(sql, rowmapper, navn, oprettelsesDato);
-
-        int opgaveId = opgaveList.get(0).getOpgaveId();
-        if(opgaveList.size() !=1){
-            opgaveId = -1;
-        }
-        return opgaveId;
-    }
-
-
 
     @Override
     public boolean opretOpgave(Opgave opgave)
@@ -87,25 +61,13 @@ public class OpgaveRepository implements IOpgaveRepository
         LocalDate oprettelsesDato = LocalDate.now();
         String sql = "INSERT INTO opgave(navn, oprettelsesDato) VALUES(?,?)";
         int opgaveOpdateret = jdbcTemplate.update(sql, navn, oprettelsesDato);
-
-        int opgaveId = erOpgaveOprettetFoer(navn,oprettelsesDato);
-        if(opgaveId == -1)
-        {
-            return false;
-        }
-        else
-            {
-                return true;
-            }
+        return true;
     }
 
     @Override
-    public boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger, Opgave opgave)
+    public boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger)
     {
-        String navn = opgave.getNavn();
-        LocalDate oprettelsesDato = LocalDate.now();
-        int opgaveId = erOpgaveOprettetFoer(navn,oprettelsesDato);
-
+        int opgaveId = opgaveOplysninger.getOpgaveId();
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
         int svaerhedsgrad = opgaveOplysninger.getSvaerhedsgrad();
@@ -115,26 +77,31 @@ public class OpgaveRepository implements IOpgaveRepository
         String sql = "INSERT INTO opgaveOplysninger(opgaveId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato, sidstOpdateret) VALUES(?,?,?,?,?,?,?)";
         int opgaveOplysningerOprettet = jdbcTemplate.update(sql, opgaveId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato, sidstOpdateret);
 
-        return opgaveOplysningerOprettet !=0;
+        return true;
     }
 
+    /**
+     * Mangler forbindelsen til lejlighedsid
+     * @param opgave
+     * @param opgaveOplysninger
+     * @return
+     */
 
     @Override
-    public boolean opdaterOpgave(Opgave opgave, OpgaveOplysninger opgaveOplysninger)
+    public boolean opdaterOpgave(OpgaveOplysninger opgaveOplysninger)
     {
-        int opgaveId = opgave.getOpgaveId();
-        String navn = opgave.getNavn();
+        int opgaveId = opgaveOplysninger.getOpgaveId();
         int opgaveOplysningerId = opgaveOplysninger.getOpgaveOplysningerId();
+        String navn = opgaveOplysninger.getNavn();
+        int lejlighedsId = opgaveOplysninger.getLejlighedsId();
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
         int svaerhedsgrad = opgaveOplysninger.getSvaerhedsgrad();
-
         LocalDate startDato = opgaveOplysninger.getStartDato();
         LocalDate slutDato = opgaveOplysninger.getSlutDato();
-        //LocalDate opdateringsDato = opgaveOplysninger.getOpdateringsDato();
 
-        String sql = "CALL SP_opdaterOpgave(?,?,?,?,?,?,?,?)";
-        int erOpgaveOpdateret = jdbcTemplate.update(sql, opgaveId, navn, opgaveOplysningerId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato);
+        String sql = "CALL SP_opdaterOpgave(?,?,?,?,?,?,?,?,?)";
+        int erOpgaveOpdateret = jdbcTemplate.update(sql, opgaveId, opgaveOplysningerId, navn, lejlighedsId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato);
         return erOpgaveOpdateret == 0;
     }
 

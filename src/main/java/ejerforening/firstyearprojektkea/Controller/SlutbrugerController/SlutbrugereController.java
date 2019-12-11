@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Controller
-public class AdministrereSlutbrugereController
+public class SlutbrugereController
 {
     @Autowired
     private ISlutbrugerService slutbrugerService;

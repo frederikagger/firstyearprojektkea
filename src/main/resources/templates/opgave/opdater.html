@@ -17,34 +17,34 @@
 
             <form action="#" th:action="@{/validere}" method="post">
                 <div class="form-group">
-                    <input type="hidden" th:field="*{opgave.opgaveId}">
-                    <input type="hidden" th:field="*{opgaveoplysninger.opgaveOplysningerId}">
-                    <input type="text" th:field="*{opgave.navn}" class="form-control" required="required" placeholder="Hvad er opgavens navn?">
-                    <span th:if="${#fields.hasErrors('opgave.navn')}" th:errors="*{opgave.navn}">Fejl i navnet</span>
+                    <input type="hidden" th:field="*{opdater.opgaveId}">
+                    <input type="hidden" th:field="*{opdater.opgaveOplysningerId}">
+                    <input type="text" th:field="*{opdater.navn}" class="form-control" required="required" placeholder="Hvad er opgavens navn?">
+                    <span th:if="${#fields.hasErrors('opdater.navn')}" th:errors="*{opdater.navn}">Fejl i navnet</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgave.lejlighedsId}" class="form-control" placeholder="Hvilken er lejlighed skal have opgaven?">
-                    <span th:if="${#fields.hasErrors('opgave.lejlighedsId')}" th:errors="*{opgave.lejlighedsId}">Fejl i lejligheds id</span>
+                    <input type="text" th:field="*{opdater.lejlighedsId}" class="form-control" placeholder="Hvilken er lejlighed skal have opgaven?">
+                    <span th:if="${#fields.hasErrors('opdater.lejlighedsId')}" th:errors="*{opdater.lejlighedsId}">Fejl i lejligheds id</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgaveoplysninger.beskrivelse}" class="form-control" required="required" placeholder="Hvad er beskrivelsen på opgaven?">
-                    <textarea th:if="${#fields.hasErrors('opgaveoplysninger.beskrivelse')}" th:errors="*{opgaveoplysninger.beskrivelse}">Fejl i beskrivelse></textarea>
+                    <input type="text" th:field="*{opdater.beskrivelse}" class="form-control" required="required" placeholder="Hvad er beskrivelsen på opgaven?">
+                    <textarea th:if="${#fields.hasErrors('opdater.beskrivelse')}" th:errors="*{opdater.beskrivelse}">Fejl i beskrivelse></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgaveoplysninger.varighed}" class="form-control" required="required" placeholder="Hvor lang tid tager det?">
-                    <span th:if="${#fields.hasErrors('opgaveoplysninger.varighed')}" th:errors="*{opgaveoplysninger.varighed}">Fejl i varighed</span>
+                    <input type="text" th:field="*{opdater.varighed}" class="form-control" required="required" placeholder="Hvor lang tid tager det?">
+                    <span th:if="${#fields.hasErrors('opdater.varighed')}" th:errors="*{opdater.varighed}">Fejl i varighed</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgaveoplysninger.svaerhedsgrad}" class="form-control" required="required" placeholder="Hvad er sværhedsgraden på opgaven?">
-                    <span th:if="${#fields.hasErrors('opgaveoplysninger.svaerhedsgrad')}" th:errors="*{opgaveoplysninger.svaerhedsgrad}">Fejl i sværhedsgrad</span>
+                    <input type="text" th:field="*{opdater.svaerhedsgrad}" class="form-control" required="required" placeholder="Hvad er sværhedsgraden på opgaven?">
+                    <span th:if="${#fields.hasErrors('opdater.svaerhedsgrad')}" th:errors="*{opdater.svaerhedsgrad}">Fejl i sværhedsgrad</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgaveoplysninger.startDato}" class="form-control" required="required" placeholder="Hvad er startdatoen opgaven?">
-                    <span th:if="${#fields.hasErrors('opgaveoplysninger.startDato')}" th:errors="*{opgaveoplysninger.startDato}">Fejl i start dato</span>
+                    <input type="text" th:field="*{opdater.startDato}" class="form-control" required="required" placeholder="Hvad er startdatoen opgaven?">
+                    <span th:if="${#fields.hasErrors('opdater.startDato')}" th:errors="*{opdater.startDato}">Fejl i start dato</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" th:field="*{opgaveoplysninger.slutDato}" class="form-control" required="required" placeholder="Hvad er slutdatoen for opgaven?">
-                    <span th:if="${#fields.hasErrors('opgaveoplysninger.slutDato')}" th:errors="*{opgaveoplysninger.slutDato}">Fejl i slut dato</span>
+                    <input type="text" th:field="*{opdater.slutDato}" class="form-control" required="required" placeholder="Hvad er slutdatoen for opgaven?">
+                    <span th:if="${#fields.hasErrors('opdater.slutDato')}" th:errors="*{opdater.slutDato}">Fejl i slut dato</span>
                 </div>
 
 

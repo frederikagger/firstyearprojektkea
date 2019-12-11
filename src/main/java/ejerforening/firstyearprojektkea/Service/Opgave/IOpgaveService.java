@@ -10,11 +10,10 @@ import java.util.List;
 public interface IOpgaveService
 {
     List<OpgaveOversigt> hentAlle();
-    List<Opgave> findOpgave(int opgaveId);
-    List<OpgaveOplysninger> findValgteOpgave(int opgaveId);
-    boolean erOpgaveOprettet(Opgave opgave);
-    boolean erOpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger, Opgave opgave);
-    boolean erOpgaveOpdateret(Opgave opgave, OpgaveOplysninger opgaveOplysninger);
+    OpgaveOplysninger findValgteOpgaveOplysninger(int opgaveId);
+    boolean OpretOpgave (Opgave opgave);
+    boolean OpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger);
+    boolean erOpgaveOpdateret(OpgaveOplysninger opgaveOplysninger);
 
     void slet(int opgaveId);
 
