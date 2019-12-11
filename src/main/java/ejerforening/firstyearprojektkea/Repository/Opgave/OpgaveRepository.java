@@ -102,7 +102,7 @@ public class OpgaveRepository implements IOpgaveRepository
 
         String sql = "CALL SP_opdaterOpgave(?,?,?,?,?,?,?,?,?)";
         int erOpgaveOpdateret = jdbcTemplate.update(sql, opgaveId, opgaveOplysningerId, navn, lejlighedsId, beskrivelse, varighed, svaerhedsgrad, startDato, slutDato);
-        return erOpgaveOpdateret == 0;
+        return true;
     }
 
 
