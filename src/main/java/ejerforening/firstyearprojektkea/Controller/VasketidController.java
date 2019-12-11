@@ -5,7 +5,13 @@ import ejerforening.firstyearprojektkea.Service.Vasketid.IVasketidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class VasketidController {
@@ -24,50 +30,13 @@ public class VasketidController {
         return "vasketider/oversigt";
     }
 
-/*
-    @GetMapping("/form_opret_lejlighed")
-    public String form_opret_lejligheder(){
-        return "/lejlighed/form_opret_lejlighed";
-    }
-
-    @GetMapping("/form_sletLejlighed")
-    public String form_sletLejlighed(){
-        return "/lejlighed/form_sletLejlighed";
-    }
-
-    @GetMapping("/form_soegLejlighed")
-    public String form_soegLejlighed(){
-        return "/lejlighed/form_soegLejlighed";
-    }
-
-    @PostMapping("/opret_lejlighed")
-    public String opret_lejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
+    @PostMapping("/vasketider/opdater")
+    public String visOpdateringsform(@Valid Vasketid vasketid, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "Fejl indtastning";
         }
-        model.addAttribute("etage",lejlighed.getEtage());
-        model.addAttribute("lejlighedsside",lejlighed.isLejlighedsside());
-        ilejlighedService.opret(lejlighed);
-        return "/bekræftelse";
+        iVasketidService.book(vasketid);
+        return "vasketider/oversigt";
     }
 
-    @PostMapping("/findLejlighed")
-    public String findLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
-            return "Fejl indtastning";
-        }
-        model.addAttribute("lejlighedsid",ilejlighedService.findMedId(lejlighed.getLejlighedsid()));
-        return "/lejlighed/visSoegningsSide";
-    }
-    @PostMapping("/sletLejlighed")
-    public String sletLejlighed(@ModelAttribute("lejlighed")@Valid Lejlighed lejlighed, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "Fejl indtastning";
-        }
-        model.addAttribute("lejlighedsid", lejlighed.getLejlighedsid());
-        ilejlighedService.sletLejlighed(lejlighed.getLejlighedsid());
-        return "/bekræftelse";
-    }
-}
-*/
 }
