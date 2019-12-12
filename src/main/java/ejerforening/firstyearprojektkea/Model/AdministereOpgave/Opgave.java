@@ -1,10 +1,5 @@
 package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 
-import ejerforening.firstyearprojektkea.Model.Arrangement.Arbejdsdag;
-import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
-
-
-
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -30,6 +25,7 @@ public class Opgave
 
     private LocalDate oprettelsesDato;
 
+    // Er ikke blevet implementeret
     //private Arbejdsdag arbejdsdag;
 
 
