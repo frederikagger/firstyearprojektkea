@@ -12,14 +12,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Controller der administerer de opgaver et bestyrelsesmedlem kan for opgaver
+ * Controller der administerer de muligheder et bestyrelsesmedlem kan for opgaver.
+ *
  * GetMapping = viser de html sider, som man kan ramme
  * PostMapping = tager imod det der kommer fra html siderne
+ *
+ * Servervalideringer sker i Controller, da det oenskes saa hurtigt som muligt at faa en fejlmeddelse, hvis input fra brugeren indeholder fejl.
+ * Det goer det nemmere at debugge og fejldata er kommet saa lidt ind i programmet som muligt.
+ *
+ * Man kan vaelge at skubbe det ud til Service, for at underbygge at Controller kun modtager input fra view (sender det videre til Service,
+ * som skal staa for at validering af inputet), og at retunere et view til brugeren.
+ *
+ * Der er fordele og ulemper ved begge maader.
+ * Det kan også vaelges at baade Controller og Service har hver deres type validering.
+ *
  * @author Signe
  * @since 4/12/2019
  */
@@ -70,7 +80,7 @@ public class OpgaveController
      * Getmetode, hvor der vises de fejlter man kan opdatere for en valgt opgave.
      * @PathVariable knytter opgaveId, som er kommet fra oversigt (html), til den data som skal bruges for at finde opgaveOplysninger.
      *
-     * @param opgaveId
+     * @param opgaveId hvilken opgave der oenskes opdateret
      * @param model fragter de fundet opgaveOplysninger til html.
      * @return /opgave/opdater - html
      */
@@ -90,7 +100,7 @@ public class OpgaveController
      *
      * @param opgaveOplysninger OpgaveOplysninger klassen definerer hvilke attributer, der bruges for at opdatere oplysninger til opgave.
      * @param bindingResult resultatet efter validering af input som vises, hvis der var fejl.
-     * @param model fragter de felter der kan indsaettes data i.
+     * @param model fragter fejlbesked, hvis input eller databasen har fejlet.
      * @return redirect:/opgave/oversigt - html
      */
     @PostMapping("/validere")
@@ -98,7 +108,7 @@ public class OpgaveController
     {
         if(bindingResult.hasErrors())
         {
-            model.addAttribute("bResult", bindingResult);
+            model.addAttribute("bindingResult", bindingResult);
             System.out.println("Kommer jeg her?");
             return "/opgave/opdater" ;
         }
