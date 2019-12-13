@@ -122,6 +122,8 @@ public class OpgaveRepository implements IOpgaveRepository
     /**
      * Metoden opretter opgaven, ved at hente navn fra opgave og kalder LocalDate.now() for dags dato.
      * Saettes ind i INSERT og jdbcTemplate kontakter databasen og eksekvere sql'en.
+     * Tabellen opgave i databasen har paa navn UNIQUE, som soerger for at der ikke kan oprettes en opgave
+     * i databasen med samme navn.
      * @param opgave objektet som har vaerdier, som hentes med getmetoderne
      * @return
      */
@@ -138,7 +140,8 @@ public class OpgaveRepository implements IOpgaveRepository
 
 
     /**
-     * Metoden opretter oplysninger til opgaven, med getmetoder fra OpgaveOplysninger kalder LocalDate.now() for dags dato.
+     * Metoden opretter opgaveOplysninger til den opgave der lige er blevet oprettet, 
+     * med getmetoder fra OpgaveOplysninger kalder LocalDate.now() for dags dato.
      * Saettes ind i INSERT og jdbcTemplate kontakter databasen og eksekvere sql'en.
      * @param opgaveOplysninger objektet som har vaerdier, som hentes med getmetoderne
      * @return
@@ -146,7 +149,6 @@ public class OpgaveRepository implements IOpgaveRepository
     @Override
     public boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger)
     {
-
         int opgaveId = opgaveOplysninger.getOpgaveId();
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
