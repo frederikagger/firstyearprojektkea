@@ -1,7 +1,6 @@
 package ejerforening.firstyearprojektkea.Repository.Slutbruger;
 
-import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerOversigt;
-import ejerforening.firstyearprojektkea.Repository.Slutbruger.ISlutbrugerRepository;
+import ejerforening.firstyearprojektkea.Model.Slutbruger.SlutbrugerOversigt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

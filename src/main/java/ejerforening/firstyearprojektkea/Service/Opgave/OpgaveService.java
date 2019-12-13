@@ -1,8 +1,8 @@
 package ejerforening.firstyearprojektkea.Service.Opgave;
 
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.Opgave;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOplysninger;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOversigt;
+import ejerforening.firstyearprojektkea.Model.Opgave.Opgave;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOplysninger;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOversigt;
 import ejerforening.firstyearprojektkea.Repository.Opgave.IOpgaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

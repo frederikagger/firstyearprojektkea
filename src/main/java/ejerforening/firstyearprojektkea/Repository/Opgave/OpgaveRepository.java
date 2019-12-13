@@ -1,8 +1,8 @@
 package ejerforening.firstyearprojektkea.Repository.Opgave;
 
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.Opgave;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOplysninger;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOversigt;
+import ejerforening.firstyearprojektkea.Model.Opgave.Opgave;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOplysninger;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOversigt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -78,7 +78,7 @@ public class OpgaveRepository implements IOpgaveRepository
      * den skal bruge for at opdatere de 3 tabeller det drejer sig om.
      * Der er valgt en Stored Procedure, for ikke at skulle lave 3 INSERT INTO i koden, men lade databasen om at goere arbejdet.
      *
-     * @param opgaveOplysninger
+     * @param opgaveOplysninger objektet som har vaerdier, som hentes med getmetoderne
      * @return true
      */
     @Override
@@ -101,9 +101,9 @@ public class OpgaveRepository implements IOpgaveRepository
 
 
     /**
-     * Metoden sletter opgaver, hvor opgaveidet der var givet med som parameter matcher i tabellen opgave.
-     * Der ønskes ingen returvaerdi, da opgaven forsvinder fra hjemmesiden
-     * @param opgaveId
+     * Metoden sletter opgaver, som faar opgaveId givet med som parameter, for at databasen kan finde en matchene opgaveId i tabellen opgave og delete den..
+     * Der ønskes ingen returvaerdi, da controlleren viser oversigten igen, hvor opgaven ikke laengere er paa hjemmesiden
+     * @param opgaveId kommer fra den valgte opgave, der oenskes slettet.
      */
     @Override
     public void slet(int opgaveId)
@@ -112,6 +112,12 @@ public class OpgaveRepository implements IOpgaveRepository
         jdbcTemplate.update(sql, opgaveId);
     }
 
+    /**
+     * Metoden opretter opgaven, ved at hente navn fra opgave og kalde LocalDate.now() for dags dato.
+     * Saettes ind i INSERT og jdbcTemplate kontakter databasen med en update.
+     * @param opgave objektet som har vaerdier, som hentes med getmetoderne
+     * @return
+     */
     @Override
     public boolean opretOpgave(Opgave opgave)
     {

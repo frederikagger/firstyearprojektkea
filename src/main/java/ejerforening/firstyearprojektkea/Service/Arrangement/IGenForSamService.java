@@ -1,6 +1,6 @@
 package ejerforening.firstyearprojektkea.Service.Arrangement;
 
-import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.Slutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import org.springframework.ui.Model;

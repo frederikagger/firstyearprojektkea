@@ -1,5 +1,5 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
-import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.Slutbruger.Slutbruger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
 import java.time.LocalDate;

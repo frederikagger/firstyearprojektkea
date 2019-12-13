@@ -1,8 +1,8 @@
 package ejerforening.firstyearprojektkea.Repository.Opgave;
 
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.Opgave;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOplysninger;
-import ejerforening.firstyearprojektkea.Model.AdministereOpgave.OpgaveOversigt;
+import ejerforening.firstyearprojektkea.Model.Opgave.Opgave;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOplysninger;
+import ejerforening.firstyearprojektkea.Model.Opgave.OpgaveOversigt;
 
 import java.util.List;
 

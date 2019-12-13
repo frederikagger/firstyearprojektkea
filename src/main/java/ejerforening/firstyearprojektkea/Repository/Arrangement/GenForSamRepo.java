@@ -1,6 +1,6 @@
 package ejerforening.firstyearprojektkea.Repository.Arrangement;
-import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.Slutbruger;
-import ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger.SlutbrugerArrangement;
+import ejerforening.firstyearprojektkea.Model.Slutbruger.Slutbruger;
+import ejerforening.firstyearprojektkea.Model.Slutbruger.SlutbrugerArrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Arrangement;
 import ejerforening.firstyearprojektkea.Model.Arrangement.ArrangementOplysninger;
 import ejerforening.firstyearprojektkea.Model.Arrangement.Generalforsamling;
