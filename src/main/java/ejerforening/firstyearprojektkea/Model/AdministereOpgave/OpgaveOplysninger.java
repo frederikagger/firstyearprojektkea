@@ -3,11 +3,16 @@ package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
- * Klassen der indeholder attributerne for Opgave Oplysninger
+ * Klassen Opgave Oplysninger attributter kommer af at skulle kunne indeholde de kolonner fra tabellerne opgave, opgaveoplysninger, lejlighed
+ * og id'et fra mange til mange forbindelsen mellem opgave og lejlighed, som databasen har.
+ *
+ * Det hjaelper ogsaa naar opgave skal opdateres, uden at skulle koble 3 objekter sammen, for at Stored Procedure SP_opdaterOpgave
+ * faar de korrekte vaerdier med til databasen. Og brugeren ikke skal igennem 3 undersider ved opdatering af opgaven.
+ *
  * @author Signe
+ * @since 4-12-2019
  */
 
 public class OpgaveOplysninger
@@ -27,7 +32,7 @@ public class OpgaveOplysninger
 
     private LocalDate oprettelsesDato;
 
-    private int arrangementId;
+    private int arbejdsdagId;
 
     @NotNull(message = "Indtast venligst en beskrivelse af opgaven")
     private String beskrivelse;
@@ -54,13 +59,13 @@ public class OpgaveOplysninger
     {
     }
 
-    public OpgaveOplysninger(int opgaveOplysningerId, int opgaveId, String navn, LocalDate oprettelsesDato, int arrangementId, @NotNull(message = "Indtast venligst en beskrivelse af opgaven") String beskrivelse, @NotNull(message = "Indtast venligst varigheden for opgaven") int varighed, @NotNull(message = "Indtast venligst sværheden for opgaven") int svaerhedsgrad, @NotNull(message = "Indtast venligst dato: dd/mm/åååå") LocalDate startDato, @NotNull(message = "Indtast venligst dato: dd/mm/åååå") LocalDate slutDato, LocalDate sidstOpdateret, int lejlighedsId, int opgaveLejlighedId)
+    public OpgaveOplysninger(int opgaveOplysningerId, int opgaveId, String navn, LocalDate oprettelsesDato, int arbejdsdagId, @NotNull(message = "Indtast venligst en beskrivelse af opgaven") String beskrivelse, @NotNull(message = "Indtast venligst varigheden for opgaven") int varighed, @NotNull(message = "Indtast venligst sværheden for opgaven") int svaerhedsgrad, @NotNull(message = "Indtast venligst dato: dd/mm/åååå") LocalDate startDato, @NotNull(message = "Indtast venligst dato: dd/mm/åååå") LocalDate slutDato, LocalDate sidstOpdateret, int lejlighedsId, int opgaveLejlighedId)
     {
         this.opgaveOplysningerId = opgaveOplysningerId;
         this.opgaveId = opgaveId;
         this.navn = navn;
         this.oprettelsesDato = oprettelsesDato;
-        this.arrangementId = arrangementId;
+        this.arbejdsdagId = arbejdsdagId;
         this.beskrivelse = beskrivelse;
         this.varighed = varighed;
         this.svaerhedsgrad = svaerhedsgrad;
@@ -101,14 +106,14 @@ public class OpgaveOplysninger
         this.oprettelsesDato = oprettelsesDato;
     }
 
-    public int getArrangementId()
+    public int getArbejdsdagId()
     {
-        return arrangementId;
+        return arbejdsdagId;
     }
 
-    public void setArrangementId(int arrangementId)
+    public void setArbejdsdagId(int arbejdsdagId)
     {
-        this.arrangementId = arrangementId;
+        this.arbejdsdagId = arbejdsdagId;
     }
 
     public int getLejlighedsId()

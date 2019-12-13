@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+
+/**
+ * @author Frede
+ * @since 11/12/2019
+ *
+ */
 
 @Controller
 public class VasketidController {
@@ -30,12 +34,21 @@ public class VasketidController {
         return "vasketider/oversigt";
     }
 
+    /**
+     *
+     * @param vasketid bliver oprettet i viewet og sendt til IVasketidService
+     * @param bindingResult
+     * @param model fragter alle de ledige vasketider tilbage til viewet
+     * @return
+     */
+
     @PostMapping("/vasketider/opdater")
-    public String visOpdateringsform(@Valid Vasketid vasketid, BindingResult bindingResult){
+    public String visOpdateringsform(@Valid Vasketid vasketid, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             return "Fejl indtastning";
         }
         iVasketidService.book(vasketid);
+        model.addAttribute("vasketider", iVasketidService.seVasketider());
         return "vasketider/oversigt";
     }
 
