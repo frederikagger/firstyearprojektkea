@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Model.AdministereOpgave;
+package ejerforening.firstyearprojektkea.Model.Opgave;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;

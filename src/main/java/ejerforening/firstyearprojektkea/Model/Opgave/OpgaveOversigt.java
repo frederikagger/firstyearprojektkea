@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
+package ejerforening.firstyearprojektkea.Model.Opgave;
 
 import javax.persistence.Id;
 
@@ -8,34 +8,48 @@ import javax.persistence.Id;
  * Tabellerne fra databasen der vises er opgave og lejlighed.
  * @Author Signe
  */
-public class SlutbrugerOversigt
-{
 
+public class OpgaveOversigt
+{
     /**
      * Attributerne har validerings annotationerm som definerer:
      *
      * @Id = primary key i tabellen
-    */
+     */
     @Id
-    private int slutbrugerId;
+    private int opgaveId;
     private String navn;
     private int lejlighedsId;
 
-    public SlutbrugerOversigt()
+    public OpgaveOversigt()
     {
-
     }
 
-    public SlutbrugerOversigt(int slutbrugerId, String navn, int lejlighedsId)
+    public OpgaveOversigt(int opgaveId, String navn, int lejlighedsId)
     {
-        this.slutbrugerId = slutbrugerId;
+        this.opgaveId = opgaveId;
         this.navn = navn;
         this.lejlighedsId = lejlighedsId;
     }
 
-    public int getSlutbrugerId()
+    public void setOpgaveId(int opgaveId)
     {
-        return slutbrugerId;
+        this.opgaveId = opgaveId;
+    }
+
+    public void setNavn(String navn)
+    {
+        this.navn = navn;
+    }
+
+    public void setLejlighedsId(int lejlighedsId)
+    {
+        this.lejlighedsId = lejlighedsId;
+    }
+
+    public long getOpgaveId()
+    {
+        return opgaveId;
     }
 
     public String getNavn()
@@ -47,5 +61,4 @@ public class SlutbrugerOversigt
     {
         return lejlighedsId;
     }
-
 }

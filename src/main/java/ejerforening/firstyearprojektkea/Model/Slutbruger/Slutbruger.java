@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
+package ejerforening.firstyearprojektkea.Model.Slutbruger;
 
 import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 

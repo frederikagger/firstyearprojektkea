@@ -1,6 +1,4 @@
-package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package ejerforening.firstyearprojektkea.Model.Slutbruger;
 
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;

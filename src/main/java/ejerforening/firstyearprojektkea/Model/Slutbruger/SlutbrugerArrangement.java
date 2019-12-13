@@ -1,4 +1,4 @@
-package ejerforening.firstyearprojektkea.Model.AdministrereSlutbruger;
+package ejerforening.firstyearprojektkea.Model.Slutbruger;
 
 import javax.persistence.Id;
 
