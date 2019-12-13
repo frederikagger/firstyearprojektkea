@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -26,9 +27,13 @@ public class OpgaveRepository implements IOpgaveRepository
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+
+    private int generetOpgaveId;
+
     /**
      * Metoden henter alle vaerierne fra de valgte kolonner fra opgaveregister_view.
-     * JDBC Template bruges som en query, der bliver sent til databasen og retunere liste med oversigten over Opgaver.
+     * jdbcTemplate bruger en query her, for at fecthe det data, som hver opgave har og retunere det som List, som bruges til at
+     * vise på html  en oversigt over Opgaver.
      *
      * BeanPropertyRowMapper er interfacet af RowMapper, som kun kan hente en raekke af gangen fra databasen.
      * Raekken bliver som et object af den type, den har faaet som parameter.
@@ -77,6 +82,7 @@ public class OpgaveRepository implements IOpgaveRepository
      * og metoden opdaterOpgave kan med getmetoderne hente vaerdierne ind i lokale variabler, saa SP_opdaterOpgave (Stored Procedure) har det data
      * den skal bruge for at opdatere de 3 tabeller det drejer sig om.
      * Der er valgt en Stored Procedure, for ikke at skulle lave 3 INSERT INTO i koden, men lade databasen om at goere arbejdet.
+     * jdbcTemplate update bliver brugt til INSERT, UPDATE og DELETE statements.
      *
      * @param opgaveOplysninger objektet som har vaerdier, som hentes med getmetoderne
      * @return true
@@ -112,9 +118,10 @@ public class OpgaveRepository implements IOpgaveRepository
         jdbcTemplate.update(sql, opgaveId);
     }
 
+
     /**
-     * Metoden opretter opgaven, ved at hente navn fra opgave og kalde LocalDate.now() for dags dato.
-     * Saettes ind i INSERT og jdbcTemplate kontakter databasen med en update.
+     * Metoden opretter opgaven, ved at hente navn fra opgave og kalder LocalDate.now() for dags dato.
+     * Saettes ind i INSERT og jdbcTemplate kontakter databasen og eksekvere sql'en.
      * @param opgave objektet som har vaerdier, som hentes med getmetoderne
      * @return
      */
@@ -124,13 +131,22 @@ public class OpgaveRepository implements IOpgaveRepository
         String navn = opgave.getNavn();
         LocalDate oprettelsesDato = LocalDate.now();
         String sql = "INSERT INTO opgave(navn, oprettelsesDato) VALUES(?,?)";
-        int opgaveOpdateret = jdbcTemplate.update(sql, navn, oprettelsesDato);
+        int opgaveOpdateret  = jdbcTemplate.update(sql, navn, oprettelsesDato);
+
         return true;
     }
 
+
+    /**
+     * Metoden opretter oplysninger til opgaven, med getmetoder fra OpgaveOplysninger kalder LocalDate.now() for dags dato.
+     * Saettes ind i INSERT og jdbcTemplate kontakter databasen og eksekvere sql'en.
+     * @param opgaveOplysninger objektet som har vaerdier, som hentes med getmetoderne
+     * @return
+     */
     @Override
     public boolean opretOplysninger(OpgaveOplysninger opgaveOplysninger)
     {
+
         int opgaveId = opgaveOplysninger.getOpgaveId();
         String beskrivelse = opgaveOplysninger.getBeskrivelse();
         int varighed = opgaveOplysninger.getVarighed();
