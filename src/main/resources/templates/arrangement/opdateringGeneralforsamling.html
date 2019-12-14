@@ -15,7 +15,10 @@
 
         <main class="d-flex flex-column">
             <h1 class="ekstraPlads"> Opdatere generalforsamling</h1>
-
+            <b>
+            <span th:text="${bekraeftelse}">bekræftelse</span>
+            <span th:text="${fejlbesked}">fejlbesked</span>
+            </b>
             <form action="#" th:action="@{/opdatereGeneralforsamling}" method="post">
                 <div class="form-group col-md-auto">
                     <input type="hidden" th:field="*{generalforsamling.genforsamId}">
@@ -75,9 +78,6 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary knapFarve">Opdatere</button>
-
-                <span th:text="${bekraeftelse}">bekræftelse</span>
-                <span th:text="${fejlbesked}">fejlbesked</span>
 
             </form>
         </main>

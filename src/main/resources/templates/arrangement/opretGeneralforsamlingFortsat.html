@@ -17,6 +17,10 @@
 
                 <h1 class="ekstraPlads">Indtast oplysninger om generalforsamling</h1>
 
+            <b>
+            <span th:text="${bekraeftelse}">bekræftelse</span>
+            <span th:text="${fejlbesked}">fejlbesked</span>
+            </b>
                 <form action="#" th:action="@{/opretGeneralForsamlingAfslut}" method="post">
 
                     <div class="form-group">
@@ -52,8 +56,7 @@
 
                     <button type="submit" class="btn btn-primary knapFarve">Opret generalforsamling</button>
 
-                    <span th:text="${bekraeftelse}">bekræftelse</span>
-                    <span th:text="${fejlbesked}">fejlbesked</span>
+
 
                 </form>
             </main>

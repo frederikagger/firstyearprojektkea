@@ -7,15 +7,13 @@ body {background: beige;}
     margin-bottom: 30px;
 }
 .knapFarve{
-    background-color: mediumseagreen;
     border-radius: 12px;
-    border: mediumseagreen;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 
 .knapFarve:hover{
-    background-color: #004d38;
+    background-color: #002966;
     border-radius: 12px;
 }
 
