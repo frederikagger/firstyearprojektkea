@@ -1,7 +1,6 @@
 package ejerforening.firstyearprojektkea.Model.Vasketider;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Vasketid {
