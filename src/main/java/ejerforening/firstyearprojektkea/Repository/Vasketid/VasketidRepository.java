@@ -18,8 +18,8 @@ public class VasketidRepository implements IVasketidRepository {
     @Override
     public List<Vasketid> hentVasketider() {
         String sql = "SELECT * FROM database_first_year_projekt.vasketid WHERE erBooket=FALSE";
-        RowMapper<Vasketid> rowmapper = new BeanPropertyRowMapper<>(Vasketid.class);
-        return jdbcTemplate.query(sql, rowmapper);
+        RowMapper<Vasketid> rowMapper = new BeanPropertyRowMapper<>(Vasketid.class);
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class VasketidRepository implements IVasketidRepository {
 
     @Override
     public void book(Vasketid vasketid){
-        String sql = "update vasketid set erBooketEllerEj=true, lejlighedsid=? where vaskeId=?";
+        String sql = "update vasketid set erBooket=true, lejlighedsid=? where vaskeId=?";
         jdbcTemplate.update(sql,vasketid.getLejlighedsId(), vasketid.getVaskeId());
     }
 
