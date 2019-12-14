@@ -5,8 +5,7 @@
 
     <title>Forside</title>
 </head>
-<body>
-<div class="container-fluid">
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
@@ -14,10 +13,10 @@
 
         <main class="d-flex flex-column">
             <br>
-                <h1>Velkommen til Mathildevej 20</h1>
+            <h1>Velkommen til Mathildevej 20</h1>
             <br>
-            <img th:src="@{/Mathildevej_20.jpg}" width="550"/>
-            </main>
+            <img th:src="@{/Mathildevej_facade.jpg}" width="550"/>
+        </main>
     </div>
 </div>
 <footer th:replace="fragments/footer :: footerElement"></footer>

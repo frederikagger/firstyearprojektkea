@@ -6,18 +6,16 @@
     <title>Flere oplysninger om generalforsamlingen</title>
 </head>
 <body>
-    <div class="container-fluid">
+<!--@author: Päivi -->
+    <div class="container-fluid page">
         <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
         <div class="d-flex">
             <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
             <main class="d-flex flex-column">
-                <br>
-                <h1>Flere oplysninger om generalforsamlingen</h1>
 
-                <!--ekstra plads mellem overskriften og teksten-->
-                <div class="col-xs-10" style="height:30px;"></div>
+                <h1 class="ekstraPlads">Flere oplysninger om generalforsamlingen</h1>
 
                 <p th:each="arran: ${arranOplysninger}">
 

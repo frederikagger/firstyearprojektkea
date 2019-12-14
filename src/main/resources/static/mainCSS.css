@@ -1,0 +1,34 @@
+/*@author: Päivi*/
+
+body {background: beige;}
+
+.ekstraPlads{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.knapFarve{
+    background-color: mediumseagreen;
+    border-radius: 12px;
+    border: mediumseagreen;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.knapFarve:hover{
+    background-color: #004d38;
+    border-radius: 12px;
+}
+
+.page{
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding-bottom: 50px;
+}
+
+
+
+
+
+
+

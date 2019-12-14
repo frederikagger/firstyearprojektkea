@@ -3,22 +3,19 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
     <meta charset="UTF-8">
-    <title>Opret generalfosamlinger</title>
+    <title>Opret generalforsamlinger</title>
 </head>
 <body>
-
-<div class="container-fluid">
+<!--@author: Päivi -->
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <br>
-                <h1>Opret generalforsamling</h1>
 
-                 <!--ekstra plads mellem overskriften og teksten-->
-                <div class="col-xs-10" style="height:30px;"></div>
+                <h1 class="ekstraPlads">Opret generalforsamling</h1>
 
                 <form action="#" th:action="@{/dataTilGeneralforsamling}" method="post">
 
@@ -40,7 +37,7 @@
                         <span th:if="${#fields.hasErrors('generalforsamling.ordinaer')}" th:errors="*{generalforsamling.ordinaer}">Fejl i ordinaer</span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Fortsæt til de næste oplysninger (skal udfyldes)</button>
+                    <button type="submit" class="btn btn-primary knapFarve">Fortsæt til de næste oplysninger (skal udfyldes)</button>
 
                     <span th:text="${fejlbesked}">fejlbesked</span>
                 </form>

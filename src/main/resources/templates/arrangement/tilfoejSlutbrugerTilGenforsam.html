@@ -6,22 +6,18 @@
     <title>Tilføj slurbruger til generalforsamling</title>
 </head>
 <body>
-
-<div class="container-fluid">
+<!--@author: Päivi -->
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <br>
-            <h1>Tilføj slutbruger til generalforsamling</h1>
 
-            <!--ekstra plads mellem overskriften og teksten-->
-            <div class="col-xs-10" style="height:30px;"></div>
+            <h1 class="ekstraPlads">Tilføj slutbruger til generalforsamling</h1>
 
-            <h2>Find deltager</h2>
-            <div class="col-xs-10" style="height:30px;"></div>
+            <h2 class="ekstraPlads">Find deltager</h2>
 
             <form action="#" th:action="@{/soegSlutbrugere}" method="post">
                 <input type="text" name="fornavn" placeholder="Hvad er fornavnet?" class="form-control" col-sm-4>
@@ -29,7 +25,7 @@
                 <input type="text" name="efternavn" placeholder="Hvad er efternavnet?" class="form-control" col-sm-4>
                 <input type="hidden" th:field="*{generalforsamling.arrangementId}" class="form-control" col-sm-4>
                 <br>
-                <button type="submit" class="btn btn-primary">Søg deltager</button>
+                <button type="submit" class="btn btn-primary knapFarve">Søg deltager</button>
             </form>
 
             <br>
