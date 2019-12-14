@@ -6,14 +6,16 @@
     <title>Muligheder for slutbruger</title>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1>Opdater opgave</h1>
+            <h1 class="ekstraPlads">Opdater opgave</h1>
+
+            <span th:text="${fejlbesked}">Fejlbesked</span>
 
             <form action="#" th:action="@{/validere}" method="post">
                 <div class="form-group">
@@ -49,11 +51,8 @@
                     <span th:if="${#fields.hasErrors('opdater.slutDato')}" th:errors="*{opdater.slutDato}">Fejl i slut dato</span>
                 </div>
 
+                <button type="submit" class="btn btn-primary knapFarve">Opdater</button>
 
-                <button type="submit" class="btn btn-primary">Opdater</button>
-
-                <span th:text="${bekraeftelse}">Bekræftelse</span>
-                <span th:text="${fejlbesked}">Fejlbesked</span>
             </form>
         </main>
     </div>

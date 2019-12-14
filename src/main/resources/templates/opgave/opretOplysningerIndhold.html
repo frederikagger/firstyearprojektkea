@@ -6,17 +6,17 @@
     <title>Muligheder for slutbruger</title>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1>Indtast oplysninger om opgaven</h1>
+            <h1 class="ekstraPlads">Indtast oplysninger om opgaven</h1>
+            <span th:text="${fejlbesked}">Fejlbesked</span>
 
             <form action="#" th:action="@{/opgave/opretOpgaveOplysningerIndhold}" method="post">
-
                     <div class="form-group">
                         <label for="Beskrivelse">Beskrivelse</label>
                         <textarea input th:field="*{opgaveOplysninger.beskrivelse}" class="form-control" id="Beskrivelse" rows="3" required="required" placeholder="Hvad er beskrivelsen på opgaven?"></textarea>
@@ -38,10 +38,9 @@
                         Slutdato<input type="text" th:field="*{opgaveOplysninger.slutDato}" class="form-control" required="required" placeholder="Hvad er slutdatoen for opgaven?">
                         <span th:if="${#fields.hasErrors('opgaveOplysninger.slutDato')}" th:errors="*{opgaveOplysninger.slutDato}">Fejl i slut dato</span>
                     </div>
-                    <button type="submit" class="btn btn-primary">Opret</button>
-
-                    <span th:text="${fejlbesked}">Fejlbesked</span>
-
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary knapFarve">Opret</button>
+                    </div>
             </form>
         </main>
     </div>

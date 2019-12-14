@@ -7,18 +7,18 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1>Oversigt over opgave</h1>
-            <a class="btn btn-primary" th:href="@{/opgave/opret}" role="button">Opret opgave</a>
+            <h1 class="ekstraPlads">Oversigt over opgave</h1>
+            <a class="btn btn-primary knapFarve" th:href="@{/opgave/opret}" role="button">Opret opgave</a>
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                 </div>
             </div>
 
@@ -37,9 +37,9 @@
                     <td th:text="${opgaveOversigt.opgaveId}">OpgaveId</td>
                     <td th:text="${opgaveOversigt.lejlighedsId}">LejlighedsId</td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{'/opgave/detaljer/' + ${opgaveOversigt.opgaveId}}" role="button">Flere detaljer</a>
-                        <a class="btn btn-primary" th:href="@{'/opgave/slet/' + ${opgaveOversigt.opgaveId}}" role="button">Slet opgave</a>
-                        <a class="btn btn-primary" th:href="@{'/opgave/opdater/' + ${opgaveOversigt.opgaveId}}" role="button">Opdater</a>
+                        <a class="btn btn-primary knapFarve" th:href="@{'/opgave/detaljer/' + ${opgaveOversigt.opgaveId}}" role="button">Flere detaljer</a>
+                        <a class="btn btn-primary knapFarve" th:href="@{'/opgave/slet/' + ${opgaveOversigt.opgaveId}}" role="button">Slet opgave</a>
+                        <a class="btn btn-primary knapFarve" th:href="@{'/opgave/opdater/' + ${opgaveOversigt.opgaveId}}" role="button">Opdater</a>
                     </td>
 
                 </tr>

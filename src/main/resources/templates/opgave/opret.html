@@ -6,28 +6,26 @@
     <title>Opret slutbruger</title>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
     <div class="d-flex">
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1>Opret slutbruger</h1>
+            <h1 class="ekstraPlads">Opret opgave</h1>
 
+            <span th:text="${fejlbesked}">Fejlbesked</span>
 
             <form action="#" th:action="@{/opgave/opretOpgaveIndhold}" method="post">
 
                     <div class="form-group">
-
                         <input type="text" th:field="${opgave.navn}" class="form-control" required="required" placeholder="Hvad er opgavens navn?">
                         <span th:if="${#fields.hasErrors('opgave.navn')}" th:errors="${opgave.navn}">Fejl i navnet</span>
                     </div>
 
+                <button type="submit" class="btn btn-primary knapFarve">Forsæt til oplysningerne af opgaven</button>
 
-                <button type="submit" class="btn btn-primary">Forsæt til oplysningerne af opgaven</button>
-
-                    <span th:text="${fejlbesked}">Fejlbesked</span>
             </form>
         </main>
     </div>

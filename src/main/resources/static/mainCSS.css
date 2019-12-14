@@ -7,15 +7,13 @@ body {background: beige;}
     margin-bottom: 30px;
 }
 .knapFarve{
-    background-color: mediumseagreen;
     border-radius: 12px;
-    border: mediumseagreen;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 
 .knapFarve:hover{
-    background-color: #004d38;
+    background-color: #002966;
     border-radius: 12px;
 }
 
@@ -25,6 +23,16 @@ body {background: beige;}
     background: #fff;
     padding-bottom: 50px;
 }
+
+.flugter{
+    margin-left:-16px;
+}
+
+.pladsTilMenu{
+    padding-right: 40px;
+}
+
+
 
 
 
