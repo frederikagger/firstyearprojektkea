@@ -20,21 +20,20 @@
             <span th:text="${fejlbesked}">fejlbesked</span>
             </b>
             <form action="#" th:action="@{/opdatereGeneralforsamling}" method="post">
-                <div class="form-group col-md-auto">
+
+                <div class="form-group col-sm-8 flugter">
                     <input type="hidden" th:field="*{generalforsamling.genforsamId}">
                     <input type="hidden" th:field="*{generalforsamling.arrangementId}">
                     Navn:<input type="text" th:field="*{generalforsamling.navn}" required="required" class="form-control">
                     <span th:if="${#fields.hasErrors('generalforsamling.navn')}" th:errors="*{generalforsamling.navn}">Fejl i navnet</span>
-                </div>
-                 <div class="form-group col-sm-4">
                     <input type="hidden" th:field="*{generalforsamling.oprettelsesDato}" class="form-control">
-                 </div>
-                <div class="form-group col-md-auto">
+                </div>
+                <div class="form-group col-sm-8 flugter">
                     Ordstyrer: <input type="text" th:field="*{generalforsamling.ordstyrer}" required="required" class="form-control">
                     <span th:if="${#fields.hasErrors('generalforsamling.ordstyrer')}" th:errors="*{generalforsamling.ordstyrer}">Fejl i ordstyrer</span>
                 </div>
 
-                <div class="form-group col-md-auto">
+                <div class="form-group col-sm-8 flugter">
                     Ordinær generalforsamling?
                     <input type="radio" name="ordinær" value="1" th:field="*{generalforsamling.ordinaer}"class="form-control">
                      Eller ekstraordinær generalforsamling?
@@ -45,33 +44,33 @@
                     <input type="hidden" th:field="*{arrangementOplysninger.arrangementId}" class="form-control">
                 </div>
 
-                <div class="form-group">
-                    <label for="Agenda">Agenda</label>
+                <div class="form-group" >
+                    <label for="Agenda" >Agenda</label>
                     <textarea input th:field="*{arrangementOplysninger.agenda}" class="form-control" id="Agenda" rows="4" required="required"></textarea>
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.agenda')}" th:errors="*{arrangementOplysninger.agenda}">Fejl i agenda</span>
                 </div>
 
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 flugter">
                     Dato:<input type="text" th:field="*{arrangementOplysninger.dato}" required="required" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.dato')}" th:errors="*{arrangementOplysninger.dato}">Fejl i dato</span>
                 </div>
 
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 flugter">
                     Starttidspunkt:<input type="text" th:field="*{arrangementOplysninger.startTidspunkt}" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.startTidspunkt')}" th:errors="*{arrangementOplysninger.startTidspunkt}">Fejl i startTidspunkt</span>
                 </div>
 
-                 <div class="form-group col-sm-4">
+                 <div class="form-group col-sm-4 flugter">
                     Sluttidspunkt:<input type="text" th:field="*{arrangementOplysninger.slutTidspunkt}" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.slutTidspunkt')}" th:errors="*{arrangementOplysninger.slutTidspunkt}">Fejl i slutTidspunkt</span>
                 </div>
 
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 flugter">
                     Stedet:<input type="text" th:field="*{arrangementOplysninger.sted}" required="required" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.sted')}" th:errors="*{arrangementOplysninger.sted}">Fejl i sted</span>
                 </div>
 
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 flugter">
                     Tilmeldingsfrist:<input type="text" th:field="*{arrangementOplysninger.tilmeldingsfrist}" class="form-control">
                     <span th:if="${#fields.hasErrors('arrangementOplysninger.tilmeldingsfrist')}" th:errors="*{arrangementOplysninger.tilmeldingsfrist}">Fejl i tilmeldingsfrist</span>
                     <input type="hidden" th:field="*{arrangementOplysninger.sidstOpdateret}" class="form-control">
