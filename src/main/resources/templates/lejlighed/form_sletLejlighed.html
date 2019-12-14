@@ -13,11 +13,11 @@
             <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
             <main class="d-flex flex-column">
-                <h1>Slet lejlighed </h1>
+                <h1 class="ekstraPlads">Slet lejlighed </h1>
 
                     <form method="post" action="/lejlighed/sletLejlighed/" modelAttribute="lejlighed">
                         <br>Indtast ID <input type="number" name="lejlighedsid" min="0" max="100" required>
-                        <br><button type="submit" class="btn btn-primary">Slet lejlighed</button>
+                        <br><button type="submit" class="btn btn-primary knapFarve">Slet lejlighed</button>
                     </form>
             </main>
         </div>
