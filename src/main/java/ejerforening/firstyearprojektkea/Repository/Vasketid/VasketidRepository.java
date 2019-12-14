@@ -17,7 +17,7 @@ public class VasketidRepository implements IVasketidRepository {
 
     @Override
     public List<Vasketid> hentVasketider() {
-        String sql = "SELECT * FROM database_first_year_projekt.vasketid WHERE erBooketEllerEj=FALSE";
+        String sql = "SELECT * FROM database_first_year_projekt.vasketid WHERE erBooket=FALSE";
         RowMapper<Vasketid> rowmapper = new BeanPropertyRowMapper<>(Vasketid.class);
         return jdbcTemplate.query(sql, rowmapper);
     }
