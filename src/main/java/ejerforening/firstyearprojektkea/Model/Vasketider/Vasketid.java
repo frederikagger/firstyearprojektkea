@@ -13,7 +13,6 @@ public class Vasketid {
 
     private boolean erFormiddag;
 
-    @Column(name = "erBooketEllerEj")
     private boolean erBooket;
 
     private int lejlighedsId;
