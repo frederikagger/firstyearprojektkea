@@ -1,20 +1,22 @@
 package ejerforening.firstyearprojektkea.Service.Vasketid;
 
-
-import ejerforening.firstyearprojektkea.Model.Lejlighed.Lejlighed;
 import ejerforening.firstyearprojektkea.Model.Vasketider.Vasketid;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * @author Frede
+ */
 
 public interface IVasketidService {
 
     Vasketid findbyVaskeId(int vaskeid);
 
-    List<Vasketid> seVasketider();
+    List<Vasketid> seLedigeVasketider();
 
     void book(Vasketid vasketid);
 
     boolean sletBooking();
 
+    List<Vasketid> seBookedeVasketider();
 }

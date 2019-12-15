@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author frede
+ */
+
 @Service
 public class VasketidService implements IVasketidService {
 
@@ -14,8 +18,8 @@ public class VasketidService implements IVasketidService {
     private IVasketidRepository iVasketidRepository;
 
     @Override
-    public List<Vasketid> seVasketider() {
-        return iVasketidRepository.hentVasketider();
+    public List<Vasketid> seLedigeVasketider() {
+        return iVasketidRepository.hentLedigeVasketider();
     }
 
     @Override
@@ -31,5 +35,10 @@ public class VasketidService implements IVasketidService {
     @Override
     public boolean sletBooking() {
         return false;
+    }
+
+    @Override
+    public List<Vasketid> seBookedeVasketider() {
+        return iVasketidRepository.hentBookedeVasketider();
     }
 }
