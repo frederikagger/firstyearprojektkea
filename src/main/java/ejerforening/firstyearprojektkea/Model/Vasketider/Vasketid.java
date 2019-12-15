@@ -2,6 +2,10 @@ package ejerforening.firstyearprojektkea.Model.Vasketider;
 
 import javax.persistence.*;
 
+/**
+ * @author frede
+ */
+
 @Entity
 public class Vasketid {
 
