@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
-    <title>Vasketider</title>
+    <title>Bookede vasketider</title>
 </head>
 <body>
 <div class="container-fluid page">
@@ -12,32 +12,27 @@
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1 class="ekstraPlads"> Book vasketid </h1>
+            <h1> Bookede vasketider </h1>
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>VaskeID</th>
-                        <th>Ugedag</th>
-                        <th>Formiddagstid</th>
-                        <th>Vaskeuge</th>
-                    </tr>
+                <tr>
+                    <th>VaskeID</th>
+                    <th>Ugedag</th>
+                    <th>Formiddagstid</th>
+                    <th>Vaskeuge</th>
+                    <th>LejlighedsID</th>
+                </tr>
                 </thead>
                 <tr th:each="vasketid: ${vasketider}">
                     <td th:text="${vasketid.vaskeId}">VaskeID</td>
                     <td th:text="${vasketid.ugedag}">Uge</td>
                     <td th:text="${vasketid.erFormiddag}">Formiddagstid</td>
                     <td th:text="${vasketid.vaskeugeId}">ID</td>
+                    <td th:text="${vasketid.lejlighedsId}">LejlighedsID</td>
                 </tr>
             </table>
 
-            <div>
-                <form method="post" action="/vasketider/opdater" modelAttribute="vasketid">
-                    <br>Indtast lejlighedsID: <input type="number" name="lejlighedsId" min="0" max="10000" required> </br>
-                    <br>Indtast vaskeID: <input type="number" name="vaskeId" min="0" max="10000" required> </br>
-                    <br><button type="submit" class="btn btn-primary knapFarve">Book vasketid</button>
-                </form>
-            </div>
         </main>
     </div>
 </div>
