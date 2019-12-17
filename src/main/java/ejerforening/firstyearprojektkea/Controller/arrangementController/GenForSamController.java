@@ -148,7 +148,7 @@ public class GenForSamController {
     /**
      * Tager imod arrangementId fra view (fra html-siden "generalforsamlinger") og bruger den
      * til at hente den paagaeldende generalforsamling og arrangementOplysninger.
-     * De sendes til html-siden "opdateringsGeneralforsamling" i model.
+     * De fragtes i modellen til html-siden "opdateringsGeneralforsamling".
      * @param id  arrangementId på den generalforsamling, som opdateres
      * @param model fragter generalforsamling og arrangementOplysninger til view
      * @return html-siden "opdateringGeneralforsamling", hvor man kan opdatere oplysninger

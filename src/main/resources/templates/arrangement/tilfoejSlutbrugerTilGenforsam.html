@@ -3,7 +3,7 @@
 <head th:replace="fragments/header :: headerElement">
     <!-- placeret her fordi: https://stackoverflow.com/questions/36663038/spring-thymeleaf-header-and-footer-dynamic-includes-->
     <meta charset="UTF-8">
-    <title>Tilføj slurbruger til generalforsamling</title>
+    <title>Tilføj slutbruger til generalforsamling</title>
 </head>
 <body>
 <!--@author: Päivi -->
@@ -20,11 +20,15 @@
             <h2 class="ekstraPlads">Find deltager</h2>
 
             <form action="#" th:action="@{/soegSlutbrugere}" method="post">
-                <input type="text" name="fornavn" placeholder="Hvad er fornavnet?" class="form-control" col-sm-4>
-                <br>
-                <input type="text" name="efternavn" placeholder="Hvad er efternavnet?" class="form-control" col-sm-4>
-                <input type="hidden" th:field="*{generalforsamling.arrangementId}" class="form-control" col-sm-4>
-                <br>
+                <div class="form-group col-sm-10 flugter">
+                <input type="text" name="fornavn" placeholder="Hvad er fornavnet?">
+
+                </div>
+                <input type="text" name="efternavn" placeholder="Hvad er efternavnet?">
+                <input type="hidden" th:field="*{generalforsamling.arrangementId}">
+
+                <div class="form-group col-sm-10 flugter">
+                </div>
                 <button type="submit" class="btn btn-primary knapFarve">Søg deltager</button>
             </form>
 
@@ -35,9 +39,9 @@
                 <span th:text="${'Efternavnet er: ' + slutbruger.efternavn}"></span>
             </p>
             <b>
-            <span class="rykkesLidt" th:text="${fejlbesked}">fejlbesked</span>
-            <span class="rykkesLidt" th:text="${bekraeftelse}">bekræftelse</span>
-            <span class="rykkesLidt" th:text="${fejl}">fejl</span>
+            <span th:text="${fejlbesked}">fejlbesked</span>
+            <span th:text="${bekraeftelse}">bekræftelse</span>
+            <span th:text="${fejl}">fejl</span>
             </b>
             </main>
         </div>

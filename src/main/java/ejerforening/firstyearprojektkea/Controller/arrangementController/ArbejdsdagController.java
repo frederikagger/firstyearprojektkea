@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Controller for arbejdsdag
+ * Controller for arbejdsdag, blev ikke implementeret
  * @Author Päivi
  */
 @Controller
