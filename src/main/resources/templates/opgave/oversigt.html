@@ -6,7 +6,7 @@
     <title>Oversigt over opgave</title>
 </head>
 <body>
-
+<!--@author: Signe -->
 <div class="container-fluid page">
     <header th:replace="fragments/top_menu :: top_menuElement"></header>
 
@@ -14,7 +14,7 @@
         <aside th:replace="fragments/side_menu :: side_menuElement"></aside>
 
         <main class="d-flex flex-column">
-            <h1 class="ekstraPlads">Oversigt over opgave</h1>
+            <h1 class="ekstraPlads">Oversigt over opgaver</h1>
             <a class="btn btn-primary knapFarve" th:href="@{/opgave/opret}" role="button">Opret opgave</a>
 
             <div class="row">
@@ -41,7 +41,6 @@
                         <a class="btn btn-primary knapFarve" th:href="@{'/opgave/slet/' + ${opgaveOversigt.opgaveId}}" role="button">Slet opgave</a>
                         <a class="btn btn-primary knapFarve" th:href="@{'/opgave/opdater/' + ${opgaveOversigt.opgaveId}}" role="button">Opdater</a>
                     </td>
-
                 </tr>
                 </tbody>
             </table>
