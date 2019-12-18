@@ -41,7 +41,7 @@ public class OpgaveController
      *  Kan derved kalde på metoder derfra.
      */
     @Autowired
-    private IOpgaveService opgaveService;
+    private IOpgaveService iOpgaveService;
 
     /**
      * Getmetode, som er det foerste man rammer naar man tilgaar punktet "Oversigt over opgaver" på hjemmesiden
@@ -55,7 +55,7 @@ public class OpgaveController
     @GetMapping("/opgave/oversigt")
     public String oversigt(Model model)
     {
-        List<OpgaveOversigt> resultHentAlle = opgaveService.hentAlle();
+        List<OpgaveOversigt> resultHentAlle = iOpgaveService.hentAlle();
         model.addAttribute("opgaveOversigt", resultHentAlle);
         return "/opgave/oversigt";
     }
@@ -71,7 +71,7 @@ public class OpgaveController
     @GetMapping("/opgave/detaljer/{opgaveId}")
     public String detaljer(@PathVariable int opgaveId, Model model)
     {
-        OpgaveOplysninger resultfindValgteOpgave = opgaveService.findValgteOpgaveOplysninger(opgaveId);
+        OpgaveOplysninger resultfindValgteOpgave = iOpgaveService.findValgteOpgaveOplysninger(opgaveId);
         model.addAttribute("opgaveOplysninger", resultfindValgteOpgave);
         return "/opgave/detaljer";
     }
@@ -87,7 +87,7 @@ public class OpgaveController
     @GetMapping("/opgave/opdater/{opgaveId}")
     public String opdater(@PathVariable int opgaveId, Model model)
     {
-        OpgaveOplysninger resultfindValgteOpgaveOplysninger = opgaveService.findValgteOpgaveOplysninger(opgaveId);
+        OpgaveOplysninger resultfindValgteOpgaveOplysninger = iOpgaveService.findValgteOpgaveOplysninger(opgaveId);
         model.addAttribute("opdater", resultfindValgteOpgaveOplysninger);
         return "/opgave/opdater";
     }
@@ -115,7 +115,7 @@ public class OpgaveController
 
         try
         {
-            opgaveService.erOpgaveOpdateret(opgaveOplysninger);
+            iOpgaveService.erOpgaveOpdateret(opgaveOplysninger);
         }
         catch (Exception e)
         {
@@ -137,7 +137,7 @@ public class OpgaveController
     @GetMapping("/opgave/slet/{opgaveId}")
     public String slet(@PathVariable int opgaveId)
     {
-        opgaveService.slet(opgaveId);
+        iOpgaveService.slet(opgaveId);
         return "redirect:/opgave/oversigt";
     }
 
@@ -178,7 +178,7 @@ public class OpgaveController
 
         try
         {
-            opgaveService.OpretOpgave(opgave);
+            iOpgaveService.OpretOpgave(opgave);
         }
         catch (Exception e)
         {
@@ -227,7 +227,7 @@ public class OpgaveController
 
         try
         {
-            opgaveService.OpgaveOplysningerOprettet(opgaveOplysninger);
+            iOpgaveService.OpgaveOplysningerOprettet(opgaveOplysninger);
         }
         catch (Exception e)
         {
