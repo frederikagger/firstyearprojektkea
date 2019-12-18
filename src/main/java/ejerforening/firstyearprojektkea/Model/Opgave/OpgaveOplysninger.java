@@ -1,6 +1,7 @@
 package ejerforening.firstyearprojektkea.Model.Opgave;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -28,6 +29,7 @@ public class OpgaveOplysninger
 
     private int opgaveId;
 
+    @NotBlank(message = "Indtast venligst navnet på opgaven")
     private String navn;
 
     private LocalDate oprettelsesDato;
