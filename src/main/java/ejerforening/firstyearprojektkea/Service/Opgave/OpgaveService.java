@@ -26,47 +26,47 @@ public class OpgaveService implements IOpgaveService
      *  Kan derved kalde på metoder derfra.
      */
     @Autowired
-    private IOpgaveRepository opgaveRepository;
+    private IOpgaveRepository iOpgaveRepository;
 
 
     @Override
     public List<OpgaveOversigt> hentAlle()
     {
-        List<OpgaveOversigt> resultHentAlle = opgaveRepository.hentAlle();
+        List<OpgaveOversigt> resultHentAlle = iOpgaveRepository.hentAlle();
         return resultHentAlle;
     }
 
     @Override
     public OpgaveOplysninger findValgteOpgaveOplysninger(int opgaveId)
     {
-        OpgaveOplysninger resultfindValgteOpgaveOplysninger = opgaveRepository.findValgteOpgaveOplysninger(opgaveId);
+        OpgaveOplysninger resultfindValgteOpgaveOplysninger = iOpgaveRepository.findValgteOpgaveOplysninger(opgaveId);
         return resultfindValgteOpgaveOplysninger;
     }
 
     @Override
     public boolean erOpgaveOpdateret(OpgaveOplysninger opgaveOplysninger)
     {
-        boolean erOpgaveOpdateret = opgaveRepository.opdaterOpgave(opgaveOplysninger);
+        boolean erOpgaveOpdateret = iOpgaveRepository.opdaterOpgave(opgaveOplysninger);
         return true;
     }
 
     @Override
     public void slet(int opgaveId)
     {
-        opgaveRepository.slet(opgaveId);
+        iOpgaveRepository.slet(opgaveId);
     }
 
     @Override
     public boolean OpretOpgave (Opgave opgave)
     {
-        boolean opretOpgave = opgaveRepository.opretOpgave(opgave);
+        boolean opretOpgave = iOpgaveRepository.opretOpgave(opgave);
         return true;
     }
 
     @Override
     public boolean OpgaveOplysningerOprettet(OpgaveOplysninger opgaveOplysninger)
     {
-        boolean OpgaveOplysningerOprettet = opgaveRepository.opretOplysninger(opgaveOplysninger);
+        boolean OpgaveOplysningerOprettet = iOpgaveRepository.opretOplysninger(opgaveOplysninger);
         return true;
     }
 }
