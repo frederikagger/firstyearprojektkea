@@ -7,6 +7,7 @@ import java.time.LocalDate;
 /**
  * Klassen der indeholder attributerne for Opgave
  * @author Signe
+ * @since 4-12-2019
  */
 public class Opgave
 {
