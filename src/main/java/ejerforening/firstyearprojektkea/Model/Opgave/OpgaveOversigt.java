@@ -7,8 +7,8 @@ import javax.persistence.Id;
  * Det er de felter bestyrelsen har brug for at se, for at kunne vaelge hvem de vil rette, se detaljer eller slette.
  * Tabellerne fra databasen der vises er opgave og lejlighed.
  * @Author Signe
+ * @since 4-12-2019
  */
-
 public class OpgaveOversigt
 {
     /**
