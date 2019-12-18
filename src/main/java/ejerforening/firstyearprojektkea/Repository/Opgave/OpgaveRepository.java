@@ -32,8 +32,8 @@ public class OpgaveRepository implements IOpgaveRepository
 
     /**
      * Metoden henter alle vaerierne fra de valgte kolonner fra opgaveregister_view.
-     * jdbcTemplate bruger en query her, for at fecthe det data, som hver opgave har og retunere det som List, som bruges til at
-     * vise på html  en oversigt over Opgaver.
+     * jdbcTemplate bruger en query her, for at fecthe det data, som hver opgave har og RowMapper sørger for at retunere det som List, som bruges til at
+     * vise på htmlen oversigt over Opgaver.
      *
      * BeanPropertyRowMapper er interfacet af RowMapper, som kun kan hente en raekke af gangen fra databasen.
      * Raekken bliver som et object af den type, den har faaet som parameter.
